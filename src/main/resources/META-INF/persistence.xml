@@ -12,7 +12,7 @@
         <class>austral.ing.lab1.model.Address</class>
 
         <properties>
-            <property name="javax.persistence.jdbc.driver" value="org.hsqldb.jdbc.JDBCDriver" />
+            <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:hsqldb:hsql://localhost/xdb;shutdown=true" />
             <property name="javax.persistence.jdbc.user" value="sa" />
             <property name="javax.persistence.jdbc.password" value="" />
