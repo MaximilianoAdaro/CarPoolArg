@@ -19,7 +19,7 @@ public class UsersTest {
   private EntityManagerFactory managerFactory;
 
   @After
-  public void tearDown() throws Exception {
+  public void tearDown() {
     managerFactory.close();
   }
 

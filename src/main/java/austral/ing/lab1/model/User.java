@@ -15,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-//@Table(name = "USER", indexes = @Index(name = "EMAIL", columnList = "EMAIL", unique = true))
 public class User {
 
   @Column(name = "FIRST_NAME")
