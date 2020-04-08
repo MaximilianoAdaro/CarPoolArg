@@ -13,7 +13,6 @@ import java.io.IOException;
 
 @WebServlet("/signup.do")
 public class Signup extends HttpServlet {
-
   @Override
   protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     final User user = new User();
@@ -30,6 +29,4 @@ public class Signup extends HttpServlet {
 
     view.forward(req, resp);
   }
-
-
 }
