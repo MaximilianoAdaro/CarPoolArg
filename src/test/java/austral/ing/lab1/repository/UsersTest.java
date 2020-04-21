@@ -33,21 +33,39 @@ public class UsersTest {
   public void createUser() {
     final User user = new User();
 
-    user.setEmail("diego.larralde@gmail.com");
-    user.setFirstName("Diego");
-    user.setLastName("Larralde");
+    user.setEmail("fulanito@gmail.com");
+    user.setFirstName("fulanito");
+    user.setLastName("lopez");
 
     assertThat(Users.persist(user).getId(), greaterThan(0L));
 
     final Optional<User> persistedUser = Users.findById(user.getId());
 
     assertThat(persistedUser.isPresent(), is(true));
-    assertThat(persistedUser.get().getEmail(), is("diego.larralde@gmail.com"));
-    assertThat(persistedUser.get().getFirstName(), is("Diego"));
-    assertThat(persistedUser.get().getLastName(), is("Larralde"));
+    assertThat(persistedUser.get().getEmail(), is("fulanito@gmail.com"));
+    assertThat(persistedUser.get().getFirstName(), is("fulanito"));
+    assertThat(persistedUser.get().getLastName(), is("lopez"));
 
     Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
     System.out.println(byEmail);
   }
+/*
+  @Test
+  public void updateUser(){
+    final Optional<User> persistedUser = Users.findById(3L);
 
+    Users.modifyUserName(persistedUser, "otrofulano");
+  }
+
+  @Test
+  public void dropUser(){
+    final Optional<User> persistedUser = Users.findById(2L);
+
+    assertThat(persistedUser.isPresent(), is(true));
+
+    Users.deleteUser(persistedUser.get().getId());
+
+    //assertThat(Users.findById(2L).isEmpty(), is(true)); como verifico esto?
+  }
+  */
 }

@@ -26,7 +26,7 @@ public class Signup extends HttpServlet {
 
     Users.persist(user);
 
-    final RequestDispatcher view = req.getRequestDispatcher("login.html");
+    final RequestDispatcher view = req.getRequestDispatcher("/index.html");
 
     view.forward(req, resp);
   }

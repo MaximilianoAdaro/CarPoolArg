@@ -1,17 +1,41 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Sign up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>Sign up</title>
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
 </head>
 
 <body>
-    <form method="post" action="/signup.do">
-        <input type="text" name="firstname" placeholder="Nombre"/>
-        <input type="text" name="lastname" placeholder="Apellido"/>
-        <input type="text" name="email" placeholder="Email"/>
-        <input type="password" name="password" placeholder="Password"/>
-        <input type="submit"/>
-    </form>
+<!-- jQuery (Bootstrap plugins depend on it) -->
+<script src="bootstrap/js/jquery-v3.5.js"></script>
+<script src="bootstrap/js/bootstrap.js"></script>
+
+<div class="container py-5" style="max-width: 500px">
+	<form method="post" action="/signup.do">
+		<div class="form-group">
+			<label for="exampleInputFirstName1">First Name</label>
+			<input type="text" class="form-control" name="j_firstName" id="exampleInputFirstName1"
+				   placeholder="Nombre"/>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputLastName1">Last Name</label>
+			<input type="text" class="form-control" name="j_lastName" id="exampleInputLastName1"
+				   placeholder="Apellido"/>
+		</div>
+		<div class="form-group">
+			<label for="exampleInputEmail1">Email address</label>
+			<input type="email" class="form-control" name="j_username" id="exampleInputEmail1"
+				   aria-describedby="emailHelp" placeholder="Enter email">
+		</div>
+		<div class="form-group">
+			<label for="exampleInputPassword1">Password</label>
+			<input type="password" class="form-control" name="j_password" id="exampleInputPassword1"
+				   placeholder="Password">
+		</div>
+		<button type="submit" class="btn btn-primary">Submit</button>
+	</form>
+</div>
 </body>
 </html>
