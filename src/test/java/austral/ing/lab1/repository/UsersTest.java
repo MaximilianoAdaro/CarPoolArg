@@ -25,7 +25,7 @@ public class UsersTest {
 
   @Before
   public void setUp() {
-    managerFactory = Persistence.createEntityManagerFactory("test");
+    managerFactory = Persistence.createEntityManagerFactory("databaseLab1");
     EntityManagers.setFactory(managerFactory);
   }
 
@@ -36,6 +36,7 @@ public class UsersTest {
     user.setEmail("fulanito@gmail.com");
     user.setFirstName("fulanito");
     user.setLastName("lopez");
+
 
     assertThat(Users.persist(user).getId(), greaterThan(0L));
 
@@ -49,6 +50,7 @@ public class UsersTest {
     Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
     System.out.println(byEmail);
   }
+
 /*
   @Test
   public void updateUser(){

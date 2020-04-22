@@ -1,20 +1,11 @@
 package austral.ing.lab1.model;
 
-
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import java.util.ArrayList;
-import java.util.List;
+import javax.persistence.*;
 
 @Entity
+@Table(name = "user_table")
 public class User {
 
   @Column(name = "FIRST_NAME")
@@ -36,10 +27,6 @@ public class User {
 
   @Column(name = "PASSWORD")
   private String password;
-
-  @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
-  private List<Address> addresses = new ArrayList<>();
-
 
   public String getFirstName() {
     return firstName;
