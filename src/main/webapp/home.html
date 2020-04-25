@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>CarPoolArg</title>
     <style>
-        #logout:link{
+        #logout:link, #logout:visited{
             background-color: #f44336;
             color: white;
             padding: 14px 25px;
@@ -12,10 +12,14 @@
             text-decoration: none;
             display: inline-block;
         }
+
+        #home:link, #home:visited{
+            color:darkblue;
+        }
     </style>
 </head>
 <body>
-    <h1>Home</h1>
+    <h1><a id = "home" href="home.html">Home</a></h1>
     <a href="/checkUsersList.html ">CheckLists</a>
     <div>
         <a id="logout" href="/logout.do">Logout</a>

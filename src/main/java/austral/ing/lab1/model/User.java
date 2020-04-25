@@ -3,14 +3,7 @@ package austral.ing.lab1.model;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Index;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,12 +22,10 @@ public class User {
 
   @Column(name = "IS_ACTIVE")
   private Boolean isActive;
-
   @Id
   @GeneratedValue(generator = "increment")
   @GenericGenerator(name = "increment", strategy = "increment")
   private Long id;
-
   @Column(name = "PASSWORD")
   private String password;
 
