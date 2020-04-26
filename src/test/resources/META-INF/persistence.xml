@@ -9,6 +9,7 @@
         </description>
 
         <class>austral.ing.lab1.model.User</class>
+        <class>austral.ing.lab1.model.Car</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

@@ -5,74 +5,122 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "user_table", uniqueConstraints = @UniqueConstraint(columnNames = {"EMAIL"}))
 public class User {
 
-  @Column(name = "FIRST_NAME")
-  private String firstName;
+    @Id
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    private Long id;
 
-  @Column(name = "LAST_NAME")
-  private String lastName;
+    @Column(name = "FIRST_NAME", nullable = false)
+    private String firstName;
 
-  @Column(name = "EMAIL")
-  private String email;
+    @Column(name = "LAST_NAME", nullable = false)
+    private String lastName;
 
-  @Column(name = "IS_ACTIVE")
-  private Boolean isActive;
+    @Column(name = "EMAIL", unique = true, nullable = false)
+    private String email;
 
-  @Id
-  @GeneratedValue(generator = "increment")
-  @GenericGenerator(name = "increment", strategy = "increment")
-  private Long id;
+    @Column(name = "PASSWORD")
+    private String password;
 
-  @Column(name = "PASSWORD")
-  private String password;
+    @Column(name = "IS_ACTIVE")
+    private Boolean isActive;
 
-  public String getFirstName() {
-    return firstName;
-  }
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "CAR_ID")
+    private Car car;
 
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
+    @Column(name = "AVATAR_PATH")
+    private String avatarPath;
 
-  public String getLastName() {
-    return lastName;
-  }
+    public User() {
+    }
 
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
-  }
+    public User(String firstName, String lastName, String email, String password, Boolean isActive) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.isActive = isActive;
+    }
 
-  public String getEmail() {
-    return email;
-  }
+    public String getFirstName() {
+        return firstName;
+    }
 
-  public void setEmail(String email) {
-    this.email = email;
-  }
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
 
-  public Long getId() {
-    return id;
-  }
+    public String getLastName() {
+        return lastName;
+    }
 
-  public void setId(Long id) {
-    this.id = id;
-  }
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
 
-  public Boolean getActive() {
-    return isActive;
-  }
+    public String getEmail() {
+        return email;
+    }
 
-  public void setActive(Boolean active) {
-    isActive = active;
-  }
+    public void setEmail(String email) {
+        this.email = email;
+    }
 
-  public void setPassword(String password) {
-    this.password = password;
-  }
+    public Long getId() {
+        return id;
+    }
 
-  public String getPassword() {
-    return password;
-  }
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Boolean getActive() {
+        return isActive;
+    }
+
+    public void setActive(Boolean active) {
+        isActive = active;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+        car.setUser(this);
+    }
+
+    public String getAvatarPath() {
+        return avatarPath;
+    }
+
+    public void setAvatarPath(String avatarPath) {
+        this.avatarPath = avatarPath;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                ", car=" + car +
+                '}';
+    }
 }
