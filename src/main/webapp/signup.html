@@ -1,21 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type ="text/css" href="bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href= <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta charset="UTF-8">
+
     <meta charset="UTF-8">
     <title>Sign up</title>
 </head>
 
 <body>
     <form method="post" action="/signup.do">
-        <input type="text" name="firstname" placeholder="Nombre"/>
-        <input type="text" name="lastname" placeholder="Apellido"/>
-        <input type="text" name="email" placeholder="Email"/>
-        <input type="password" name="password" placeholder="Password"/>
 
-        <label for="img">Select image:</label>
-        <input type="file" id="img" name="img"  accept="image/*">
+        <div class="form-group" >
+            <label for="name">Name:</label>
+            <input style="max-width: 300px" type="text" class="form-control" id="name" name="firstname"/>
+        </div>
 
-        <input type="submit">
+        <div class="form-group">
+            <label for="last">Lastname:</label>
+            <input style="max-width: 300px" type="text" class="form-control" id ="last" name="lastname"/>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input style="max-width: 300px" type="text" class="form-control" id="email" name="email"/>
+        </div>
+
+        <div class="form-group">
+            <label for="pswrd">Password: </label>
+            <input style="max-width: 300px" type="password" class="form-control" id="pswrd" name="password"/>
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+        </div>
+
     </form>
+
 </body>
+
 </html>
