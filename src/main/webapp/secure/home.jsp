@@ -1,13 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
-
-<html lang="en">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>Home jsp page</title>
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+    <title>Title</title>
 
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
 </head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -17,25 +17,51 @@
         crossorigin="anonymous"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
 
-<div class="navbar navbar-dark bg-dark">
-    <nav>
-        <a href="/secure/user-list">Listar Usuarios</a>
-        <a href="/secure/users.html">Listar Usuarios - AJAX</a>
-        <a href="/logout.do">Logout</a>
-    </nav>
-</div>
 
-<h1 class="text-center">Home</h1>
-<a href="profile.html">Go to your profile</a>
-<br>
+<!-- codigo para gente no admin-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
 
-<c:if test="${isAdmin}">
-    <form class="form-inline text my-lg-0" action="${pageContext.request.contextPath}/newCarModel.do" method="post">
-        <input class="form-control mr-sm-2" type="text" name="car_name" placeholder="Model of the car"
-               aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
-    </form>
-</c:if>
+    <a class="navbar-brand" id="home" href="">CarPool</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto container-fluid">
+
+            <li>
+                <a class="nav-item btn btn-light ml-2" href="profile.jsp"><i class="fa fa-user" aria-hidden="true"></i></a>
+
+            </li>
+
+            <div class="nat-item col-8">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
+                            class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </ul>
+
+        <c:if test="${isAdmin}">
+            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+        </c:if>
+        <a class="nav-link btn btn-light mr-2" href="/createTrip.html"> <i class="fa fa-plus"></i> </a>
+        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+
+
+    </div>
+
+</nav>
+
+<p>
+    Nuestra pagina web se enfoca en hacer mas faciles los traslados de personas de un lado a otro sin tener que pagar
+    demasiado ni bala cinascowC
+</p>
 
 </body>
 </html>

@@ -29,6 +29,6 @@ public class NewAvatar extends HttpServlet {
             Users.persist(user);
         }
 
-        req.getRequestDispatcher("/secure/profile.html").forward(req, resp);
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
 }

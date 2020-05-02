@@ -24,6 +24,6 @@ public class NewCarModel extends HttpServlet {
         CarModel carModel = new CarModel(req.getParameter("car_name"));
         CarModels.persist(carModel);
 
-        req.getRequestDispatcher("/secure/profile.html").forward(req, resp);
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
 }

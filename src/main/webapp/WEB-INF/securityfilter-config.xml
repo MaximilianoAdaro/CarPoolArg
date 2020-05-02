@@ -20,7 +20,6 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <!--            <form-login-page>/secure/home.html</form-login-page>-->
             <form-login-page>/index.html</form-login-page>
             <form-error-page>/error.html</form-error-page>
             <form-default-page>/secure/home.do</form-default-page>

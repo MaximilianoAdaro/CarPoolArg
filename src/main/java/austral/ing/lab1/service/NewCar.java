@@ -27,6 +27,6 @@ public class NewCar extends HttpServlet {
 //            car.setUser(user);
 //            user.setCar(car);
         }
-        req.getRequestDispatcher("/secure/profile.html").forward(req, resp);
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
 }
