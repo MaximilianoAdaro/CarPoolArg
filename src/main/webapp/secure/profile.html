@@ -9,11 +9,15 @@
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="../bootstrap/js/jquery-v3.5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+		integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+		crossorigin="anonymous"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
 	<a class="navbar-brand" href="#">Navbar</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 	
@@ -26,7 +30,8 @@
 				<a class="nav-link" href="#">Link</a>
 			</li>
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
+				   aria-haspopup="true" aria-expanded="false">
 					Dropdown
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -45,7 +50,45 @@
 			<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
 		</form>
 	</div>
-</nav>
+</nav> <!--Navbar-->
+<br><br>
+<div class="btn-group align-items-center align-content-center">
+	<button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+			aria-expanded="false">
+		Select your avatar
+	</button>
+	<div class="dropdown-menu">
+		<a class="dropdown-item" avatar="man_1.png" href="/setAvatar.do">
+			<img src="..\images\man_1.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="man_2.png" href="/setAvatar.do">
+			<img src="..\images\man_2.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="man_3.png" href="/setAvatar.do">
+			<img src="..\images\man_3.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="man_4.png" href="/setAvatar.do">
+			<img src="..\images\man_4.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="woman_1.png" href="/setAvatar.do">
+			<img src="..\images\woman_1.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="woman_2.png" href="/setAvatar.do">
+			<img src="..\images\woman_2.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="woman_3.png" href="/setAvatar.do">
+			<img src="..\images\woman_3.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+		<a class="dropdown-item" avatar="woman_4.png" href="/setAvatar.do">
+			<img src="..\images\woman_4.png" class="img-thumbnail" alt="Responsive image" width="60">
+		</a>
+	</div>
+</div> <!--Seleccion de avatar-->
+
+<form class="form-inline text my-lg-0" action="/newCarModel.do" method="post">
+	<input class="form-control mr-sm-2" type="text" name="car_name" placeholder="Model of the car" aria-label="Search">
+	<button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
+</form>
 
 </body>
 </html>

@@ -1,8 +1,9 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.Car;
-import austral.ing.lab1.util.LangUtils;
+import austral.ing.lab1.util.EntityManagers;
 
+import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
 import java.util.List;
@@ -17,14 +18,6 @@ public class Cars {
     public static Optional<Car> findById(Long id) {
         return tx(() ->
                 Optional.of(currentEntityManager().find(Car.class, id))
-        );
-    }
-
-    public static Optional<Car> findByName(String name) {
-        return tx(() -> LangUtils.<Car>checkedList(currentEntityManager()
-                .createQuery("SELECT u FROM Car u WHERE u.name LIKE :name")
-                .setParameter("name", name).getResultList()).stream()
-                .findFirst()
         );
     }
 
@@ -50,4 +43,12 @@ public class Cars {
         }
     }
 
+    public static void deleteCar(Long id) {
+        EntityManager em = EntityManagers.currentEntityManager();
+        EntityTransaction tx = em.getTransaction();
+        tx.begin();
+        Optional<Car> car = findById(id);
+        em.remove(car);
+        tx.commit();
+    }
 }

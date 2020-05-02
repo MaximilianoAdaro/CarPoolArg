@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "user_table", uniqueConstraints = @UniqueConstraint(columnNames = {"EMAIL"}))
+@Table(name = "user_table")
 public class User {
 
     @Id
@@ -19,7 +19,7 @@ public class User {
     @Column(name = "LAST_NAME", nullable = false)
     private String lastName;
 
-    @Column(name = "EMAIL", unique = true, nullable = false)
+    @Column(name = "EMAIL", nullable = false)
     private String email;
 
     @Column(name = "PASSWORD")
@@ -34,6 +34,9 @@ public class User {
 
     @Column(name = "AVATAR_PATH")
     private String avatarPath;
+
+    @Column(name = "IS_ADMINISTRATOR")
+    private Boolean isAdministrator ;
 
     public User() {
     }
@@ -109,6 +112,14 @@ public class User {
 
     public void setAvatarPath(String avatarPath) {
         this.avatarPath = avatarPath;
+    }
+
+    public void setAdministrator(Boolean administrator) {
+        isAdministrator = administrator;
+    }
+
+    public Boolean getAdministrator() {
+        return isAdministrator;
     }
 
     @Override

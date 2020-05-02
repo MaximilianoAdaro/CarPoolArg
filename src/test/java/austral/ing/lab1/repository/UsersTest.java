@@ -1,8 +1,10 @@
 package austral.ing.lab1.repository;
 
+import austral.ing.lab1.entity.CarModels;
 import austral.ing.lab1.entity.Cars;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Car;
+import austral.ing.lab1.model.CarModel;
 import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.EntityManagers;
 import org.junit.After;
@@ -30,26 +32,39 @@ public class UsersTest {
         emf.close();
     }
 
+    /*public void deleteUser() {
+        try {
+            EntityManager em = EntityManagers.currentEntityManager();
+            EntityTransaction tx = em.getTransaction();
+            tx.begin();
+            User user = em.find(User.class,Users.findByEmail("fulanito@gmail.com"));
+            em.remove(user);
+            tx.commit();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }*/
+
     @Test
-    public void testCar(){
-        User user = new User("testing", "car", "testc@gmail.com", "", true);
-        user.setCar(new Car("Fitito2"));
-        Users.persist(user);
+    public void createAdmin() {
+        if (Users.findByEmail("admin@gmail.com").isPresent()) return;
+
+        User userAdmin = new User("admin", "istrator", "admin@gmail.com", "123", true);
+        userAdmin.setAdministrator(true);
+        Users.persist(userAdmin);
     }
 
-    /*
+/*
     @Test
     public void createUser() {
-        Optional<User> userFind = Users.findByEmail("fulanito@gmail.com");
-        if (userFind.isPresent()) deleteUser();
+//        Optional<User> userFind = Users.findByEmail("fulanito@gmail.com");
+//        if (userFind.isPresent()) deleteUser();
 //        if (userFind.isPresent()) return;
 
         final User user = new User("fulanito", "lopez", "fulanito@gmail.com", "", true);
-        user.setId(1L);
-        user.setCar(new Car("Ford"));
+        user.setCar(new Car(new CarModel("Fitito"), "pink", "AA012AA"));
 
-
-        EntityManagers.currentEntityManager().merge(user);
+        Users.persist(user);
         assertThat(user.getId(), greaterThan(0L));
 
         final Optional<User> persistedUser = Users.findById(user.getId());
@@ -64,32 +79,17 @@ public class UsersTest {
         Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
         System.out.println(byEmail);
     }
-
-    public void deleteUser() {
-        try {
-            EntityManager em = EntityManagers.currentEntityManager();
-            EntityTransaction tx = em.getTransaction();
-            tx.begin();
-            User user = em.find(User.class,Users.findByEmail("fulanito@gmail.com"));
-            em.remove(user);
-            tx.commit();
-        } catch (Exception e) {
-            System.out.println(e);
-        }
-    }
-    */
-
-     /*
-     @Test
-      public void updateUser(){
-        final Optional<User> persistedUser = Users.findById(3L);
-
-        Users.modifyUserName(persistedUser, "otrofulano");
-      }
 */
 
-      @Test
-      public void dropUser(){
+    /*@Test
+    public void updateUser() {;
+        final Optional<User> persistedUser = Users.findById(1L);
+
+        Users.modifyUserName(persistedUser, "otrofulano");
+    }
+
+    @Test
+    public void dropUser() {
         final Optional<User> persistedUser = Users.findById(2L);
 
         assertThat(persistedUser.isPresent(), is(true));
@@ -97,6 +97,5 @@ public class UsersTest {
         Users.deleteUser(persistedUser.get().getId());
 
         //assertThat(Users.findById(2L).isEmpty(), is(true)); como verifico esto?
-      }
-
+    }*/
 }

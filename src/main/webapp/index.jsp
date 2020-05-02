@@ -1,7 +1,7 @@
 <jsp:useBean id="param1" scope="request" type="java.lang.String"/>
 <jsp:useBean id="param2" scope="request" type="java.lang.String"/>
 
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <title>Ejemplo JSP</title>

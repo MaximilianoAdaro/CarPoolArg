@@ -8,11 +8,12 @@ import javax.persistence.*;
 @Table(name = "car_table")
 public class Car {
 
-    public Car() {
-    }
+//    public Car() {}
 
-    public Car(String name) {
-        this.name = name;
+    public Car(CarModel carModel, String color, String patent) {
+        this.carModel = carModel;
+        this.color = color;
+        this.patent = patent;
     }
 
     @Id
@@ -20,11 +21,18 @@ public class Car {
     @GenericGenerator(name = "increment", strategy = "increment")
     private long id;
 
-    @Column(name = "NAME", nullable = false)
-    private String name;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "CAR_MODEL")
+    private CarModel carModel;
 
     @OneToOne(mappedBy = "car", fetch = FetchType.LAZY)
     private User user;
+
+    @Column(name = "COLOR")
+    private String color;
+
+    @Column(name = "PATENT")
+    private String patent;
 
     public User getUser() {
         return user;
@@ -42,20 +50,38 @@ public class Car {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public CarModel getCarModel() {
+        return carModel;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setCarModel(CarModel carModel) {
+        this.carModel = carModel;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public String getPatent() {
+        return patent;
+    }
+
+    public void setPatent(String patent) {
+        this.patent = patent;
     }
 
     @Override
     public String toString() {
         return "Car{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
+                ", carModel=" + carModel +
                 ", user=" + user +
+                ", color='" + color + '\'' +
+                ", patent='" + patent + '\'' +
                 '}';
     }
 }

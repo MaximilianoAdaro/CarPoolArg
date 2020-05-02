@@ -22,8 +22,7 @@ public class UserList extends HttpServlet {
 
     req.setAttribute("users", users);
 
-    final RequestDispatcher view = req.getRequestDispatcher("userList.jsp");
-    view.forward(req, resp);
+    req.getRequestDispatcher("userList.jsp").forward(req, resp);
   }
 
 }
