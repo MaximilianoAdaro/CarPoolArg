@@ -27,16 +27,6 @@ public class Signup extends HttpServlet {
     user.setLastName(req.getParameter("lastname"));
     user.setEmail(req.getParameter("email"));
     user.setPassword(req.getParameter("password"));
-    try {
-      ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
-      List<FileItem> multifiles = sf.parseRequest(req);
-
-      for(FileItem item : multifiles){
-        item.write(new File("/Users/Numa Leone/Documents/Lab1/Avatar" +"hola"));
-      }
-    } catch (Exception e) {
-      System.out.println(e);
-    }
 
     user.setActive(true);
 
