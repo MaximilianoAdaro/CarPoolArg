@@ -2,38 +2,37 @@ package austral.ing.lab1.service;
 
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.User;
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import java.io.File;
 import java.io.IOException;
-import java.util.List;
+import java.util.Optional;
 
 @WebServlet("/signup.do")
 public class Signup extends HttpServlet {
-  @Override
-  protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    final User user = new User();
 
-    user.setFirstName(req.getParameter("firstname"));
-    user.setLastName(req.getParameter("lastname"));
-    user.setEmail(req.getParameter("email"));
-    user.setPassword(req.getParameter("password"));
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String email = req.getParameter("email");
+        Optional<User> userMail = Users.findByEmail(email);
 
-    user.setActive(true);
+        if (userMail.isPresent()) {
+            req.getRequestDispatcher("/signup.html").forward(req, resp);
+        } else {
 
-    Users.persist(user);
+            final User user = new User(req.getParameter("firstname"),
+                    req.getParameter("lastname"),
+                    req.getParameter("email"),
+                    req.getParameter("password"),
+                    true
+            );
 
-    final RequestDispatcher view = req.getRequestDispatcher("login.html");
+            Users.persist(user);
 
-    view.forward(req, resp);
-  }
+            req.getRequestDispatcher("/index.html").forward(req, resp);
+        }
+    }
 }
