@@ -20,12 +20,11 @@
     <login-config>
         <auth-method>FORM</auth-method>
         <form-login-config>
-            <form-login-page>/login.html</form-login-page>
+            <form-login-page>/index.html</form-login-page>
             <form-error-page>/error.html</form-error-page>
-            <form-default-page>/home.html</form-default-page>
+            <form-default-page>/secure/home.do</form-default-page>
         </form-login-config>
     </login-config>
-
 
     <!-- this is a Catalina realm that will be adapted to the securityfilter by the realm defined above -->
     <realm className="austral.ing.lab1.service.UserRealm" />
