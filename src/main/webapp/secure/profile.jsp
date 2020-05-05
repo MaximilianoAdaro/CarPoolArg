@@ -73,6 +73,7 @@
                 <div class="col-md-6">
                     <p>holanda</p>
                 </div>
+
             </div>
             <div class="row">
                 <div class="col-md-6">
@@ -82,12 +83,21 @@
                     <p>que hacelga</p>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Car</label>
+                </div>
+                <div class="col-md-6">
+                    <p>your car</p>
+                </div>
+                <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
+            </div>
         </div>
 
     </div>
 </div>
 
-<form class="container">
+<form class="container collapse" id="createCar">
     <div class="form-row align-items-center jumbotron">
         <div class="col-auto my-1">
             <h1 class="display-4">Your car</h1>
