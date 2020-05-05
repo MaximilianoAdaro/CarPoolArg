@@ -1,4 +1,6 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../bootstrap/css/style.css">
 </head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -59,6 +62,17 @@
     <input class="form-control mr-sm-2" type="text" name="car_name" placeholder="Model of the car" aria-label="Search">
     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
 </form>
+<br>
+<form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"/>
+    <input type="submit"/>
+</form>
+<br>
+<div class="crop-img">
+    <c:if test="${hasPath}">
+        <img src="..\\images\\ ${avatarPath}" width="200" height="200" alt="">
+    </c:if>
+</div>
 
 </body>
 </html>

@@ -19,6 +19,8 @@ public class Login extends HttpServlet {
 
         Optional<User> user = Users.findByEmail(req.getUserPrincipal().getName());
         user.ifPresent(value -> req.getSession().setAttribute("isAdmin", value.getAdministrator()));
+        user.ifPresent(value -> req.getSession().setAttribute("hasPath", value.getAvatarPath() != null));
+        user.ifPresent(value -> req.getSession().setAttribute("avatarPath", value.getAvatarPath()));
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
     }
 }

@@ -45,6 +45,7 @@ public class UsersTest {
         }
     }*/
 
+    /*
     @Test
     public void createAdmin() {
         if (Users.findByEmail("admin@gmail.com").isPresent()) return;
@@ -53,19 +54,24 @@ public class UsersTest {
         userAdmin.setAdministrator(true);
         Users.persist(userAdmin);
     }
+    */
 
-/*
+
     @Test
     public void createUser() {
-//        Optional<User> userFind = Users.findByEmail("fulanito@gmail.com");
+        setUp();
+
+        Optional<User> userFind = Users.findByEmail("fulanito@gmail.com");
+        if (userFind.isPresent()) return;
 //        if (userFind.isPresent()) deleteUser();
-//        if (userFind.isPresent()) return;
 
         final User user = new User("fulanito", "lopez", "fulanito@gmail.com", "", true);
         user.setCar(new Car(new CarModel("Fitito"), "pink", "AA012AA"));
 
-        Users.persist(user);
+        EntityManagers.currentEntityManager().getTransaction().begin();
+        EntityManagers.currentEntityManager().persist(user);
         assertThat(user.getId(), greaterThan(0L));
+        EntityManagers.currentEntityManager().getTransaction().commit();
 
         final Optional<User> persistedUser = Users.findById(user.getId());
 
@@ -78,8 +84,10 @@ public class UsersTest {
 
         Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
         System.out.println(byEmail);
+
+        tearDown();
     }
-*/
+
 
     /*@Test
     public void updateUser() {;
