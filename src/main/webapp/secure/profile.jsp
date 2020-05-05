@@ -9,6 +9,7 @@
     <title>Profile</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -56,6 +57,84 @@
         </form>
     </div>
 </nav> <!--Navbar-->
+
+<div class="col-md-8 container">
+    <div class="tab-content profile-tab align-items-center jumbotron" id="myTabContent">
+        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+            <div class="row">
+                <div class="col-md-6">
+                    <label>First Name</label>
+                </div>
+                <div class="col-md-6">
+                    <p>your name</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Last Name</label>
+                </div>
+                <div class="col-md-6">
+                    <p>holanda</p>
+                </div>
+
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Email</label>
+                </div>
+                <div class="col-md-6">
+                    <p>que hacelga</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <label>Car</label>
+                </div>
+                <div class="col-md-6">
+                    <p>your car</p>
+                </div>
+                <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<form class="container collapse" id="createCar">
+    <div class="form-row align-items-center jumbotron">
+        <div class="col-auto my-1">
+            <h1 class="display-4">Your car</h1>
+            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                <div class="form-inline">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+                        <option selected>Choose a car please</option>
+                        <option value="1">auto uno</option>
+                        <option value="2">holanda</option>
+                        <option value="3">bro</option>
+                     </select>
+
+                    <span class="form-group">
+                        <input style="max-width: 300px" type="text" class="form-control" id="color" name="car_color" placeholder="Type your car color please"/>
+                    </span>
+
+                    <span class="form-group ml-2">
+                        <input style="max-width: 300px" type="text" class="form-control" id="patent" name="car_patent" placeholder="Type your car patent please"/>
+                    </span>
+
+                    <span class="ml-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </span>
+
+                </div>
+
+
+        </div>
+
+    </div>
+</form>
+
+
+
 <br><br>
 
 <form class="form-inline text my-lg-0" action="${pageContext.request.contextPath}/newCarModel.do" method="post">
