@@ -22,7 +22,7 @@ import java.util.Optional;
 
 @WebServlet("/upload")
 @MultipartConfig
-public class UploadServlet extends HttpServlet {
+public class UploadAvatar extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -39,6 +39,7 @@ public class UploadServlet extends HttpServlet {
             try {
                 List<FileItem> multiFiles = sf.parseRequest(req);
                 FileItem file = multiFiles.get(0);
+                System.out.println(file.getName());
                 file.write(new File(maxiPath + file.getName()));
                 user.setAvatarPath(file.getName());
                 Users.persist(user);

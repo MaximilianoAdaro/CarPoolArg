@@ -64,7 +64,7 @@
         <c:if test="${isAdmin}">
             <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
         </c:if>
-        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.html"> <i class="fa fa-plus"></i> </a>
+        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.jsp"> <i class="fa fa-plus"></i> </a>
         <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
 
 

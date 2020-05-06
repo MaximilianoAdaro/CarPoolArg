@@ -39,7 +39,11 @@
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("emailUser", user.getEmail());
-        request.setAttribute("carUser", user.getCar().getCarModel().getName());
+
+        request.setAttribute("hasCar", user.getCar() != null);
+        if (user.getCar() != null)
+            request.setAttribute("carUser", user.getCar().getCarModel().getName());
+
         request.setAttribute("hasPath", user.getAvatarPath() != null);
         request.setAttribute("avatarPath", user.getAvatarPath());
     }
@@ -143,7 +147,7 @@
                 <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
                     <option selected>Choose a car</option>
                     <c:forEach var="carModel" items="${carModels}">
-                        <option value="${carModel.id}">${carModel.name}</option>
+                        <option value="${carModel.carModelId}">${carModel.name}</option>
                     </c:forEach>
                 </select>
                 <span class="form-group">
@@ -162,11 +166,11 @@
     </div>
 </form>
 
-<h2>Your avatar is this</h2>
-${avatarPath}
-<br>
 <c:if test="${hasPath}">
-    <img src="../images/${avatarPath}" width="300" height="300" alt="">
+    <h2>Your avatar is this</h2>
+    <br>
+    <img src="../images/${avatarPath}" width="256px" height="256px" alt="Avatar del usuario"
+         style="max-width:100%;width:auto;height:auto;">
 </c:if>
 
 </body>

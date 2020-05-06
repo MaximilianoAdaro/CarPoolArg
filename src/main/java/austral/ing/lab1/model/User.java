@@ -3,6 +3,8 @@ package austral.ing.lab1.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "user_table")
@@ -11,7 +13,7 @@ public class User {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private Long id;
+    private Long userId;
 
     @Column(name = "FIRST_NAME", nullable = false)
     private String firstName;
@@ -36,7 +38,16 @@ public class User {
     private String avatarPath;
 
     @Column(name = "IS_ADMINISTRATOR")
-    private Boolean isAdministrator ;
+    private Boolean isAdministrator;
+
+    @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
+    private List<Trip> driver = new ArrayList<Trip>();
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name = "join_trip_passengers_table",
+            joinColumns = {@JoinColumn(name = "userId")},
+            inverseJoinColumns = {@JoinColumn(name = "tripId")})
+    private List<Trip> passenger = new ArrayList<Trip>();
 
     public User() {
     }
@@ -73,12 +84,12 @@ public class User {
         this.email = email;
     }
 
-    public Long getId() {
-        return id;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Boolean getActive() {
@@ -122,16 +133,29 @@ public class User {
         return isAdministrator;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
-                ", isActive=" + isActive +
-                ", car=" + car +
-                '}';
+    public List<Trip> getDriver() {
+        return driver;
     }
+
+    public void setDriver(List<Trip> driver) {
+        this.driver = driver;
+    }
+
+    public void addTripAsDriver(Trip trip) {
+        driver.add(trip);
+    }
+
+    public void addTripAsPassenger(Trip trip) {
+        passenger.add(trip);
+    }
+
+
+    public List<Trip> getPassenger() {
+        return passenger;
+    }
+
+    public void setPassenger(List<Trip> trips) {
+        this.passenger = trips;
+    }
+
 }

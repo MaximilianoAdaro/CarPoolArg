@@ -19,7 +19,7 @@ public class Car {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+    private long carId;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "CAR_MODEL")
@@ -42,12 +42,12 @@ public class Car {
         this.user = user;
     }
 
-    public long getId() {
-        return id;
+    public long getCarId() {
+        return carId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCarId(long id) {
+        this.carId = id;
     }
 
     public CarModel getCarModel() {
@@ -77,7 +77,7 @@ public class Car {
     @Override
     public String toString() {
         return "Car{" +
-                "id=" + id +
+                "id=" + carId +
                 ", carModel=" + carModel +
                 ", user=" + user +
                 ", color='" + color + '\'' +
