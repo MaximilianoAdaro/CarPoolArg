@@ -32,7 +32,7 @@
 %>
 
 <!-- codigo para gente no admin-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: red">  <!-- NavBar -->
 
     <a class="navbar-brand" id="home" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -73,6 +73,28 @@
 </nav>
 
 
+
+<!-- searching for a trip -->
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
+        <div class="col-auto mb-3">
+            <div class="card" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">From</h5>
+                    <h5 class="card-title">To</h5>
+                    <p class="card-text">First</p>
+                    <p class="card-text">Last</p>
+                    <p class="card-text">Day</p>
+                    <p class="card-text">available seats</p>
+                    <a href="#" class="card-link">Join Trip</a>
+                    <a href="#" class="card-link">Another link</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
 
 </body>
 </html>
