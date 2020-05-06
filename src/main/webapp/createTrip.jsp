@@ -45,16 +45,6 @@
                         class="fa fa-user" aria-hidden="true"></i></a>
 
             </li>
-
-            <div class="nat-item col-8">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
-                           aria-label="Search">
-
-                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
-                            class="fa fa-search"></i></button>
-                </form>
-            </div>
         </ul>
 
         <c:if test="${isAdmin}">
