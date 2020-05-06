@@ -38,7 +38,10 @@
         <ul class="navbar-nav mr-auto container-fluid">
 
             <li>
-                <a class="nav-item btn btn-light ml-2" href="${pageContext.request.contextPath}/secure/profile.do"><i
+                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
+                    <i class="fa fa-home"></i></a>
+
+                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
                         class="fa fa-user" aria-hidden="true"></i></a>
 
             </li>

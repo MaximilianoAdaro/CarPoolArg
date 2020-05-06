@@ -20,6 +20,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -70,7 +73,10 @@
         <ul class="navbar-nav mr-auto container-fluid">
 
             <li>
-                <a class="nav-item btn btn-light ml-2" href="${pageContext.request.contextPath}/secure/profile.do"><i
+                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
+                    <i class="fa fa-home"></i></a>
+
+                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
                         class="fa fa-user" aria-hidden="true"></i></a>
 
             </li>
@@ -97,58 +103,81 @@
 </nav>
 
 
-<div class="col-md-8 container">
     ${avatarPath}
         <c:if test="${hasPath}">
             <img src="../images/${avatarPath}" class="rounded-circle" alt="Your Avtar" width="150" height="150">
         </c:if>
 
-        <div class="tab-content profile-tab align-items-center jumbotron" id="myTabContent">
-        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-            <div class="row">
-                <div class="col-md-6">
-                    <label>First Name</label>
-                </div>
-                <div class="col-md-6">
-                    <p>${firstNameUser}</p>
+<div class="container emp-profile mt-2">
+    <form method="post">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="profile-img">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS52y5aInsxSm31CvHOFHWujqUx_wWTS9iM6s7BAm21oEN_RiGoog" alt=""/>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Last Name</label>
-                </div>
-                <div class="col-md-6">
-                    <p>${lastNameUser}</p>
-                </div>
-
-            </div>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Email</label>
-                </div>
-                <div class="col-md-6">
-                    <p>${emailUser}</p>
+            <div class="col-md-6">
+                <div class="profile-head">
+                    <h3>
+                        Your Profile
+                    </h3>
                 </div>
             </div>
-            <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
-                <input type="file" name="file" id="img" accept="image/*"/>
-                <input type="submit"/>
-            </form>
-            <div class="row">
-                <div class="col-md-6">
-                    <label>Car</label>
+            <div class="col-md-2">
+                <div action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+                    <input type="file" name="file" id="img" accept="image/*"/>
+                    <input type="submit" class="btn btn-primary"/>
                 </div>
-                <div class="col-md-6">
-                    <p>${carUser}</p>
-                </div>
-                <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
             </div>
         </div>
 
-    </div>
+            <div class="col-md-8 mt-auto">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${firstNameUser}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${lastNameUser}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${emailUser}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Car</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${carUser}</p>
+                            </div>
+                            <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+        </div>
+    </form>
+</div>
+</div>
 </div>
 
-<form class="container collapse" id="createCar" action="${pageContext.request.contextPath}/newCar.do" method="post">
+<form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/newCar.do" method="post">
     <div class="form-row align-items-center jumbotron">
         <div class="col-auto my-1">
             <h1 class="display-4">Your car</h1>
