@@ -16,6 +16,11 @@
 
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
 </head>
+<style>
+body{
+    background-color:#EEEEEE    ;
+}
+</style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="../bootstrap/js/jquery-v3.5.js"></script>
@@ -32,7 +37,7 @@
 %>
 
 <!-- codigo para gente no admin-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light" style="background-color: red">  <!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
 
     <a class="navbar-brand" id="home" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -64,15 +69,13 @@
         <c:if test="${isAdmin}">
             <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
         </c:if>
-        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.html"> <i class="fa fa-plus"></i> </a>
+        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.jsp"> <i class="fa fa-plus"></i> </a>
         <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
 
 
     </div>
 
 </nav>
-
-
 
 <!-- searching for a trip -->
 

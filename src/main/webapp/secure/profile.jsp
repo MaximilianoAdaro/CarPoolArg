@@ -24,6 +24,12 @@
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+    body{
+        background-color:lightblue;
+    }
+</style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="../bootstrap/js/jquery-v3.5.js"></script>
@@ -39,7 +45,9 @@
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("emailUser", user.getEmail());
+        if(user.getCar()!=null)
         request.setAttribute("carUser", user.getCar().getCarModel().getName());
+
         request.setAttribute("hasPath", user.getAvatarPath() != null);
         request.setAttribute("avatarPath", user.getAvatarPath());
     }
@@ -49,47 +57,53 @@
 
 %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
+
+    <a class="navbar-brand" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a class="nav-link" href="${pageContext.request.contextPath}/secure/home.jsp">Home <span
-                        class="sr-only">(current)</span></a>
+
+        <ul class="navbar-nav mr-auto container-fluid">
+
+            <li>
+                <a class="nav-item btn btn-light ml-2" href="${pageContext.request.contextPath}/secure/profile.do"><i
+                        class="fa fa-user" aria-hidden="true"></i></a>
+
             </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Link</a>
-            </li>
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown"
-                   aria-haspopup="true" aria-expanded="false">
-                    Dropdown
-                </a>
-                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-            </li>
+
+            <div class="nat-item col-8">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
+                            class="fa fa-search"></i></button>
+                </form>
+            </div>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-        </form>
+
+        <c:if test="${isAdmin}">
+            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+        </c:if>
+        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+
+
     </div>
-</nav> <!--Navbar-->
+
+</nav>
+
 
 <div class="col-md-8 container">
-    <div class="tab-content profile-tab align-items-center jumbotron" id="myTabContent">
+    ${avatarPath}
+        <c:if test="${hasPath}">
+            <img src="../images/${avatarPath}" class="rounded-circle" alt="Your Avtar" width="150" height="150">
+        </c:if>
+
+        <div class="tab-content profile-tab align-items-center jumbotron" id="myTabContent">
         <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
             <div class="row">
                 <div class="col-md-6">
@@ -161,13 +175,6 @@
         </div>
     </div>
 </form>
-
-<h2>Your avatar is this</h2>
-${avatarPath}
-<br>
-<c:if test="${hasPath}">
-    <img src="../images/${avatarPath}" width="300" height="300" alt="">
-</c:if>
 
 </body>
 </html>
