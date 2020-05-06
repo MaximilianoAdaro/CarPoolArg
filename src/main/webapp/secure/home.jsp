@@ -1,5 +1,10 @@
+<%@ page import="austral.ing.lab1.model.User" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+
+
 <html>
 <head>
     <meta charset="UTF-8">
@@ -18,7 +23,13 @@
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
+<!---------------------------------------------->
 
+<%
+    Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
+    user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
+
+%>
 
 <!-- codigo para gente no admin-->
 <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
@@ -34,7 +45,8 @@
         <ul class="navbar-nav mr-auto container-fluid">
 
             <li>
-                <a class="nav-item btn btn-light ml-2" href="profile.jsp"><i class="fa fa-user" aria-hidden="true"></i></a>
+                <a class="nav-item btn btn-light ml-2" href="${pageContext.request.contextPath}/secure/profile.do"><i
+                        class="fa fa-user" aria-hidden="true"></i></a>
 
             </li>
 
@@ -52,7 +64,7 @@
         <c:if test="${isAdmin}">
             <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
         </c:if>
-        <a class="nav-link btn btn-light mr-2" href="/createTrip.html"> <i class="fa fa-plus"></i> </a>
+        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.html"> <i class="fa fa-plus"></i> </a>
         <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
 
 

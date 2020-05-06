@@ -8,7 +8,7 @@ import javax.persistence.*;
 @Table(name = "car_table")
 public class Car {
 
-//    public Car() {}
+    public Car() {}
 
     public Car(CarModel carModel, String color, String patent) {
         this.carModel = carModel;
