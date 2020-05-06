@@ -9,7 +9,9 @@
         </description>
 
         <class>austral.ing.lab1.model.User</class>
-        <class>austral.ing.lab1.model.Address</class>
+        <class>austral.ing.lab1.model.Car</class>
+        <class>austral.ing.lab1.model.CarModel</class>
+
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
             <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/userdb" />
@@ -17,7 +19,7 @@
             <property name="javax.persistence.jdbc.password" value="rafternot7" />
 
             <property name="hibernate.show_sql" value="true" />
-            <property name="hibernate.hbm2ddl.auto" value="create" />
+            <property name="hibernate.hbm2ddl.auto" value="update" />
         </properties>
 
     </persistence-unit>
