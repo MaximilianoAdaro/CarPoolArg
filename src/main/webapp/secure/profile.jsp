@@ -1,12 +1,18 @@
+<%@ page import="austral.ing.lab1.model.User" %>
+<%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.model.CarModel" %>
+<%@ page import="java.util.List" %>
+<%@ page import="austral.ing.lab1.entity.CarModels" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Profile</title>
-
-
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -17,10 +23,6 @@
 
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-
-
-
 </head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -29,6 +31,23 @@
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
+<!---------------------------------------------->
+<%
+    Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
+    if (optionalUser.isPresent()) {
+        User user = optionalUser.get();
+        request.setAttribute("firstNameUser", user.getFirstName());
+        request.setAttribute("lastNameUser", user.getLastName());
+        request.setAttribute("emailUser", user.getEmail());
+        request.setAttribute("carUser", user.getCar().getCarModel().getName());
+        request.setAttribute("hasPath", user.getAvatarPath() != null);
+        request.setAttribute("avatarPath", user.getAvatarPath());
+    }
+
+    final List<CarModel> carModel = CarModels.listAll();
+    request.setAttribute("carModels", carModel);
+
+%>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">Navbar</a>
@@ -77,7 +96,7 @@
                     <label>First Name</label>
                 </div>
                 <div class="col-md-6">
-                    <p>your name</p>
+                    <p>${firstNameUser}</p>
                 </div>
             </div>
             <div class="row">
@@ -85,7 +104,7 @@
                     <label>Last Name</label>
                 </div>
                 <div class="col-md-6">
-                    <p>holanda</p>
+                    <p>${lastNameUser}</p>
                 </div>
 
             </div>
@@ -94,15 +113,19 @@
                     <label>Email</label>
                 </div>
                 <div class="col-md-6">
-                    <p>que hacelga</p>
+                    <p>${emailUser}</p>
                 </div>
             </div>
+            <form action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
+                <input type="file" name="file" id="img" accept="image/*"/>
+                <input type="submit"/>
+            </form>
             <div class="row">
                 <div class="col-md-6">
                     <label>Car</label>
                 </div>
                 <div class="col-md-6">
-                    <p>your car</p>
+                    <p>${carUser}</p>
                 </div>
                 <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
             </div>
@@ -111,47 +134,40 @@
     </div>
 </div>
 
-<form class="container collapse" id="createCar">
+<form class="container collapse" id="createCar" action="${pageContext.request.contextPath}/newCar.do" method="post">
     <div class="form-row align-items-center jumbotron">
         <div class="col-auto my-1">
             <h1 class="display-4">Your car</h1>
             <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                <div class="form-inline">
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
-                        <option selected>Choose a car please</option>
-                        <option value="1">auto uno</option>
-                        <option value="2">holanda</option>
-                        <option value="3">bro</option>
-                     </select>
-
-                    <span class="form-group">
-                        <input style="max-width: 300px" type="text" class="form-control" id="color" name="car_color" placeholder="Type your car color please"/>
+            <div class="form-inline">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
+                    <option selected>Choose a car</option>
+                    <c:forEach var="carModel" items="${carModels}">
+                        <option value="${carModel.id}">${carModel.name}</option>
+                    </c:forEach>
+                </select>
+                <span class="form-group">
+                    <input style="max-width: 300px" type="text" class="form-control" id="color" name="car_color"
+                           placeholder="Type your car color" required/>
                     </span>
-
-                    <span class="form-group ml-2">
-                        <input style="max-width: 300px" type="text" class="form-control" id="patent" name="car_patent" placeholder="Type your car patent please"/>
+                <span class="form-group ml-2">
+                        <input style="max-width: 300px" type="text" class="form-control" id="patent" name="car_patent"
+                               placeholder="Type your car patent" required/>
                     </span>
-
-                    <span class="ml-2">
+                <span class="ml-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </span>
-
-                </div>
-
-
+            </div>
         </div>
-
     </div>
 </form>
 
-
-
-<br><br>
-
-<form class="form-inline text my-lg-0" action="${pageContext.request.contextPath}/newCarModel.do" method="post">
-    <input class="form-control mr-sm-2" type="text" name="car_name" placeholder="Model of the car" aria-label="Search">
-    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Submit</button>
-</form>
+<h2>Your avatar is this</h2>
+${avatarPath}
+<br>
+<c:if test="${hasPath}">
+    <img src="../images/${avatarPath}" width="300" height="300" alt="">
+</c:if>
 
 </body>
 </html>

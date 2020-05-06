@@ -1,6 +1,8 @@
 package austral.ing.lab1.service;
 
+import austral.ing.lab1.entity.CarModels;
 import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.model.CarModel;
 import austral.ing.lab1.model.User;
 
 import javax.servlet.ServletException;
@@ -11,17 +13,14 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/secure/user-list")
-public class UserList extends HttpServlet {
+@WebServlet("/secure/profile.do")
+public class Profile extends HttpServlet {
 
-  @Override
-  protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-    final List<User> users = Users.listAll();
 
-    req.setAttribute("users", users);
 
-    req.getRequestDispatcher("userList.jsp").forward(req, resp);
-  }
-
+        req.getRequestDispatcher("profile.jsp").forward(req, resp);
+    }
 }

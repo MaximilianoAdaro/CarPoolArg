@@ -10,6 +10,9 @@ import java.util.List;
 @Table(name = "carmodel_table")
 public class CarModel{
 
+    public CarModel() {
+    }
+
     public CarModel(String name) {
         this.name = name;
     }
