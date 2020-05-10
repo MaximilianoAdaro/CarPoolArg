@@ -18,13 +18,14 @@ public class Trip {
     public Trip(User driver, Date date, String from, String to, Time time, String comment, int seats) {
         this.driver = driver;
         driver.addTripAsDriver(this);
-        date.setYear(date.getYear()-1900);
+        date.setYear(date.getYear() - 1900);
         this.date = date;
         this.from = from;
         this.to = to;
         this.time = time;
         this.comment = comment;
         this.seats = seats;
+        availableSeats = seats;
     }
 
     @Id
@@ -60,6 +61,17 @@ public class Trip {
     @Column(name = "SEATS")
     private int seats;
 
+    @Column(name = "AVAILABLE_SEATS")
+    private int availableSeats;
+
+    public int getAvailableSeats() {
+        return availableSeats;
+    }
+
+    public void setAvailableSeats(int availableSeats) {
+        this.availableSeats = availableSeats;
+    }
+
     public long getTripId() {
         return tripId;
     }
@@ -75,7 +87,6 @@ public class Trip {
     public void setDriver(User driver) {
         this.driver = driver;
     }
-
 
     public List<User> getPassengers() {
         return passengers;
@@ -119,6 +130,14 @@ public class Trip {
 
     public void addPassenger(User user) {
         passengers.add(user);
+        if (availableSeats > 0)
+            availableSeats--;
+    }
+
+    public boolean removePassenger(User user) {
+        if (passengers.remove(user))
+            availableSeats++;
+        return passengers.remove(user);
     }
 
     public String getFrom() {

@@ -1,11 +1,10 @@
-<%@ page import="java.util.Date" %>
-<%@ page import="java.util.GregorianCalendar" %>
-<%@ page import="java.time.LocalDate" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
-
-
+<%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="austral.ing.lab1.model.User" %>
+<%@ page import="java.util.Optional" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:https="http://java.sun.com/JSP/Page" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <title>Create a Trip</title>
@@ -17,12 +16,55 @@
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body>
+<body style="background-image: url(https://gottakeepmovin.com/wp-content/uploads/2015/04/2015-04-28-09.03.59-3.jpg)">
 
 <%
-
+    Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
+    user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
 
 %>
+
+<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
+
+    <a class="navbar-brand" id="home" href="">CarPool</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <ul class="navbar-nav mr-auto container-fluid">
+
+            <li>
+                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
+                    <i class="fa fa-home"></i></a>
+
+                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
+                        class="fa fa-user" aria-hidden="true"></i></a>
+
+            </li>
+
+            <div class="nat-item col-8">
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
+                           aria-label="Search">
+
+                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
+                            class="fa fa-search"></i></button>
+                </form>
+            </div>
+        </ul>
+
+        <c:if test="${isAdmin}">
+            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+        </c:if>
+        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+
+
+    </div>
+
+</nav>
 
 <form class="container center" action="${pageContext.request.contextPath}/createTrip.do" method="post">
     <div class="jumbotron">
@@ -63,10 +105,8 @@
                 <option value="6">6</option>
             </select>
         </div>
-    </div>
-    <span class="ml-2">
         <button type="submit" class="btn btn-primary">Submit</button>
-    </span>
+    </div>
 </form>
 
 </body>

@@ -1,5 +1,6 @@
 package austral.ing.lab1.model;
 
+import austral.ing.lab1.entity.Cars;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -58,6 +59,7 @@ public class User {
         this.email = email;
         this.password = password;
         this.isActive = isActive;
+        avatarPath = "/project/images/defaultAvatar.png";
     }
 
     public String getFirstName() {
@@ -149,6 +151,9 @@ public class User {
         passenger.add(trip);
     }
 
+    public void deleteCar(){
+        car = null;
+    }
 
     public List<Trip> getPassenger() {
         return passenger;

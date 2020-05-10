@@ -30,22 +30,28 @@ public class UploadAvatar extends HttpServlet {
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
+            Long id = user.getUserId();
             ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
             String oldPhoto;
-            String maxiPath = "C:\\Users\\maxia\\projects\\lab1\\Carpoolarg\\src\\main\\webapp\\images\\";
-            if((oldPhoto = user.getAvatarPath()) != null){
-                deletePhoto(maxiPath + oldPhoto);
+            String path = "/project/images/";
+            String maxiPath = "C:\\Users\\maxia\\OneDrive\\Escritorio\\images\\";
+            if ((oldPhoto = user.getAvatarPath()) != null && !oldPhoto.equals("/project/images/defaultAvatar.png")) {
+                String[] cutPath = oldPhoto.split("/");
+                System.out.println(cutPath[cutPath.length - 1]);
+                deletePhoto(maxiPath + cutPath[cutPath.length - 1]);
             }
             try {
                 List<FileItem> multiFiles = sf.parseRequest(req);
                 FileItem file = multiFiles.get(0);
-                System.out.println(file.getName());
-                file.write(new File(maxiPath + file.getName()));
-                user.setAvatarPath(file.getName());
+
+                String[] partExt = file.getName().split("\\.");
+                String ext = partExt[partExt.length - 1];
+                String fileName = id + "." + ext;
+
+                file.write(new File(maxiPath + fileName));
+                user.setAvatarPath(path + fileName);
                 Users.persist(user);
 
-                req.getSession().setAttribute("hasPath", user.getAvatarPath() != null);
-                req.getSession().setAttribute("avatarPath", user.getAvatarPath());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -54,9 +60,8 @@ public class UploadAvatar extends HttpServlet {
     }
 
     private void deletePhoto(String oldPhoto) {
-        Path fileToDeletePath = Paths.get(oldPhoto);
         try {
-            Files.delete(fileToDeletePath);
+            Files.delete(Paths.get(oldPhoto));
         } catch (IOException e) {
             e.printStackTrace();
         }

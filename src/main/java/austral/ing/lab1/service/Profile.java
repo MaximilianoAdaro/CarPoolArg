@@ -1,10 +1,5 @@
 package austral.ing.lab1.service;
 
-import austral.ing.lab1.entity.CarModels;
-import austral.ing.lab1.entity.Users;
-import austral.ing.lab1.model.CarModel;
-import austral.ing.lab1.model.User;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,7 +15,7 @@ public class Profile extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
 
-
+        resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         req.getRequestDispatcher("profile.jsp").forward(req, resp);
     }
 }

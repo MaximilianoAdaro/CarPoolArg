@@ -15,6 +15,8 @@ public class Logout extends HttpServlet {
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
     req.getSession().invalidate();
 
+
+    resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
     final RequestDispatcher view = req.getRequestDispatcher("/index.html");
 
     view.forward(req, resp);

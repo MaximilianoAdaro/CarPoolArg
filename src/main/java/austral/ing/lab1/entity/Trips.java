@@ -19,13 +19,21 @@ public class Trips {
         );
     }
 
-//    public static Optional<Trip> findByEmail(String email) {
-//        return tx(() -> LangUtils.<Trip>checkedList(currentEntityManager()
-//                .createQuery("SELECT u FROM Trip u WHERE u.email LIKE :email")
-//                .setParameter("email", email).getResultList()).stream()
-//                .findFirst()
-//        );
-//    }
+    public static List<Trip> searchList(String param1) {
+        return tx(() -> checkedList(currentEntityManager()
+                .createQuery("SELECT t FROM Trip t WHERE t.to LIKE concat(:param,'%')")
+                .setParameter("param", param1)
+                .getResultList()
+        ));
+    }
+
+    public static Optional<Trip> findByEmail(String email) {
+        return tx(() -> LangUtils.<Trip>checkedList(currentEntityManager()
+                .createQuery("SELECT t FROM Trip t WHERE t.from LIKE :email")
+                .setParameter("email", email).getResultList()).stream()
+                .findFirst()
+        );
+    }
 
     public static List<Trip> listAll() {
         return tx(() ->

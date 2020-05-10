@@ -48,7 +48,7 @@ public class Cars {
         EntityTransaction tx = em.getTransaction();
         tx.begin();
         Optional<Car> car = findById(id);
-        em.remove(car);
+        car.ifPresent(em::remove);
         tx.commit();
     }
 }
