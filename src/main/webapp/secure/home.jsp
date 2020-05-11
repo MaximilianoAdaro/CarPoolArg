@@ -38,7 +38,7 @@ body{
 
 <!-- codigo para gente no admin-->
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">  <!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary mt-2">  <!-- NavBar -->
 
     <a class="navbar-brand" id="home" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -47,6 +47,10 @@ body{
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+        <c:if test="${isAdmin}">
+            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+        </c:if>
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
 
@@ -116,7 +120,7 @@ body{
         <!-- aca termina-->
 
     </div>
-</div>
+</div>no
 
 </body>
 </html>
