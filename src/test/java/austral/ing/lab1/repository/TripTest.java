@@ -1,9 +1,7 @@
 package austral.ing.lab1.repository;
 
 import austral.ing.lab1.entity.Trips;
-import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
-import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.EntityManagers;
 import org.junit.After;
 import org.junit.Before;
@@ -11,8 +9,6 @@ import org.junit.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import java.sql.Date;
-import java.sql.Time;
 import java.util.List;
 
 public class TripTest {
@@ -56,7 +52,7 @@ public class TripTest {
 
     @Test
     public void testAllTrips(){
-        List<Trip> trips = Trips.listAll();
+        List<Trip> trips = Trips.listCurrentTrips();
         System.out.println(trips.size());
         for (Trip trip : trips) {
             System.out.println(trip.getDate().toString());

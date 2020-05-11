@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/createTrip.do")
@@ -32,17 +33,17 @@ public class CreateTrip extends HttpServlet {
             String comment = req.getParameter("commentTrip");
             int seats = Integer.parseInt(req.getParameter("seatsTrip"));
 
-            String[] part = day.split("-");
-            Date date = new Date(Integer.parseInt(part[0]), Integer.parseInt(part[1]), Integer.parseInt(part[2]));
-
             System.out.println(Date.valueOf(day));
 
             String[] tim = time.split(":");
             Time timetable = new Time(Integer.parseInt(tim[0]), Integer.parseInt(tim[1]), 0);
 
-            Trip trip = new Trip(driver, date, from, to, timetable, comment, seats);
+            Trip trip = new Trip(driver, day, from, to, timetable, comment, seats);
             Trips.persist(trip);
         }
+
+        List<Trip> trips = Trips.listCurrentTrips();
+        req.getSession().setAttribute("trip", trips);
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
     }

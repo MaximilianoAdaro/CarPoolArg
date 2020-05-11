@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/newPassenger.do")
@@ -30,6 +31,8 @@ public class NewPassenger extends HttpServlet {
                 Trips.persist(trip);
             }
         }
+        List<Trip> trips = Trips.listCurrentTrips();
+        req.getSession().setAttribute("trip", trips);
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
     }

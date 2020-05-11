@@ -19,10 +19,10 @@ public class FilterTo extends HttpServlet {
 
         String fromTrip = req.getParameter("fromTrip").toLowerCase();
         String toTrip = req.getParameter("toTrip").toLowerCase();
+//        String dateTrip = req.getParameter("dateTrip").toLowerCase();
 
         List<Trip> trips = Trips.searchList(fromTrip, toTrip);
         req.getSession().setAttribute("trip", trips);
-        System.out.println(trips.toString());
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);

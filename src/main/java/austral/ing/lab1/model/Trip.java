@@ -15,10 +15,9 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(User driver, Date date, String from, String to, Time time, String comment, int seats) {
+    public Trip(User driver, String date, String from, String to, Time time, String comment, int seats) {
         this.driver = driver;
         driver.addTripAsDriver(this);
-        date.setYear(date.getYear() - 1900);
         this.date = date;
         this.fromTrip = from;
         this.toTrip = to;
@@ -44,7 +43,7 @@ public class Trip {
     private List<User> passengers = new ArrayList<User>();
 
     @Column(name = "DATE")
-    private Date date;
+    private String date;
 
     @Column(name = "FROM_TRIP")
     private String fromTrip;
@@ -96,11 +95,11 @@ public class Trip {
         this.passengers = passengers;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

@@ -6,7 +6,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 
 @WebServlet("/secure/profile.do")
 public class Profile extends HttpServlet {
@@ -16,6 +15,6 @@ public class Profile extends HttpServlet {
 
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        req.getRequestDispatcher("profile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
 }

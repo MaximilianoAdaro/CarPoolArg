@@ -3,7 +3,7 @@
 <%@ page import="java.util.Optional" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:https="http://java.sun.com/JSP/Page" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
@@ -24,7 +24,8 @@
     user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
 
     LocalDate localDate = LocalDate.now();
-    request.setAttribute("localDate",localDate.toString());
+    request.setAttribute("localDate", localDate.toString());
+    System.out.println();
 %>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->

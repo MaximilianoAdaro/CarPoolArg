@@ -1,18 +1,11 @@
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
-<%@ page import="austral.ing.lab1.model.Trip" %>
-<%@ page import="java.util.ArrayList" %>
-<%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="com.google.gson.GsonBuilder" %>
-<%@ page import="austral.ing.lab1.service.HibernateProxyTypeAdapter" %>
-<%@ page import="com.google.gson.Gson" %>
-<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
@@ -27,10 +20,6 @@
 <style>
     body {
         background-color: #EEEEEE;
-    }
-
-    .portfolio {
-        margin-top: 80px;
     }
 </style>
 <body>
@@ -50,7 +39,9 @@
 
 %>
 
-<header class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+<!-- codigo para gente no admin-->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">  <!-- NavBar -->
 
     <a class="navbar-brand" id="home" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -60,44 +51,49 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <ul class="navbar-nav mr-auto container-fluid">
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
 
-            <li>
-                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
-                    <i class="fa fa-home"></i></a>
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">My trips</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+            </div>
 
-                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
-                        class="fa fa-user" aria-hidden="true"></i></a>
+        </div>
 
-            </li>
-
-        </ul>
-
-        <c:if test="${isAdmin}">
-            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
-        </c:if>
-        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.jsp"> <i
-                class="fa fa-plus"></i> </a>
-        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+        <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
+           href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
 
     </div>
+</nav>
 
-</header> <!-- NavBar -->
+<ul class="container">
+    <div class="mt-5">
+        <form class="form-inline justify-content-center" action="${pageContext.request.contextPath}/filterHome.do"
+              method="get">
+            <input class="form-control mr-3" type="search" placeholder="Origin" id="fromTrip"
+                   name="fromTrip" aria-label="Search">
 
-<div class="container text-center portfolio">
-    <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/filterHome.do" method="get">
-        <input class="form-control mr-sm-1 col-4 mr-4" type="text" placeholder="From" id="fromTrip"
-               name="fromTrip" aria-label="Search">
-        <input class="form-control mr-sm-1 col-4" type="text" placeholder="To" id="toTrip"
-               name="toTrip" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit" value="search" id="buttonTrip">
-            <i class="fa fa-search"></i>
-        </button>
-    </form>
-</div>
+            <input class="form-control mr-3" type="search" placeholder="Destination" id="toTrip"
+                   name="toTrip" aria-label="Search">
 
-<div class="container-fluid mt-5">
-    <div class="row justify-content-center" id="result">
+            <button class="btn btn-primary" type="submit">SEARCH
+                <i class="fa fa-search"></i></button>
+        </form>
+    </div>
+</ul>
+
+
+<!-- searching for a trip -->
+
+<div class="container-fluid mt-4">
+    <div class="row justify-content-center">
         <c:forEach var="trip" items="${trip}">
             <div class="col-auto mb-3">
                 <div class="card" style="width: 18rem;">
@@ -122,35 +118,5 @@
     </div>
 </div>
 
-
-
-<%--<script>--%>
-<%--    const fromTrip = document.querySelector('#fromTrip');--%>
-<%--    const toTrip = document.querySelector('#toTrip');--%>
-<%--    const button = document.querySelector('#buttonTrip');--%>
-<%--    const result = document.querySelector('#result');--%>
-<%--    const trips = JSON.parse(${trip});--%>
-
-<%--    console.log(trips);--%>
-
-<%--    const filter = () => {--%>
-<%--        result.innerHTML = '';--%>
-
-<%--        const fromText = fromTrip.value.toLowerCase();--%>
-<%--        const toText = fromTrip.value.toLowerCase();--%>
-
-<%--        for (let trip of trips){--%>
-<%--            let fromName = trip.fromTrip.toLowerCase();--%>
-<%--            let toName = trip.toTrip.toLowerCase();--%>
-
-
-
-<%--        }--%>
-
-<%--    }--%>
-
-<%--    button.addEventListener('click',filter);--%>
-
-<%--</script>--%>
 </body>
 </html>

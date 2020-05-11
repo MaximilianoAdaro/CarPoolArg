@@ -6,46 +6,6 @@
 </head>
 <body>
 
-<header class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
-	
-	<a class="navbar-brand" id="home" href="">CarPool</a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-			aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-		<span class="navbar-toggler-icon"></span>
-	</button>
-	
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		
-		<ul class="navbar-nav mr-auto container-fluid">
-			
-			<li>
-				<a class="nav-item btn btn-light ml-auto" href="/secure/home.do">
-					<i class="fa fa-home"></i></a>
-				
-				<a class="nav-item btn btn-light" href="/secure/profile.do"><i
-						class="fa fa-user" aria-hidden="true"></i></a>
-			
-			</li>
-			
-			<div class="nat-item col-8 text-center">
-				<form class="form-inline my-2 my-lg-0" action="/filterHome.do" method="post">
-					<input class="form-control mr-sm-1 col-5" type="text" placeholder="Search for Destination"
-						   name="txtSearch" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit" value="search">
-						<i class="fa fa-search"></i>
-					</button>
-				</form>
-			</div>
-		</ul>
-		
-		<a class="nav-link btn btn-light mr-2" href="/createTrip.jsp"> <i
-				class="fa fa-plus"></i> </a>
-		<a class="nav-link btn btn-danger col-1" href="/logout.do">Logout</a>
-	
-	</div>
-
-</header> <!-- NavBar -->
-
 <form class="form-group" method="post" action="/newCarModel.do">
 	<h1> How to create a car </h1>
 	<div>

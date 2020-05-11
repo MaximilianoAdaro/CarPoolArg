@@ -23,13 +23,13 @@
 
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-</head>
 
-<style>
-    body {
-        background-color: lightblue;
-    }
-</style>
+    <style>
+        body {
+            background-color: #EEEEEE;
+        }
+    </style>
+</head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="../bootstrap/js/jquery-v3.5.js"></script>
@@ -47,8 +47,6 @@
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("emailUser", user.getEmail());
-
-        request.setAttribute("hasCar", user.getCar() != null);
         if (user.getCar() != null)
             request.setAttribute("carUser", user.getCar().getCarModel().getName());
 
@@ -80,16 +78,6 @@
                         class="fa fa-user" aria-hidden="true"></i></a>
 
             </li>
-
-            <div class="nat-item col-8">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
-                           aria-label="Search">
-
-                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
-                            class="fa fa-search"></i></button>
-                </form>
-            </div>
         </ul>
 
         <c:if test="${isAdmin}">
@@ -103,8 +91,7 @@
     <div class="row">
         <div class="col-md-4">
             <div class="profile-img">
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="150"
-                     height="150">
+                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="150" height="150">
             </div>
         </div>
         <div class="col-md-6">
@@ -114,13 +101,14 @@
                 </h3>
             </div>
         </div>
-        <div class="col-md-2">
-            <form method="post" action="${pageContext.request.contextPath}/upload" enctype="multipart/form-data">
-                <input type="file" name="file" id="img" accept="image/*"/>
-                <input type="submit" class="btn btn-primary"/>
+        <div class="col-md-4 my-5">
+            <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
+                <input type="file" name="file" id="img" accept="image/*" class="mb-3"/>
+                <button type="submit" class="btn btn-primary">Change avatar</button>
             </form>
         </div>
     </div>
+
     <div class="col-md-8 mt-auto">
         <div class="tab-content profile-tab" id="myTabContent">
             <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
@@ -148,7 +136,6 @@
                         <p>${emailUser}</p>
                     </div>
                 </div>
-
                 <div class="row">
                     <div class="col-md-6">
                         <label>Car</label>
@@ -156,19 +143,15 @@
                     <div class="col-md-6">
                         <p>${carUser}</p>
                     </div>
-                    <div >
+                    <div class="mr-5">
                         <form action="${pageContext.request.contextPath}/carABM.do" method="get">
                             <span class="ml-2">
                                 <button type="submit" class="btn btn-primary">Delete car</button>
                             </span>
                         </form>
                     </div>
-                    <div class="pl-5">
-                        <span>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse"
-                                    data-target="#createCar">Edit your car</button>
-                        </span>
-                    </div>
+                    <span><button type="button" class="btn btn-primary" data-toggle="collapse"
+                                  data-target="#createCar">Edit your car</button></span>
                 </div>
             </div>
         </div>
