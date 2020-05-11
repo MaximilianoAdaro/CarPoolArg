@@ -37,7 +37,8 @@ body{
 %>
 
 <!-- codigo para gente no admin-->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">  <!-- NavBar -->
 
     <a class="navbar-brand" id="home" href="">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -47,57 +48,72 @@ body{
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <ul class="navbar-nav mr-auto container-fluid">
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
 
-            <li>
-                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
-                    <i class="fa fa-home"></i></a>
-
-                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
-                        class="fa fa-user" aria-hidden="true"></i></a>
-
-            </li>
-
-            <div class="nat-item col-8">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
-                           aria-label="Search">
-
-                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
-                            class="fa fa-search"></i></button>
-                </form>
+        <div class="nav-item dropdown">
+            <a class= "nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">My trips</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
             </div>
-        </ul>
 
-        <c:if test="${isAdmin}">
-            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
-        </c:if>
-        <a class="nav-link btn btn-light mr-2" href="${pageContext.request.contextPath}/createTrip.jsp"> <i class="fa fa-plus"></i> </a>
-        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+        </div>
 
+        <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto" href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
 
     </div>
 
 </nav>
+<ul class = "container">
+
+    <div class="mt-5">
+        <form class="form-inline justify-content-center">
+            <input class="form-control mr-3" type="search" placeholder="Origin"
+                   aria-label="Search">
+
+            <input class="form-control mr-3" type="search" placeholder="Destination"
+                   aria-label="Search">
+
+            <input class="form-control mr-3" type="search" placeholder="dd/mm/yy"
+                   aria-label="Search">
+
+            <button class="btn btn-primary" type="submit">SEARCH</button>
+        </form>
+    </div>
+</ul>
+
 
 <!-- searching for a trip -->
 
 <div class="container-fluid mt-4">
     <div class="row justify-content-center">
+
+        <!-- aca arranca a repetir-->
         <div class="col-auto mb-3">
-            <div class="card" style="width: 18rem;">
+            <div class="card" style="width: 18rem;" >
+                <div>
+                    <img src="../images/${trip}.driver.avatarPath" alt="Avatar">
+                    <h4>${trip.driver.firstName} ${trip.driver.lastName}</h4>
+                </div>
                 <div class="card-body">
-                    <h5 class="card-title">From</h5>
-                    <h5 class="card-title">To</h5>
-                    <p class="card-text">First</p>
-                    <p class="card-text">Last</p>
-                    <p class="card-text">Day</p>
-                    <p class="card-text">available seats</p>
+                    <h5 class="card-title">${trip.from}</h5>
+                    <h5 class="card-title">${trip.to}</h5>
+                    <!--<p class="card-text">First</p>
+                    <p class="card-text">Last</p>-->
+                    <p class="card-text">${trip.date.toString()}</p>
+                    <p class="card-text">${trip.time.toString()}</p>
+                    <p class="card-text">${trip.availableSeats}</p>
                     <a href="#" class="card-link">Join Trip</a>
                     <a href="#" class="card-link">Another link</a>
                 </div>
             </div>
         </div>
+
+        <!-- aca termina-->
 
     </div>
 </div>
