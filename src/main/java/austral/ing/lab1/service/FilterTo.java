@@ -15,11 +15,14 @@ import java.util.List;
 public class FilterTo extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String str = req.getParameter("txtSearch");
+        String fromTrip = req.getParameter("fromTrip").toLowerCase();
+        String toTrip = req.getParameter("toTrip").toLowerCase();
 
-        req.getSession().setAttribute("tripList", str);
+        List<Trip> trips = Trips.searchList(fromTrip, toTrip);
+        req.getSession().setAttribute("trip", trips);
+        System.out.println(trips.toString());
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);

@@ -1,15 +1,13 @@
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
-<%@ page import="austral.ing.lab1.model.CarModel" %>
-<%@ page import="java.util.List" %>
-<%@ page import="austral.ing.lab1.entity.CarModels" %>
 <%@ page import="austral.ing.lab1.model.Trip" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="java.sql.Connection" %>
-<%@ page import="java.sql.DriverManager" %>
-<%@ page import="java.sql.Statement" %>
-<%@ page import="java.sql.ResultSet" %>
+<%@ page import="com.google.gson.GsonBuilder" %>
+<%@ page import="austral.ing.lab1.service.HibernateProxyTypeAdapter" %>
+<%@ page import="com.google.gson.Gson" %>
+<%@ page import="java.util.List" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
@@ -50,15 +48,6 @@
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
     user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
 
-    String str = request.getParameter("tripList");
-    List<Trip> tripList;
-    if (str != null && str.length() > 0) {
-        tripList = Trips.searchList(str);
-    } else {
-        tripList = Trips.listAll();
-    }
-    request.setAttribute("trip", tripList);
-
 %>
 
 <header class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
@@ -96,19 +85,19 @@
 </header> <!-- NavBar -->
 
 <div class="container text-center portfolio">
-    <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/filterHome.do" method="post">
-        <input class="form-control mr-sm-1 col-5" type="text" placeholder="From"
+    <form class="form-inline my-2 my-lg-0" action="${pageContext.request.contextPath}/filterHome.do" method="get">
+        <input class="form-control mr-sm-1 col-4 mr-4" type="text" placeholder="From" id="fromTrip"
                name="fromTrip" aria-label="Search">
-        <input class="form-control mr-sm-1 col-5" type="text" placeholder="To"
+        <input class="form-control mr-sm-1 col-4" type="text" placeholder="To" id="toTrip"
                name="toTrip" aria-label="Search">
-        <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit" value="search">
+        <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit" value="search" id="buttonTrip">
             <i class="fa fa-search"></i>
         </button>
     </form>
 </div>
 
 <div class="container-fluid mt-5">
-    <div class="row justify-content-center">
+    <div class="row justify-content-center" id="result">
         <c:forEach var="trip" items="${trip}">
             <div class="col-auto mb-3">
                 <div class="card" style="width: 18rem;">
@@ -119,8 +108,8 @@
                         <h4>${trip.driver.firstName} ${trip.driver.lastName}</h4>
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">From: ${trip.from}</h5>
-                        <h5 class="card-title">To: ${trip.to}</h5>
+                        <h5 class="card-title">From: ${trip.fromTrip}</h5>
+                        <h5 class="card-title">To: ${trip.toTrip}</h5>
                         <p class="card-text">Day: ${trip.date.toString()}</p>
                         <p class="card-text">Hour: ${trip.time.toString()}</p>
                         <p class="card-text">Available seats: ${trip.availableSeats}</p>
@@ -132,5 +121,36 @@
         </c:forEach>
     </div>
 </div>
+
+
+
+<%--<script>--%>
+<%--    const fromTrip = document.querySelector('#fromTrip');--%>
+<%--    const toTrip = document.querySelector('#toTrip');--%>
+<%--    const button = document.querySelector('#buttonTrip');--%>
+<%--    const result = document.querySelector('#result');--%>
+<%--    const trips = JSON.parse(${trip});--%>
+
+<%--    console.log(trips);--%>
+
+<%--    const filter = () => {--%>
+<%--        result.innerHTML = '';--%>
+
+<%--        const fromText = fromTrip.value.toLowerCase();--%>
+<%--        const toText = fromTrip.value.toLowerCase();--%>
+
+<%--        for (let trip of trips){--%>
+<%--            let fromName = trip.fromTrip.toLowerCase();--%>
+<%--            let toName = trip.toTrip.toLowerCase();--%>
+
+
+
+<%--        }--%>
+
+<%--    }--%>
+
+<%--    button.addEventListener('click',filter);--%>
+
+<%--</script>--%>
 </body>
 </html>

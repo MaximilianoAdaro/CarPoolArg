@@ -20,8 +20,8 @@ public class Trip {
         driver.addTripAsDriver(this);
         date.setYear(date.getYear() - 1900);
         this.date = date;
-        this.from = from;
-        this.to = to;
+        this.fromTrip = from;
+        this.toTrip = to;
         this.time = time;
         this.comment = comment;
         this.seats = seats;
@@ -47,10 +47,10 @@ public class Trip {
     private Date date;
 
     @Column(name = "FROM_TRIP")
-    private String from;
+    private String fromTrip;
 
     @Column(name = "TO_TRIP")
-    private String to;
+    private String toTrip;
 
     @Column(name = "TIME")
     private Time time;
@@ -140,20 +140,20 @@ public class Trip {
         return passengers.remove(user);
     }
 
-    public String getFrom() {
-        return from;
+    public String getFromTrip() {
+        return fromTrip;
     }
 
-    public void setFrom(String from) {
-        this.from = from;
+    public void setFromTrip(String from) {
+        this.fromTrip = from;
     }
 
-    public String getTo() {
-        return to;
+    public String getToTrip() {
+        return toTrip;
     }
 
-    public void setTo(String to) {
-        this.to = to;
+    public void setToTrip(String to) {
+        this.toTrip = to;
     }
 
     @Override
@@ -163,8 +163,8 @@ public class Trip {
                 ", driver=" + driver +
                 ", passengers=" + passengers +
                 ", date=" + date +
-                ", from='" + from + '\'' +
-                ", to='" + to + '\'' +
+                ", from='" + fromTrip + '\'' +
+                ", to='" + toTrip + '\'' +
                 ", time=" + time +
                 ", comment='" + comment + '\'' +
                 ", seats=" + seats +

@@ -1,5 +1,6 @@
 package austral.ing.lab1.service;
 
+import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.User;
 import com.google.gson.Gson;
 
@@ -17,7 +18,7 @@ public class UserServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-    final List<User> users = austral.ing.lab1.entity.Users.listAll();
+    final List<User> users = Users.listAll();
 
     resp.setContentType("application/json");
     resp.setCharacterEncoding("UTF-8");

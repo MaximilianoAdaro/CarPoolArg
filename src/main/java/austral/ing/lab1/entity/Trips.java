@@ -1,7 +1,10 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.service.HibernateProxyTypeAdapter;
 import austral.ing.lab1.util.LangUtils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -19,17 +22,21 @@ public class Trips {
         );
     }
 
-    public static List<Trip> searchList(String param1) {
+    public static List<Trip> searchList(String param1, String param2) {
         return tx(() -> checkedList(currentEntityManager()
-                .createQuery("SELECT t FROM Trip t WHERE t.to LIKE concat(:param,'%')")
-                .setParameter("param", param1)
+                .createQuery( "SELECT t " +
+                                     "FROM Trip t " +
+                                     "WHERE t.fromTrip LIKE :param " +
+                                     "and t.toTrip LIKE :param2")
+                .setParameter("param", "%" + param1 + "%")
+                .setParameter("param2", "%" + param2 + "%")
                 .getResultList()
         ));
     }
 
     public static Optional<Trip> findByEmail(String email) {
         return tx(() -> LangUtils.<Trip>checkedList(currentEntityManager()
-                .createQuery("SELECT t FROM Trip t WHERE t.from LIKE :email")
+                .createQuery("SELECT t FROM Trip t WHERE t.fromTrip LIKE :email")
                 .setParameter("email", email).getResultList()).stream()
                 .findFirst()
         );
@@ -41,14 +48,20 @@ public class Trips {
         );
     }
 
+    public static String listAllJson() {
+        GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapterFactory(HibernateProxyTypeAdapter.FACTORY);
+        Gson gson = gsonBuilder.create();
+        String str = gson.toJson(listAll());
+        return str;
+    }
+
     public static Trip persist(Trip trip) {
         final EntityTransaction tx = currentEntityManager().getTransaction();
 
         try {
             tx.begin();
-
             currentEntityManager().persist(trip);
-
             tx.commit();
             return trip;
         } catch (Exception e) {

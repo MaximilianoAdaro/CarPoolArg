@@ -1,8 +1,9 @@
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
 <html lang="en" xmlns:https="http://java.sun.com/JSP/Page" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
@@ -22,6 +23,8 @@
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
     user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
 
+    LocalDate localDate = LocalDate.now();
+    request.setAttribute("localDate",localDate.toString());
 %>
 
 <nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
@@ -57,7 +60,7 @@
         </ul>
 
         <c:if test="${isAdmin}">
-            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+            <a class="nav-link btn btn-light mr-1" href="createCarBrand.html"> <i class="fa fa-car"></i> </a>
         </c:if>
         <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
 
@@ -82,12 +85,12 @@
         <div class="form-group">
             <label for="day">Day</label>
             <input type="date" class="form-control" id="day" placeholder="Please type the departing day" name="dayTrip"
-                   value="2020-05-06" min="2020-05-06" max="2021-12-31" required>
+                   value="${localDate}" min="${localDate}" max="2021-12-31" required>
         </div>
         <div class="form-group">
             <label for="time">Time</label>
             <input type="time" class="form-control" id="time" placeholder="Please type the hour you´re departing"
-                   name="timeTrip" required>
+                   value="12:00" name="timeTrip" required>
         </div>
         <div class="form-group">
             <label for="com">Commentary</label>
