@@ -82,8 +82,10 @@ body{
             <input class="form-control mr-3" type="search" placeholder="Destination"
                    aria-label="Search">
 
+            <!-- ya no
             <input class="form-control mr-3" type="search" placeholder="dd/mm/yy"
                    aria-label="Search">
+            -->
 
             <button class="btn btn-primary" type="submit">SEARCH</button>
         </form>

@@ -101,7 +101,6 @@
         <c:if test="${hasPath}">
             <img src="../images/${avatarPath}" class="rounded-circle" alt="Your Avtar" width="150" height="150">
         </c:if>
-
 <div class="container emp-profile mt-2">
     <form method="post">
         <div class="row">
@@ -117,56 +116,56 @@
                     </h3>
                 </div>
             </div>
-            <div class="col-md-2">
+            <div>
                 <div action="${pageContext.request.contextPath}/upload" method="post" enctype="multipart/form-data">
-                    <input type="file" name="file" id="img" accept="image/*"/>
-                    <input type="submit" class="btn btn-primary"/>
+                    <input class="ml-3 mb-3" style="width:210px" type="file" name="file" id="img" accept="image/*"/>
+                    <input type="submit" class="btn btn-primary btn-sm">
                 </div>
             </div>
         </div>
 
-            <div class="col-md-8 mt-auto">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>First Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${firstNameUser}</p>
-                            </div>
+        <div class="col-md-8 mt-auto mt-5">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Last Name</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${lastNameUser}</p>
-                            </div>
+                        <div class="col-md-6">
+                            <p>${firstNameUser}</p>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Email</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${emailUser}</p>
-                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Last Name</label>
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Car</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${carUser}</p>
-                            </div>
-                            <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
+                        <div class="col-md-6">
+                            <p>${lastNameUser}</p>
                         </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${emailUser}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Car</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${carUser}</p>
+                        </div>
+                        <span><button type="button" class="btn btn-primary" data-toggle="collapse" data-target="#createCar">Edit your car</button></span>
                     </div>
                 </div>
             </div>
-    </form>
         </div>
     </form>
+</div>
+</form>
 </div>
 </div>
 </div>
@@ -198,6 +197,5 @@
         </div>
     </div>
 </form>
-
 </body>
 </html>
