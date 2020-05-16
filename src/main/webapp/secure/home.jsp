@@ -36,7 +36,11 @@
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
-    user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
+    if (user.isPresent()) {
+        request.setAttribute("isAdmin", user.get().getAdministrator());
+        request.setAttribute("userName", user.get().getFirstName() + " " + user.get().getLastName());
+        request.setAttribute("avatarPath", user.get().getAvatarPath());
+    }
 
 %>
 
@@ -55,7 +59,8 @@
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actions
+                ${userName}
+                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">My trips</a>
@@ -79,10 +84,12 @@
         <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3><br>
         <form class="form-inline justify-content-center" action="${pageContext.request.contextPath}/filterHome.do"
               method="get">
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Origin" id="fromTrip"
+            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Origin"
+                   id="fromTrip"
                    name="fromTrip" aria-label="Search">
 
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Destination" id="toTrip"
+            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Destination"
+                   id="toTrip"
                    name="toTrip" aria-label="Search">
 
             <button class="btn btn-primary shadow bg-primary rounded" type="submit">SEARCH</button>
@@ -124,7 +131,7 @@
                                 </div>
                             </div>
                             <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default"  role="button"> View
+                               class="viewButton col-4 btn btn-default" role="button"> View
                             </a>
                         </div>
                     </div>

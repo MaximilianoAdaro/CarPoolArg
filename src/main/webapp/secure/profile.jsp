@@ -38,12 +38,14 @@
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
+        request.setAttribute("isAdmin", user.getAdministrator());
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("emailUser", user.getEmail());
         if (user.getCar() != null)
             request.setAttribute("carUser", user.getCar().getCarModel().getName());
         request.setAttribute("avatarPath", user.getAvatarPath());
+        request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
     }
 
     final List<CarModel> carModel = CarModels.listAll();
@@ -62,7 +64,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <c:if test="${isAdmin}">
-            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.html"> <i class="fa fa-car"></i> </a>
+            <a class="nav-link btn btn-light mr-1" href="../createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
@@ -70,7 +72,8 @@
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actions
+                ${userName}
+                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">My trips</a>
@@ -81,7 +84,6 @@
         </div>
         <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
            href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
-
     </div>
 </nav>
 
