@@ -11,13 +11,17 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/secure/home.do")
-public class Login extends HttpServlet {
+@WebServlet("/filterHome.do")
+public class FilterTo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        List<Trip> trips = Trips.listCurrentTrips();
+        String fromTrip = req.getParameter("fromTrip").toLowerCase();
+        String toTrip = req.getParameter("toTrip").toLowerCase();
+//        String dateTrip = req.getParameter("dateTrip").toLowerCase();
+
+        List<Trip> trips = Trips.searchList(fromTrip, toTrip);
         req.getSession().setAttribute("trip", trips);
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

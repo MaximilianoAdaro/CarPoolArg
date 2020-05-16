@@ -1,7 +1,5 @@
 package austral.ing.lab1.repository;
 
-import austral.ing.lab1.entity.CarModels;
-import austral.ing.lab1.entity.Cars;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Car;
 import austral.ing.lab1.model.CarModel;
@@ -23,7 +21,7 @@ public class UsersTest {
 
     @Before
     public void setUp() {
-        emf = Persistence.createEntityManagerFactory("databaseLab1");
+        emf = Persistence.createEntityManagerFactory("test");
         EntityManagers.setFactory(emf);
     }
 
@@ -45,21 +43,19 @@ public class UsersTest {
         }
     }*/
 
-    /*
     @Test
     public void createAdmin() {
         if (Users.findByEmail("admin@gmail.com").isPresent()) return;
 
-        User userAdmin = new User("admin", "istrator", "admin@gmail.com", "123", true);
+        User userAdmin = new User("adminFirstName", "adminLastName", "admin@gmail.com", "123", true);
         userAdmin.setAdministrator(true);
         Users.persist(userAdmin);
     }
-    */
 
 
+    /*
     @Test
     public void createUser() {
-        setUp();
 
         Optional<User> userFind = Users.findByEmail("fulanito@gmail.com");
         if (userFind.isPresent()) return;
@@ -68,28 +64,27 @@ public class UsersTest {
         final User user = new User("fulanito", "lopez", "fulanito@gmail.com", "", true);
         user.setCar(new Car(new CarModel("Fitito"), "pink", "AA012AA"));
 
-        EntityManagers.currentEntityManager().getTransaction().begin();
-        EntityManagers.currentEntityManager().persist(user);
-        assertThat(user.getId(), greaterThan(0L));
-        EntityManagers.currentEntityManager().getTransaction().commit();
 
-        final Optional<User> persistedUser = Users.findById(user.getId());
+        Users.persist(user);
+        assertThat(user.getUserId(), greaterThan(0L));
 
-        assertThat(persistedUser.isPresent(), is(true));
-        assertThat(persistedUser.get().getEmail(), is("fulanito@gmail.com"));
-        assertThat(persistedUser.get().getFirstName(), is("fulanito"));
-        assertThat(persistedUser.get().getLastName(), is("lopez"));
-        assertThat(persistedUser.get().getPassword(), is(""));
-        assertThat(persistedUser.get().getActive(), is(true));
-
-        Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
-        System.out.println(byEmail);
-
-        tearDown();
+//        final Optional<User> persistedUser = Users.findById(user.getUserId());
+//
+//        assertThat(persistedUser.isPresent(), is(true));
+//        assertThat(persistedUser.get().getEmail(), is("fulanito@gmail.com"));
+//        assertThat(persistedUser.get().getFirstName(), is("fulanito"));
+//        assertThat(persistedUser.get().getLastName(), is("lopez"));
+//        assertThat(persistedUser.get().getPassword(), is(""));
+//        assertThat(persistedUser.get().getActive(), is(true));
+//
+//        Optional<User> byEmail = Users.findByEmail(persistedUser.get().getEmail());
+//        System.out.println(byEmail);
     }
+    */
 
 
-    /*@Test
+    /*
+    @Test
     public void updateUser() {;
         final Optional<User> persistedUser = Users.findById(1L);
 
@@ -105,5 +100,6 @@ public class UsersTest {
         Users.deleteUser(persistedUser.get().getId());
 
         //assertThat(Users.findById(2L).isEmpty(), is(true)); como verifico esto?
-    }*/
+    }
+    */
 }

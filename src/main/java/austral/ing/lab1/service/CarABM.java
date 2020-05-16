@@ -15,9 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Optional;
 
-@WebServlet("/newCar.do")
-public class NewCar extends HttpServlet {
+@WebServlet("/carABM.do")
+public class CarABM extends HttpServlet {
 
+    //    modify car
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String name = req.getUserPrincipal().getName();
@@ -30,6 +31,21 @@ public class NewCar extends HttpServlet {
                 Car car = new Car(carModel.get(), req.getParameter("car_color"), req.getParameter("car_patent"));
                 Cars.persist(car);
                 user.setCar(car);
+                Users.persist(user);
+            }
+        }
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
+    }
+
+    //    delete car
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        String name = req.getUserPrincipal().getName();
+        Optional<User> optionalUser = Users.findByEmail(name);
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            if (user.getCar() != null) {
+                user.deleteCar();
                 Users.persist(user);
             }
         }

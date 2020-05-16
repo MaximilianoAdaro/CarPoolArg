@@ -1,29 +1,47 @@
-h2 {
-    color: red;
-    text-align: center;
+.blueTag {
+    font-size: 42px;
+    color: #016587;
+    font-weight: 300;
 }
 
-h4 {
-    color: orange;
-    text-shadow: unset;
-    text-align: center;
+.lightBlueTag{
+    font-size: 20px;
+    color: #009ce1;
+    font-weight: 300;
 }
 
-div.crop-img {
-    width: 200px;
-    height: 200px;
-    overflow: hidden;
-    margin: 10px;
-    position: relative;
+.imgDriver {
+    width: 100px;
+    height: 30px;
+    float: left;
 }
 
-div.crop-img img {
-    position:absolute;
-    left: -100%;
-    right: -100%;
-    top: -100%;
-    bottom: -100%;
-    margin: auto;
-    min-height: 100%;
-    min-width: 100%;
+.nameDriver {
+    font-size: 16px;
+    padding: 0;
+}
+
+.numberSeats {
+    font-size: 2.5em;
+    left: 4px;
+    color: #fe9900;
+    font-weight: 700;
+}
+
+.availableSeats {
+    line-height: 1.1em;
+    top: 13px;
+    text-transform: uppercase;
+}
+
+.viewButton {
+    color: #fe9900;
+    border-color: #fe9900;
+    height: 6%;
+    top: 13px;
+    padding: .1em;
+    border-width: 2px;
+    text-transform: uppercase;
+    font-size: 1.4em;
+    font-weight: 700;
 }
