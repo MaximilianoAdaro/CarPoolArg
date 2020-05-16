@@ -1,44 +1,38 @@
-<%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="austral.ing.lab1.model.Trip" %>
-<%@ page import="java.util.Optional" %>
-<%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
+<%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="java.util.Optional" %>
+<!DOCTYPE html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>CarPoolArg</title>
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
+    <title>Create car</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
+<style>
+    body{
+        background-color:#EEEEEE;
+    }
+</style>
 <body>
-<!-- jQuery (Bootstrap plugins depend on it) -->
-<script src="bootstrap/js/jquery-v3.5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-<script src="bootstrap/js/bootstrap.js"></script>
-<!---------------------------------------------->
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-    Long idTrip = Long.parseLong(request.getParameter("trip"));
-    Optional<Trip> trip = Trips.findById(idTrip);
-    trip.ifPresent(value -> request.setAttribute("trip", value));
 
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
     if (user.isPresent()) {
+        request.setAttribute("isAdmin", user.get().getAdministrator());
         request.setAttribute("userName", user.get().getFirstName() + " " + user.get().getLastName());
         request.setAttribute("avatarPath", user.get().getAvatarPath());
     }
 %>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">  <!-- NavBar -->
+
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -67,11 +61,16 @@
            href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
 
     </div>
-</nav> <!-- NavBar -->
+</nav>
 
-
-
-
+<form class="form-group container text-center" method="post" action="/newCarModel.do">
+    <h1 class="mt-5 pt-4"> Create a Car</h1>
+    <div class = "">
+        <label for="car"> Create your brand and model car: </label>
+        <input style="max-width: 300px" type="text" id="car" name="car_name">
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+</form>
 
 </body>
 </html>

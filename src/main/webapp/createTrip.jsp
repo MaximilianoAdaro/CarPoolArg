@@ -28,8 +28,14 @@
 <!---------------------------------------------->
 
 <%
+    response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
-    user.ifPresent(value -> request.getSession().setAttribute("isAdmin", value.getAdministrator()));
+    if (user.isPresent()) {
+        request.setAttribute("isAdmin", user.get().getAdministrator());
+        request.setAttribute("userName", user.get().getFirstName() + " " + user.get().getLastName());
+        request.setAttribute("avatarPath", user.get().getAvatarPath());
+    }
 
     LocalDate localDate = LocalDate.now();
     request.setAttribute("localDate", localDate.toString());
@@ -47,14 +53,15 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <c:if test="${isAdmin}">
-            <a class="nav-link btn btn-light mr-1" href="createCarBrand.html"> <i class="fa fa-car"></i> </a>
+            <a class="nav-link btn btn-light mr-1" href="createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Actions
+                ${userName}
+                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="#">My trips</a>
