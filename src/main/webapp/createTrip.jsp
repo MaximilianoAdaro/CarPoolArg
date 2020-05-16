@@ -10,14 +10,22 @@
     <meta charset="UTF-8">
     <title>Create a Trip</title>
 
-    <!-- bootstrap -->
-    <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/bootstrap/css/bootstrap.css">
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body style="background-image: url(https://gottakeepmovin.com/wp-content/uploads/2015/04/2015-04-28-09.03.59-3.jpg)">
+<!-- jQuery (Bootstrap plugins depend on it) -->
+<script src="${pageContext.request.contextPath}/bootstrap/js/jquery-v3.5.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
+        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
+        crossorigin="anonymous"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
+<!---------------------------------------------->
 
 <%
     Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
@@ -28,9 +36,9 @@
     System.out.println();
 %>
 
-<nav class="navbar navbar-expand-lg navbar-light bg-light">  <!-- NavBar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">  <!-- NavBar -->
 
-    <a class="navbar-brand" id="home" href="">CarPool</a>
+    <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -38,33 +46,26 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <ul class="navbar-nav mr-auto container-fluid">
-
-            <li>
-                <a class="nav-item btn btn-light ml-auto" href="${pageContext.request.contextPath}/secure/home.do">
-                    <i class="fa fa-home"></i></a>
-
-                <a class="nav-item btn btn-light" href="${pageContext.request.contextPath}/secure/profile.do"><i
-                        class="fa fa-user" aria-hidden="true"></i></a>
-
-            </li>
-
-            <div class="nat-item col-8">
-                <form class="form-inline my-2 my-lg-0">
-                    <input class="form-control mr-sm-1 col-5" type="search" placeholder="Search for Destination"
-                           aria-label="Search">
-
-                    <button class="btn btn-outline-success my-2 my-sm-0 col-1 ml-2" type="submit"><i
-                            class="fa fa-search"></i></button>
-                </form>
-            </div>
-        </ul>
-
         <c:if test="${isAdmin}">
             <a class="nav-link btn btn-light mr-1" href="createCarBrand.html"> <i class="fa fa-car"></i> </a>
         </c:if>
-        <a class="nav-link btn btn-danger col-1" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
 
+        <div class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
+               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Actions
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">My trips</a>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
+            </div>
+        </div>
+
+        <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
+           href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
 
     </div>
 

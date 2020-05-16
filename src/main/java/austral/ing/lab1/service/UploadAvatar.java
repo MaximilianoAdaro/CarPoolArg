@@ -32,7 +32,7 @@ public class UploadAvatar extends HttpServlet {
             ServletFileUpload sf = new ServletFileUpload(new DiskFileItemFactory());
             String oldPhoto;
             String path = "/project/images/";
-            String maxiPath = "C:\\Users\\maxia\\OneDrive\\Escritorio\\images\\";
+            String maxiPath = "C:\\Users\\maxia\\images\\";
             if ((oldPhoto = user.getAvatarPath()) != null && !oldPhoto.equals("/project/images/defaultAvatar.png")) {
                 String[] cutPath = oldPhoto.split("/");
                 System.out.println(cutPath[cutPath.length - 1]);
@@ -54,6 +54,8 @@ public class UploadAvatar extends HttpServlet {
                 e.printStackTrace();
             }
         }
+
+        resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
 

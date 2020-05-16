@@ -28,7 +28,8 @@ public class Trips {
                         "FROM Trip t " +
                         "WHERE t.fromTrip LIKE :param " +
                         "and t.toTrip LIKE :param2 " +
-                        "and t.date >= :localDate")
+                        "and t.date >= :localDate " +
+                        "and t.availableSeats > 0")
                 .setParameter("localDate", date.toString())
                 .setParameter("param", "%" + fromTrip + "%")
                 .setParameter("param2", "%" + toTrip + "%")
@@ -55,7 +56,8 @@ public class Trips {
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
                         .createQuery("SELECT t FROM Trip t " +
-                                "where t.date >= :localDate")
+                                "where t.date >= :localDate " +
+                                "and t.availableSeats > 0")
                         .setParameter("localDate", date.toString())
                         .getResultList())
         );
