@@ -30,9 +30,10 @@ public class NewPassenger extends HttpServlet {
                 trip.addPassenger(user);
                 Trips.persist(trip);
             }
+
+            List<Trip> trips = Trips.listCurrentTrips(user.getUserId());
+            req.getSession().setAttribute("trip", trips);
         }
-        List<Trip> trips = Trips.listCurrentTrips();
-        req.getSession().setAttribute("trip", trips);
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
     }

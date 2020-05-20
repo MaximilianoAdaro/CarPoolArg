@@ -35,13 +35,14 @@
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
-    Optional<User> user = Users.findByEmail(request.getUserPrincipal().getName());
-    if (user.isPresent()) {
-        request.setAttribute("isAdmin", user.get().getAdministrator());
-        request.setAttribute("userName", user.get().getFirstName() + " " + user.get().getLastName());
-        request.setAttribute("avatarPath", user.get().getAvatarPath());
+    Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
+    if (optionalUser.isPresent()) {
+        User user = optionalUser.get();
+        request.setAttribute("isAdmin", user.getAdministrator());
+        request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
+        request.setAttribute("avatarPath", user.getAvatarPath());
+        request.setAttribute("hasCar", user.getCar() != null);
     }
-
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -62,16 +63,51 @@
                 ${userName}
                 <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">My trips</a>
+            <div class="dropdown-menu mt-2 ml-5" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/myTrips.do">My trips</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
             </div>
         </div>
 
-        <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
-           href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
+        <c:if test="${hasCar}">
+            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
+               href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
+        </c:if>
+        <c:if test="${!hasCar}">
+            <!-- Button to Open the Modal -->
+            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto" data-toggle="modal"
+               data-target="#myModal" href="">
+                Create Trip
+            </a>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">You cannot create a trip</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            You do not have the requirements, you must have a car added in your profile
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <a class="nav-link btn btn-primary ml-2 col-auto"
+                               href="${pageContext.request.contextPath}/secure/profile.do">Go to profile</a>
+                            <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </c:if>
 
     </div>
 </nav> <!-- NavBar -->
@@ -81,8 +117,8 @@
 <div class="container">
     <div class="mt-5">
         <h1 class="text-center blueTag">Find who to share your next trip with!</h1>
-        <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3><br>
-        <form class="form-inline justify-content-center" action="${pageContext.request.contextPath}/filterHome.do"
+        <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3>
+        <form class="form-inline justify-content-center mt-4" action="${pageContext.request.contextPath}/filterHome.do"
               method="get">
             <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Origin"
                    id="fromTrip"
