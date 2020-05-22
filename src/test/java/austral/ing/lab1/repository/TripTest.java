@@ -50,14 +50,14 @@ public class TripTest {
     }
      */
 
-    @Test
-    public void testAllTrips(){
-        List<Trip> trips = Trips.listCurrentTrips();
-        System.out.println(trips.size());
-        for (Trip trip : trips) {
-            System.out.println(trip.getDate().toString());
-            System.out.println(trip.toString());
-        }
-    }
+//    @Test
+//    public void testAllTrips(){
+//        List<Trip> trips = Trips.listCurrentTrips();
+//        System.out.println(trips.size());
+//        for (Trip trip : trips) {
+//            System.out.println(trip.getDate().toString());
+//            System.out.println(trip.toString());
+//        }
+//    }
 
 }

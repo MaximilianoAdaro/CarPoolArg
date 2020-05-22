@@ -14,7 +14,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>CarPoolArg</title>
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -42,6 +41,7 @@
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("emailUser", user.getEmail());
+        request.setAttribute("hasCar", user.getCar() != null);
         if (user.getCar() != null)
             request.setAttribute("carUser", user.getCar().getCarModel().getName());
         request.setAttribute("avatarPath", user.getAvatarPath());
@@ -75,15 +75,48 @@
                 ${userName}
                 <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
             </a>
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="#">My trips</a>
+            <div class="dropdown-menu mt-2 ml-5" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="${pageContext.request.contextPath}/myTrips.do">My trips</a>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
             </div>
         </div>
-        <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
-           href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
+        <c:if test="${hasCar}">
+            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
+               href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
+        </c:if>
+        <c:if test="${!hasCar}">
+            <!-- Button to Open the Modal -->
+            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto" data-toggle="modal"
+               data-target="#myModal" href="">
+                Create Trip
+            </a>
+            <!-- The Modal -->
+            <div class="modal fade" id="myModal">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <h4 class="modal-title">You cannot create a trip</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            You do not have the requirements, you must have a car added in your profile
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </c:if>
     </div>
 </nav>
 

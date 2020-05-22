@@ -1,9 +1,8 @@
-<%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="austral.ing.lab1.model.Trip" %>
-<%@ page import="java.util.Optional" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.Optional" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -15,7 +14,6 @@
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -28,17 +26,17 @@
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-    Long idTrip = Long.parseLong(request.getParameter("trip"));
-    Optional<Trip> optionalTrip = Trips.findById(idTrip);
-    if (optionalTrip.isPresent()) {
-        Trip trip = optionalTrip.get();
-        request.setAttribute("trip", trip);
-        User driver = trip.getDriver();
-        request.setAttribute("driver", driver);
-        request.setAttribute("driverCar", driver.getCar());
-        request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
+//    Long idTrip = Long.parseLong(request.getParameter("trip"));
+//    Optional<Trip> optionalTrip = Trips.findById(idTrip);
+//
+//    if (optionalTrip.isPresent()) {
+//        Trip trip = optionalTrip.get();
+//        request.setAttribute("trip", trip);
+//        User driver = trip.getDriver();
+//        request.setAttribute("driver", driver);
+//        request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
+//    }
 
-    }
 
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
@@ -115,30 +113,79 @@
     </div>
 </nav> <!-- NavBar -->
 
-<div class="container mt-5">
-    <div class="row">
-        <div class="col-4" style="background-color: #93b1d0">
-            <img src="${driver.avatarPath}" alt="Avatar of the driver" height="100" width="100">
-            ${driverName}
-            <div class="col-12"  style="font-size: 1.3em; font-weight: bold;">Car details</div>
-            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-            <div class="col-12"> Color: ${driverCar.color} </div>
-            <div class="col-12"> Patent: ${driverCar.patent} </div>
-            <div></div>
-            <div class="col-12" style="max-lines: 7">
-                <i class="fa fa-quote-left"></i>
-                <span>${trip.comment}</span>
-                <i class="fa fa-quote-right"></i>
+<div class="container">
+    <div class="row justify-content-center">
+        <h1 class="col-12">My trips as driver</h1>
+        <c:forEach var="trip" items="${tripsAsDriver}">
+            <div class="col-auto mb-3">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
+                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                        </div>
+                        <div>
+                            <p class="card-text">Day: ${trip.date.toString()}</p>
+                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                    <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                </div>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                               class="viewButton col-4 btn btn-default" role="button"> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-8" style="background-color: #89e3a0">
-            Details of the trip
-        </div>
-        <div class="col-12" style="background-color: #d78f8f">
-            This is the map on Google
-        </div>
+        </c:forEach>
     </div>
 
+    <div class="row justify-content-center">
+        <h1 class="col-12">My trips as passenger</h1>
+        <c:forEach var="trip" items="${tripsAsPassenger}">
+            <div class="col-auto mb-3">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="row p-2 mb-5">
+                        <div class="col-5 align-content-center imgDriver">
+                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
+                                 alt="Your Avatar" width="90"
+                                 height="90"></div>
+                        <div class="col-7 align-content-center nameDriver mt-4">
+                                ${trip.driver.firstName} ${trip.driver.lastName}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
+                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                        </div>
+                        <div>
+                            <p class="card-text">Day: ${trip.date.toString()}</p>
+                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                    <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                </div>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                               class="viewButton col-4 btn btn-default" role="button"> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
 </body>
