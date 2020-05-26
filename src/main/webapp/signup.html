@@ -1,20 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	
-	<title>Sign up</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<title>CarPoolArg</title>
 	<meta charset="UTF-8">
 	
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="/bootstrap/css/bootstrap.css">
+	
 	<style>
 		body{
 			background-color:#EEEEEE    ;
 		}
 	</style>
-
-	<title>Sign In to CarPoolArg</title>
-<body>
+</head>
+<body class="text-center">
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="/bootstrap/js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -22,34 +23,30 @@
 		crossorigin="anonymous"></script>
 <script src="/bootstrap/js/bootstrap.js"></script>
 
-<form method="post" action="/signup.do">
-	
-	<div class="form-group">
-		<label for="name">Name:</label>
-		<input style="max-width: 300px" type="text" class="form-control" id="name" name="firstname"/>
-	</div>
-	
-	<div class="form-group">
-		<label for="last">Lastname:</label>
-		<input style="max-width: 300px" type="text" class="form-control" id="last" name="lastname"/>
-	</div>
-	
-	<div class="form-group">
-		<label for="email">Email:</label>
-		<input style="max-width: 300px" type="text" class="form-control" id="email" name="email"/>
-	</div>
-	
-	<div class="form-group">
-		<label for="password">Password: </label>
-		<input style="max-width: 300px" type="password" class="form-control" id="password" name="password"/>
-	</div>
-	
-	<div class="form-group">
+<h1 class="text-center mt-5 pt-5">Sign up</h1>
+
+<div class="container py-5" style="max-width: 500px">
+	<form method="post" action="/signup.do">
+		<div class="form-group">
+			<label for="exampleInputFirstName1">First Name</label>
+			<input type="text" class="form-control" name="firstname" id="exampleInputFirstName1"
+				   placeholder="Nombre"/>
+		
+			<label for="exampleInputLastName1">Last Name</label>
+			<input type="text" class="form-control" name="lastname" id="exampleInputLastName1"
+				   placeholder="Apellido"/>
+		
+			<label for="exampleInputEmail1">Email address</label>
+			<input type="email" class="form-control" name="email" id="exampleInputEmail1"
+				   aria-describedby="emailHelp" placeholder="Enter email">
+		
+			<label for="exampleInputPassword1">Password</label>
+			<input type="password" class="form-control" name="password" id="exampleInputPassword1"
+				   placeholder="Password">
+		</div>
 		<button type="submit" class="btn btn-primary">Submit</button>
-	</div>
-
-</form>
-
+	</form>
+</div>
 </body>
 
 </html>

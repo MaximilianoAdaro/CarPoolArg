@@ -20,7 +20,7 @@ public class CarModel{
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
-    private long id;
+    private long carModelId;
 
     @Column(name = "CAR_MODEL")
     private String name;
@@ -28,12 +28,12 @@ public class CarModel{
     @OneToMany(mappedBy = "carModel", cascade = CascadeType.ALL)
     private List<Car> cars = new ArrayList<>();
 
-    public long getId() {
-        return id;
+    public long getCarModelId() {
+        return carModelId;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setCarModelId(long id) {
+        this.carModelId = id;
     }
 
     public String getName() {
@@ -54,5 +54,14 @@ public class CarModel{
 
     public void addCar(Car car){
         cars.add(car);
+    }
+
+    @Override
+    public String toString() {
+        return "CarModel{" +
+                "carModelId=" + carModelId +
+                ", name='" + name + '\'' +
+                ", cars=" + cars +
+                '}';
     }
 }

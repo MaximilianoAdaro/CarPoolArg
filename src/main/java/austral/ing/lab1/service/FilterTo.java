@@ -14,15 +14,20 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/secure/home.do")
-public class Login extends HttpServlet {
+@WebServlet("/filterHome.do")
+public class FilterTo extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+        String fromTrip = req.getParameter("fromTrip").toLowerCase();
+        String toTrip = req.getParameter("toTrip").toLowerCase();
+//        String dateTrip = req.getParameter("dateTrip").toLowerCase();
+
+
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
-        if (optionalUser.isPresent()){
-            List<Trip> trips = Trips.listCurrentTrips(optionalUser.get().getUserId());
+        if (optionalUser.isPresent()) {
+            List<Trip> trips = Trips.searchList(fromTrip, toTrip, optionalUser.get().getUserId());
             req.getSession().setAttribute("trip", trips);
         }
 

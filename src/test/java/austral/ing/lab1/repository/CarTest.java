@@ -57,17 +57,17 @@ public class CarTest {
 
         tx.commit();
 
-        /*assertThat(user.getId(), greaterThan(0L));
-        final Optional<User> persistedUser = Users.findById(user.getId());
+        /*
+        assertThat(user.getUserId(), greaterThan(0L));
+        final Optional<User> persistedUser = Users.findById(user.getUserId());
         assertThat(persistedUser.isPresent(), is(true));
         System.out.println("------------User-----------");
         System.out.println(Users.findByEmail(persistedUser.get().getEmail()));
         System.out.println("------------Car-----------");
-        System.out.println(Cars.findById(persistedUser.get().getCar().getId()));
+        System.out.println(Cars.findById(persistedUser.get().getCar().getCarId()));
         System.out.println("------------CarModel-----------");
-        System.out.println(CarModels.findByName(persistedUser.get().getCar().getCarModel().getName()));*/
-
-
+        System.out.println(CarModels.findByName(persistedUser.get().getCar().getCarModel().getName()));
+        */
     }
 
 }

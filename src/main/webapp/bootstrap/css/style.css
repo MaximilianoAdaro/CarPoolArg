@@ -1,6 +1,31 @@
-h2 {
-    color: red;
-    text-align: center;
+.blueTag {
+    font-size: 42px;
+    color: #016587;
+    font-weight: 300;
+}
+
+.lightBlueTag{
+    font-size: 20px;
+    color: #009ce1;
+    font-weight: 300;
+}
+
+.imgDriver {
+    width: 100px;
+    height: 30px;
+    float: left;
+}
+
+.nameDriver {
+    font-size: 16px;
+    padding: 0;
+}
+
+.numberSeats {
+    font-size: 2.5em;
+    left: 4px;
+    color: #fe9900;
+    font-weight: 700;
 }
 
 h4 {
