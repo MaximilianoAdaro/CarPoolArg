@@ -27,6 +27,7 @@
         body {
             background-color: #EEEEEE;
         }
+
     </style>
 </head>
 <body>

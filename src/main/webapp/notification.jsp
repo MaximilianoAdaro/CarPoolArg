@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
 
-    <title>CarPoolArg</title>
+    <title>Notificaciones</title>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -22,13 +22,21 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 </head>
+
 <style>
     body {
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
+
+    .notif{
+        background-color: white;
+    }
+
 </style>
+
 <body>
+
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="../bootstrap/js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -118,70 +126,10 @@
     </div>
 </nav> <!-- NavBar -->
 
-<%--Search of a trip--%>
-
-<div class="container">
-    <div class="mt-5">
-        <h1 class="text-center blueTag">Find who to share your next trip with!</h1>
-        <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3>
-        <form class="form-inline justify-content-center mt-4" action="${pageContext.request.contextPath}/filterHome.do"
-              method="get">
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Origin"
-                   id="fromTrip"
-                   name="fromTrip" aria-label="Search">
-
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Destination"
-                   id="toTrip"
-                   name="toTrip" aria-label="Search">
-
-            <button class="btn btn-primary shadow bg-primary rounded" type="submit">SEARCH</button>
-        </form>
-    </div>
+<div class = "notif container mt-5 border border-secondary rounded">
+    <div>name lastname has requested to join to one of your trips. </div>
 </div>
 
-<!-- searching for a trip -->
-
-<div class="container-fluid mt-4">
-    <div class="row justify-content-center">
-        <c:forEach var="trip" items="${trip}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="row p-2 mb-5">
-                        <div class="col-5 align-content-center imgDriver">
-                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
-                                 alt="Your Avatar" width="90"
-                                 height="90"></div>
-                        <div class="col-7 align-content-center nameDriver mt-4">
-                                ${trip.driver.firstName} ${trip.driver.lastName}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
-                            </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
-    </div>
-</div>
 
 </body>
 </html>
