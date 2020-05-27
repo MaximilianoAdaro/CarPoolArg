@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -20,6 +21,8 @@ import static austral.ing.lab1.util.Transactions.tx;
 
 public class Trips {
 
+    static LocalDate date = LocalDate.now();
+
     public static Optional<Trip> findById(Long id) {
         return tx(() ->
                 Optional.of(currentEntityManager().find(Trip.class, id))
@@ -27,7 +30,6 @@ public class Trips {
     }
 
     public static List<Trip> searchList(String fromTrip, String toTrip, Long driverID) {
-        LocalDate date = LocalDate.now();
         List<Trip> trips = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT t " +
                         "FROM Trip t " +
@@ -42,11 +44,9 @@ public class Trips {
                 .setParameter("driverID", driverID)
                 .getResultList()
         ));
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        removeSameDayButBeforeHour(trips);
+
         return trips;
     }
 
@@ -58,33 +58,7 @@ public class Trips {
 //        );
 //    }
 
-    public static List<Trip> listPassengerTrips(Long driverID) {
-        List<Trip> tripsID = new ArrayList<>();
-
-        try {
-            // create our mysql database connection
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/lab1";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(
-                    "SELECT j.tripId FROM join_trip_passengers_table j where userId = " + driverID + "");
-
-            while (rs.next()) {
-                int id = rs.getInt("tripID");
-                Optional<Trip> optionalTrip = Trips.findById((long) id);
-                optionalTrip.ifPresent(tripsID::add);
-            }
-            st.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        return tripsID;
-    }
-
     public static List<Trip> listDriverTrips(Long driverID) {
-        LocalDate date = LocalDate.now();
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
                         .createQuery("SELECT t FROM Trip t " +
@@ -94,11 +68,36 @@ public class Trips {
                         .setParameter("driverID", driverID)
                         .getResultList())
         );
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        removeSameDayButBeforeHour(trips);
+
+        return trips;
+    }
+
+    public static List<Trip> listPassengerTrips(Long driverID) {
+        List<Trip> trips = new ArrayList<>();
+        try {
+            // create our mysql database connection
+            String myDriver = "com.mysql.jdbc.Driver";
+            String myUrl = "jdbc:mysql://localhost:3306/lab1";
+            Class.forName(myDriver);
+            Connection conn = DriverManager.getConnection(myUrl, "root", "");
+            Statement st = conn.createStatement();
+            ResultSet rs = st.executeQuery(
+                    "SELECT j.TRIP_ID FROM trip_passenger_table j where PASSENGER_ID = " + driverID);
+            while (rs.next()) {
+                int id = rs.getInt("TRIP_ID");
+                Optional<Trip> optionalTrip = Trips.findById((long) id);
+                optionalTrip.ifPresent(trips::add);
+            }
+            st.close();
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        sortTrip(trips);
+        removeSameDayButBeforeHour(trips);
+
         return trips;
     }
 
@@ -114,11 +113,9 @@ public class Trips {
                         .setParameter("driverID", driverID)
                         .getResultList())
         );
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        removeSameDayButBeforeHour(trips);
+
         return trips;
     }
 
@@ -138,6 +135,39 @@ public class Trips {
         } catch (Exception e) {
             tx.rollback();
             throw e;
+        }
+    }
+
+    private static void sortTrip(List<Trip> trips) {
+        trips.sort((o1, o2) -> {
+            if (o1.getDate().equals(o2.getDate()))
+                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
+            return o1.getDate().compareTo(o2.getDate());
+        });
+    }
+
+    private static void removeSameDayButBeforeHour(List<Trip> trips) {
+        int i = 0;
+        if (trips.isEmpty()) return;
+        if (trips.get(i).getDate().equals(date.toString())) {
+
+            LocalDateTime localDateTime = LocalDateTime.now();
+            int realHour = localDateTime.getHour();
+            int realMinute = localDateTime.getMinute();
+
+            int tripHour = trips.get(i).getTime().getHours();
+            int tripMinute = trips.get(i).getTime().getMinutes();
+
+            if (tripHour < realHour) {
+                trips.remove(i);
+            } else {
+                if (tripHour == realHour) {
+                    if (tripMinute < realMinute) {
+                        trips.remove(i);
+                    }
+                }
+            }
+            removeSameDayButBeforeHour(trips);
         }
     }
 

@@ -18,20 +18,24 @@ import java.util.Optional;
 public class NewPassenger extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+            User passenger = optionalUser.get();
 
             Optional<Trip> optionalTrip = Trips.findById(Long.parseLong(req.getParameter("tripId")));
             if (optionalTrip.isPresent()) {
                 Trip trip = optionalTrip.get();
-                trip.addPassenger(user);
+                if (trip.getDriver().equals(passenger)) {
+                    req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
+                    return;
+                }
+                trip.addPassenger(passenger);
                 Trips.persist(trip);
             }
 
-            List<Trip> trips = Trips.listCurrentTrips(user.getUserId());
+            List<Trip> trips = Trips.listCurrentTrips(passenger.getUserId());
             req.getSession().setAttribute("trip", trips);
         }
 

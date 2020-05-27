@@ -1,6 +1,5 @@
 package austral.ing.lab1.model;
 
-import austral.ing.lab1.entity.Cars;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -42,13 +41,10 @@ public class User {
     private Boolean isAdministrator;
 
     @OneToMany(mappedBy = "driver", cascade = CascadeType.ALL)
-    private List<Trip> driver = new ArrayList<Trip>();
+    private List<Trip> driver = new ArrayList<>();
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "join_trip_passengers_table",
-            joinColumns = {@JoinColumn(name = "userId")},
-            inverseJoinColumns = {@JoinColumn(name = "tripId")})
-    private List<Trip> passenger = new ArrayList<Trip>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TripPassenger> passenger = new ArrayList<>();
 
     public User() {
     }
@@ -147,7 +143,7 @@ public class User {
         driver.add(trip);
     }
 
-    public void addTripAsPassenger(Trip trip) {
+    public void addTripAsPassenger(TripPassenger trip) {
         passenger.add(trip);
     }
 
@@ -155,11 +151,11 @@ public class User {
         car = null;
     }
 
-    public List<Trip> getPassenger() {
+    public List<TripPassenger> getPassenger() {
         return passenger;
     }
 
-    public void setPassenger(List<Trip> trips) {
+    public void setPassenger(List<TripPassenger> trips) {
         this.passenger = trips;
     }
 
