@@ -147,7 +147,7 @@
     </div>
 
     <div class="row justify-content-center">
-        <h1 class="col-12">My trips as passenger</h1>
+        <h1 class="col-12">My next trips as passenger</h1>
         <c:forEach var="trip" items="${tripsAsPassenger}">
             <div class="col-auto mb-3">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">

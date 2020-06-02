@@ -28,14 +28,14 @@ public class TripTest {
         emf.close();
     }
 
-
-    @Test
+    /*@Test
     public void testTrip() {
-        if (Users.findByEmail("driverEmail@gmail.com").isPresent()) return;
+        if (Users.findByEmail("driverEmail@austral").isPresent()) return;
+        if (Users.findByEmail("passengerEmail@austral").isPresent()) return;
         User driver = new User("driverFirstName", "driverLastName",
-                "driverEmail@gmail.com", "", true);
+                "driverEmail@austral", "", true);
         User passenger = new User("passengerFirstName", "passengerLastName",
-                "passengerEmail@gmail.com", "", true);
+                "passengerEmail@austral", "", true);
         String date = "2020-07-18";
         Time time = new Time(20, 0, 0);
         String comment = "this is a new trip";
@@ -49,7 +49,7 @@ public class TripTest {
 
         trip.addPassenger(passenger);
         Trips.persist(trip);
-    }
+    }*/
 
 
 //    @Test

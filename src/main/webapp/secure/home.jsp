@@ -157,8 +157,8 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">From: <i class="fa fa-map-marker-alt"></i > ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">To: <i class="fas fa-map-marker-alt"></i> ${trip.toTrip}</h5>
                         </div>
                         <div>
                             <p class="card-text">Day: ${trip.date.toString()}</p>
