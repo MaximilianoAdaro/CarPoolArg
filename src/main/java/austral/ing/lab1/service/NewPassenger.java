@@ -1,8 +1,10 @@
 package austral.ing.lab1.service;
 
+import austral.ing.lab1.entity.TripPassengers;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.model.TripPassenger;
 import austral.ing.lab1.model.User;
 
 import javax.servlet.ServletException;
@@ -18,21 +20,41 @@ import java.util.Optional;
 public class NewPassenger extends HttpServlet {
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
+            User passenger = optionalUser.get();
 
             Optional<Trip> optionalTrip = Trips.findById(Long.parseLong(req.getParameter("tripId")));
             if (optionalTrip.isPresent()) {
                 Trip trip = optionalTrip.get();
-                trip.addPassenger(user);
+                if (trip.getDriver().equals(passenger)) {
+                    req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
+                    return;
+                }
+
+                trip.addPassenger(passenger);
                 Trips.persist(trip);
             }
 
-            List<Trip> trips = Trips.listCurrentTrips(user.getUserId());
+            List<Trip> trips = Trips.listCurrentTrips(passenger.getUserId());
             req.getSession().setAttribute("trip", trips);
+        }
+
+        req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
+    }
+
+    //todo: not used yet
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
+        Long tripId = Long.parseLong(req.getParameter("tripId"));
+
+        if (optionalUser.isPresent()) {
+            Long userId = optionalUser.get().getUserId();
+            TripPassengers.acceptPassenger(userId, tripId);
         }
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);

@@ -1,8 +1,11 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="austral.ing.lab1.entity.Trips" %>
 <%@ page import="austral.ing.lab1.model.Trip" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
+<%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
+<%@ page import="java.util.List" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -30,23 +33,42 @@
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
     Long idTrip = Long.parseLong(request.getParameter("trip"));
     Optional<Trip> optionalTrip = Trips.findById(idTrip);
+
+    long userID = -1;
+    long driverID = -2;
+    boolean isNotOwner;
+    boolean isNotPassengerYet = true;
+    boolean availableSeats = false;
     if (optionalTrip.isPresent()) {
         Trip trip = optionalTrip.get();
+        availableSeats = trip.getAvailableSeats() > 0;
         request.setAttribute("trip", trip);
+        request.getSession().setAttribute("tripId", trip.getTripId());
         User driver = trip.getDriver();
+        driverID = driver.getUserId();
         request.setAttribute("driver", driver);
+        request.setAttribute("driverID", driver.getUserId());
         request.setAttribute("driverCar", driver.getCar());
         request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
 
+        Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
+        if (optionalUser.isPresent()) {
+            User user = optionalUser.get();
+            userID = user.getUserId();
+            request.setAttribute("userID", user.getUserId());
+            request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
+            request.setAttribute("avatarPath", user.getAvatarPath());
+            request.setAttribute("hasCar", user.getCar() != null);
+
+            List<Trip> trips = Trips.listPassengerTrips(userID, true);
+            if (trips.contains(trip))
+                isNotPassengerYet = false;
+        }
     }
 
-    Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
-    if (optionalUser.isPresent()) {
-        User user = optionalUser.get();
-        request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
-        request.setAttribute("avatarPath", user.getAvatarPath());
-        request.setAttribute("hasCar", user.getCar() != null);
-    }
+    isNotOwner = (userID != driverID);
+    boolean toReturn =  isNotPassengerYet && isNotOwner && availableSeats;
+    request.setAttribute("appearJoinTrip", toReturn);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -118,9 +140,9 @@
 <div class="container mt-5">
     <div class="row">
         <div class="col-4" style="background-color: #93b1d0">
-            <img src="${driver.avatarPath}" alt="Avatar of the driver" height="100" width="100">
+            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
-            <div class="col-12"  style="font-size: 1.3em; font-weight: bold;">Car details</div>
+            <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
             <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
             <div class="col-12"> Color: ${driverCar.color} </div>
             <div class="col-12"> Patent: ${driverCar.patent} </div>
@@ -133,6 +155,12 @@
         </div>
         <div class="col-8" style="background-color: #89e3a0">
             Details of the trip
+            <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
+            <c:if test="${appearJoinTrip}">
+                <a class="nav-link btn btn-primary ml-2 col-auto"
+                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
+            </c:if>
+
         </div>
         <div class="col-12" style="background-color: #d78f8f">
             This is the map on Google

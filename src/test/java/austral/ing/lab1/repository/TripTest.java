@@ -1,7 +1,9 @@
 package austral.ing.lab1.repository;
 
 import austral.ing.lab1.entity.Trips;
+import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.EntityManagers;
 import org.junit.After;
 import org.junit.Before;
@@ -9,6 +11,7 @@ import org.junit.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.sql.Time;
 import java.util.List;
 
 public class TripTest {
@@ -26,15 +29,15 @@ public class TripTest {
         emf.close();
     }
 
-    /*
-    @Test
+    /*@Test
     public void testTrip() {
-        if (Users.findByEmail("driverEmail@gmail.com").isPresent()) return;
+        if (Users.findByEmail("driverEmail@austral").isPresent()) return;
+        if (Users.findByEmail("passengerEmail@austral").isPresent()) return;
         User driver = new User("driverFirstName", "driverLastName",
-                "driverEmail@gmail.com", "", true);
+                "driverEmail@austral", "", true);
         User passenger = new User("passengerFirstName", "passengerLastName",
-                "passengerEmail@gmail.com", "", true);
-        Date date = new Date(2020, 5, 6);
+                "passengerEmail@austral", "", true);
+        String date = "2020-07-18";
         Time time = new Time(20, 0, 0);
         String comment = "this is a new trip";
         int seats = 3;
@@ -47,17 +50,17 @@ public class TripTest {
 
         trip.addPassenger(passenger);
         Trips.persist(trip);
-    }
-     */
+    }*/
 
-//    @Test
-//    public void testAllTrips(){
-//        List<Trip> trips = Trips.listCurrentTrips();
-//        System.out.println(trips.size());
-//        for (Trip trip : trips) {
-//            System.out.println(trip.getDate().toString());
-//            System.out.println(trip.toString());
-//        }
-//    }
+
+    @Test
+    public void testAllTrips(){
+        List<Trip> trips = Trips.listCurrentTrips(4L);
+        System.out.println(trips.size());
+        for (Trip trip : trips) {
+            System.out.println(trip.getDate());
+            System.out.println(trip.toString());
+        }
+    }
 
 }

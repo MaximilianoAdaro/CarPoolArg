@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -33,34 +34,42 @@ public class Trips {
                         "FROM Trip t " +
                         "WHERE t.fromTrip LIKE :param " +
                         "and t.toTrip LIKE :param2 " +
-                        "and t.date >= :localDate " +
                         "and t.availableSeats > 0 " +
                         "and t.driver.userId <> :driverID")
-                .setParameter("localDate", date.toString())
                 .setParameter("param", "%" + fromTrip + "%")
                 .setParameter("param2", "%" + toTrip + "%")
                 .setParameter("driverID", driverID)
                 .getResultList()
         ));
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        removeBeforeTrips(trips);
+        removeSameDayButBeforeHour(trips);
+
         return trips;
     }
 
-//    public static Optional<Trip> findByEmail(String email) {
-//        return tx(() -> LangUtils.<Trip>checkedList(currentEntityManager()
-//                .createQuery("SELECT t FROM Trip t WHERE t.fromTrip LIKE :email")
-//                .setParameter("email", email).getResultList()).stream()
-//                .findFirst()
-//        );
-//    }
+    public static List<Trip> listDriverTrips(Long driverID, boolean nextTrip) {
+        List<Trip> trips = tx(() ->
+                checkedList(currentEntityManager()
+                        .createQuery("SELECT t FROM Trip t " +
+                                " where t.driver.userId = :driverID")
+                        .setParameter("driverID", driverID)
+                        .getResultList())
+        );
+        sortTrip(trips);
+        if (nextTrip) {
+            removeBeforeTrips(trips);
+            removeSameDayButBeforeHour(trips);
+        } else {
+            removeAfterTrips(trips);
+            removeSameDayButAfterHour(trips);
+        }
 
-    public static List<Trip> listPassengerTrips(Long driverID) {
-        List<Trip> tripsID = new ArrayList<>();
+        return trips;
+    }
 
+    public static List<Trip> listPassengerTrips(Long driverID, boolean nextTrip) {
+        List<Trip> trips = new ArrayList<>();
         try {
             // create our mysql database connection
             String myDriver = "com.mysql.jdbc.Driver";
@@ -69,56 +78,44 @@ public class Trips {
             Connection conn = DriverManager.getConnection(myUrl, "root", "");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT j.tripId FROM join_trip_passengers_table j where userId = " + driverID + "");
-
+                    "SELECT j.TRIP_ID FROM trip_passenger_table j " +
+                            "where PASSENGER_ID = " + driverID +
+                            " and j.STATE = TRUE");
             while (rs.next()) {
-                int id = rs.getInt("tripID");
+                int id = rs.getInt("TRIP_ID");
                 Optional<Trip> optionalTrip = Trips.findById((long) id);
-                optionalTrip.ifPresent(tripsID::add);
+                optionalTrip.ifPresent(trips::add);
             }
             st.close();
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-        return tripsID;
-    }
 
-    public static List<Trip> listDriverTrips(Long driverID) {
-        LocalDate date = LocalDate.now();
-        List<Trip> trips = tx(() ->
-                checkedList(currentEntityManager()
-                        .createQuery("SELECT t FROM Trip t " +
-                                "where t.date >= :localDate " +
-                                "and t.driver.userId = :driverID")
-                        .setParameter("localDate", date.toString())
-                        .setParameter("driverID", driverID)
-                        .getResultList())
-        );
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        if (nextTrip) {
+            removeBeforeTrips(trips);
+            removeSameDayButBeforeHour(trips);
+        } else {
+            removeAfterTrips(trips);
+            removeSameDayButAfterHour(trips);
+        }
+
         return trips;
     }
 
     public static List<Trip> listCurrentTrips(Long driverID) {
-        LocalDate date = LocalDate.now();
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
                         .createQuery("SELECT t FROM Trip t " +
-                                "where t.date >= :localDate " +
-                                "and t.availableSeats > 0 " +
+                                "where t.availableSeats > 0 " +
                                 "and t.driver.userId <> :driverID")
-                        .setParameter("localDate", date.toString())
                         .setParameter("driverID", driverID)
                         .getResultList())
         );
-        trips.sort((o1, o2) -> {
-            if (o1.getDate().equals(o2.getDate()))
-                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
-            return o1.getDate().compareTo(o2.getDate());
-        });
+        sortTrip(trips);
+        removeBeforeTrips(trips);
+        removeSameDayButBeforeHour(trips);
+
         return trips;
     }
 
@@ -141,6 +138,90 @@ public class Trips {
         }
     }
 
+    private static void sortTrip(List<Trip> trips) {
+        if (trips.isEmpty()) return;
+        trips.sort((o1, o2) -> {
+            if (o1.getDate().equals(o2.getDate()))
+                return (o1.getTime().before(o2.getTime()) ? -1 : (o1.getTime().after(o2.getTime())) ? 1 : 0);
+            return o1.getDate().compareTo(o2.getDate());
+        });
+    }
+
+    private static void removeSameDayButBeforeHour(List<Trip> trips) {
+        LocalDate date = LocalDate.now();
+        if (trips.isEmpty()) return;
+        int i = 0;
+        if (trips.get(i).getDate().equals(date.toString())) {
+
+            LocalDateTime localDateTime = LocalDateTime.now();
+            int realHour = localDateTime.getHour();
+            int realMinute = localDateTime.getMinute();
+
+            int tripHour = trips.get(i).getTime().getHours();
+            int tripMinute = trips.get(i).getTime().getMinutes();
+
+            if (tripHour < realHour) {
+                trips.remove(i);
+                removeSameDayButBeforeHour(trips);
+            } else {
+                if (tripHour == realHour) {
+                    if (tripMinute < realMinute) {
+                        trips.remove(i);
+                        removeSameDayButBeforeHour(trips);
+                    }
+                }
+            }
+
+        }
+    }
+
+    private static void removeSameDayButAfterHour(List<Trip> trips) {
+        LocalDate date = LocalDate.now();
+        int i = trips.size() - 1;
+        if (trips.isEmpty()) return;
+        if (trips.get(i).getDate().equals(date.toString())) {
+
+            LocalDateTime localDateTime = LocalDateTime.now();
+            int realHour = localDateTime.getHour();
+            int realMinute = localDateTime.getMinute();
+
+            int tripHour = trips.get(i).getTime().getHours();
+            int tripMinute = trips.get(i).getTime().getMinutes();
+
+            if (tripHour > realHour) {
+                trips.remove(i);
+                removeSameDayButBeforeHour(trips);
+            } else {
+                if (tripHour == realHour) {
+                    if (tripMinute > realMinute) {
+                        trips.remove(i);
+                        removeSameDayButBeforeHour(trips);
+                    }
+                }
+            }
+        }
+    }
+
+    private static void removeAfterTrips(List<Trip> trips) {
+        LocalDate localDate = LocalDate.now();
+        while (trips.size() > 0) {
+            if (trips.get(trips.size() - 1).getDate().compareTo(localDate.toString()) > 0)
+                trips.remove(trips.size() - 1);
+            else
+                return;
+        }
+    }
+
+    private static void removeBeforeTrips(List<Trip> trips) {
+        LocalDate date = LocalDate.now();
+        while (trips.size() > 0) {
+            if (trips.get(0).getDate().compareTo(date.toString()) < 0)
+                trips.remove(0);
+            else
+                return;
+        }
+    }
+
     public static void deleteTrip(Long id) {
         EntityManager em = EntityManagers.currentEntityManager();
         EntityTransaction tx = em.getTransaction();
@@ -149,5 +230,4 @@ public class Trips {
         trip.ifPresent(em::remove);
         tx.commit();
     }
-
 }

@@ -3,7 +3,6 @@ package austral.ing.lab1.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,11 +35,8 @@ public class Trip {
     @JoinColumn(name = "DRIVER")
     private User driver;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "join_trip_passengers_table",
-            joinColumns = {@JoinColumn(name = "tripId")},
-            inverseJoinColumns = {@JoinColumn(name = "userId")})
-    private List<User> passengers = new ArrayList<User>();
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "trip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<TripPassenger> passengers = new ArrayList<>();
 
     @Column(name = "DATE")
     private String date;
@@ -87,11 +83,11 @@ public class Trip {
         this.driver = driver;
     }
 
-    public List<User> getPassengers() {
+    public List<TripPassenger> getPassengers() {
         return passengers;
     }
 
-    public void setPassengers(List<User> passengers) {
+    public void setPassengers(List<TripPassenger> passengers) {
         this.passengers = passengers;
     }
 
@@ -106,6 +102,26 @@ public class Trip {
     public Time getTime() {
         return time;
     }
+
+    public void addPassenger(User user) {
+        if (availableSeats > 0) {
+            availableSeats--;
+            TripPassenger personAddress = new TripPassenger(user, this);
+            passengers.add(personAddress);
+            user.addTripAsPassenger(personAddress);
+        }
+    }
+
+    public void removePassenger(User user) {
+        TripPassenger personAddress = new TripPassenger(user,this);
+        if(user.getPassenger().remove(personAddress))
+            availableSeats++;
+        passengers.remove(personAddress);
+        personAddress.setPassenger(null);
+        personAddress.setTrip(null);
+        personAddress.setState(false);
+    }
+
 
     public void setTime(Time time) {
         this.time = time;
@@ -125,18 +141,6 @@ public class Trip {
 
     public void setSeats(int seats) {
         this.seats = seats;
-    }
-
-    public void addPassenger(User user) {
-        passengers.add(user);
-        if (availableSeats > 0)
-            availableSeats--;
-    }
-
-    public boolean removePassenger(User user) {
-        if (passengers.remove(user))
-            availableSeats++;
-        return passengers.remove(user);
     }
 
     public String getFromTrip() {
@@ -159,8 +163,7 @@ public class Trip {
     public String toString() {
         return "Trip{" +
                 "tripId=" + tripId +
-                ", driver=" + driver +
-                ", passengers=" + passengers +
+                ", driver=" + driver.getUserId() +
                 ", date=" + date +
                 ", from='" + fromTrip + '\'' +
                 ", to='" + toTrip + '\'' +
