@@ -21,8 +21,11 @@ public class MyTrips extends HttpServlet {
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            req.setAttribute("tripsAsDriver", Trips.listDriverTrips(user.getUserId()));
-            req.setAttribute("tripsAsPassenger", Trips.listPassengerTrips(user.getUserId()));
+            req.setAttribute("tripsAsDriver", Trips.listDriverTrips(user.getUserId(), true));
+            req.setAttribute("tripsAsPassenger", Trips.listPassengerTrips(user.getUserId(), true));
+
+            req.setAttribute("tripsBeforeAsDriver", Trips.listDriverTrips(user.getUserId(), false));
+            req.setAttribute("tripsBeforeAsPassenger", Trips.listPassengerTrips(user.getUserId(), false));
         }
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

@@ -12,6 +12,7 @@ import org.junit.Test;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.sql.Time;
+import java.util.List;
 
 public class TripTest {
 
@@ -52,14 +53,14 @@ public class TripTest {
     }*/
 
 
-//    @Test
-//    public void testAllTrips(){
-//        List<Trip> trips = Trips.listCurrentTrips();
-//        System.out.println(trips.size());
-//        for (Trip trip : trips) {
-//            System.out.println(trip.getDate().toString());
-//            System.out.println(trip.toString());
-//        }
-//    }
+    @Test
+    public void testAllTrips(){
+        List<Trip> trips = Trips.listCurrentTrips(4L);
+        System.out.println(trips.size());
+        for (Trip trip : trips) {
+            System.out.println(trip.getDate());
+            System.out.println(trip.toString());
+        }
+    }
 
 }

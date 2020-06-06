@@ -186,6 +186,79 @@
             </div>
         </c:forEach>
     </div>
+
+    <div class="row justify-content-center">
+        <h1 class="col-12">Last trips as driver</h1>
+        <c:forEach var="trip" items="${tripsBeforeAsDriver}">
+            <div class="col-auto mb-3">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
+                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                        </div>
+                        <div>
+                            <p class="card-text">Day: ${trip.date.toString()}</p>
+                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                    <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                </div>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                               class="viewButton col-4 btn btn-default" role="button"> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
+
+    <div class="row justify-content-center">
+        <h1 class="col-12">Last trips as passenger</h1>
+        <c:forEach var="trip" items="${tripsBeforeAsPassenger}">
+            <div class="col-auto mb-3">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="row p-2 mb-5">
+                        <div class="col-5 align-content-center imgDriver">
+                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
+                                 alt="Your Avatar" width="90"
+                                 height="90"></div>
+                        <div class="col-7 align-content-center nameDriver mt-4">
+                                ${trip.driver.firstName} ${trip.driver.lastName}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
+                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                        </div>
+                        <div>
+                            <p class="card-text">Day: ${trip.date.toString()}</p>
+                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                    <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                </div>
+                            </div>
+                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                               class="viewButton col-4 btn btn-default" role="button"> View
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
 
 </body>

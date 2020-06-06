@@ -108,7 +108,7 @@ public class Trip {
             availableSeats--;
             TripPassenger personAddress = new TripPassenger(user, this);
             passengers.add(personAddress);
-            user.getPassenger().add(personAddress);
+            user.addTripAsPassenger(personAddress);
         }
     }
 
@@ -163,8 +163,7 @@ public class Trip {
     public String toString() {
         return "Trip{" +
                 "tripId=" + tripId +
-                ", driver=" + driver +
-                ", passengers=" + passengers +
+                ", driver=" + driver.getUserId() +
                 ", date=" + date +
                 ", from='" + fromTrip + '\'' +
                 ", to='" + toTrip + '\'' +
