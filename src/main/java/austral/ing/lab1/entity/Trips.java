@@ -78,7 +78,7 @@ public class Trips {
             Connection conn = DriverManager.getConnection(myUrl, "root", "");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT j.TRIP_ID FROM trip_passenger_table j " +
+                    "SELECT j.TRIP_ID FROM TRIPS_PASSENGERS j " +
                             "where PASSENGER_ID = " + driverID +
                             " and j.STATE = TRUE");
             while (rs.next()) {
@@ -119,9 +119,17 @@ public class Trips {
         return trips;
     }
 
-    public static List<Trip> listAll() {
-        return tx(() ->
-                checkedList(currentEntityManager().createQuery("SELECT t FROM Trip t").getResultList()));
+    public static List<Trip> listBeforeTrips() {
+        List<Trip> trips = tx(() ->
+                checkedList(currentEntityManager()
+                        .createQuery("SELECT t FROM Trip t")
+                        .getResultList())
+        );
+        sortTrip(trips);
+        removeAfterTrips(trips);
+        removeSameDayButAfterHour(trips);
+
+        return trips;
     }
 
     public static Trip persist(Trip trip) {

@@ -156,7 +156,6 @@
                     </div>
                     <div class="card-body">
                         <div>
-
                             <h5 class="card-title" style="color: orange">
                                 <i class="fa fa-map-marker"></i>
                                     ${trip.fromTrip}</h5>

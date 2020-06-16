@@ -15,6 +15,21 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
 </head>
+<style>
+    .myTrip {
+
+    }
+
+    h2 {
+        color: #036686;
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
+    body {
+        background-color: #EEEEEE;
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+</style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="bootstrap/js/jquery-v3.5.js"></script>
@@ -26,17 +41,6 @@
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
-//    Long idTrip = Long.parseLong(request.getParameter("trip"));
-//    Optional<Trip> optionalTrip = Trips.findById(idTrip);
-//
-//    if (optionalTrip.isPresent()) {
-//        Trip trip = optionalTrip.get();
-//        request.setAttribute("trip", trip);
-//        User driver = trip.getDriver();
-//        request.setAttribute("driver", driver);
-//        request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
-//    }
-
 
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
@@ -112,21 +116,28 @@
 
     </div>
 </nav> <!-- NavBar -->
-
+<br>
 <div class="container">
-    <div class="row justify-content-center">
-        <h1 class="col-12">My next trips as driver</h1>
+    <h2 class="col-12">My next trips as driver</h2>
+    <c:if test="${emptyTripsAsDriver}">
+        <p class="alert alert-warning mx-3">You do not have trips created</p>
+    </c:if>
+    <div class="row justify-content-center myTrip">
         <c:forEach var="trip" items="${tripsAsDriver}">
             <div class="col-auto mb-3">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
                         </div>
                         <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
                         </div>
                         <div class="row p-2">
                             <div class="col-8">
@@ -145,9 +156,12 @@
             </div>
         </c:forEach>
     </div>
-
-    <div class="row justify-content-center">
-        <h1 class="col-12">My next trips as passenger</h1>
+    <br>
+    <h2 class="col-12">My next trips as passenger</h2>
+    <c:if test="${emptyTripsAsPassenger}">
+        <p class="alert alert-warning mx-3">You do not have trips as a passenger</p>
+    </c:if>
+    <div class="row justify-content-center myTrip">
         <c:forEach var="trip" items="${tripsAsPassenger}">
             <div class="col-auto mb-3">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
@@ -162,12 +176,16 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
                         </div>
                         <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
                         </div>
                         <div class="row p-2">
                             <div class="col-8">
@@ -186,20 +204,27 @@
             </div>
         </c:forEach>
     </div>
-
-    <div class="row justify-content-center">
-        <h1 class="col-12">Last trips as driver</h1>
+    <br>
+    <h2 class="col-12">Last trips as driver</h2>
+    <c:if test="${emptyTripsBeforeAsDriver}">
+        <p class="alert alert-warning mx-3">You do not have past trips created</p>
+    </c:if>
+    <div class="row justify-content-center myTrip">
         <c:forEach var="trip" items="${tripsBeforeAsDriver}">
             <div class="col-auto mb-3">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
                         </div>
                         <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
                         </div>
                         <div class="row p-2">
                             <div class="col-8">
@@ -218,9 +243,12 @@
             </div>
         </c:forEach>
     </div>
-
-    <div class="row justify-content-center">
-        <h1 class="col-12">Last trips as passenger</h1>
+    <br>
+    <h2 class="col-12">Last trips as passenger</h2>
+    <c:if test="${emptyTripsBeforeAsPassenger}">
+        <p class="alert alert-warning mx-3">You do not have past trips as a passenger</p>
+    </c:if>
+    <div class="row justify-content-center myTrip">
         <c:forEach var="trip" items="${tripsBeforeAsPassenger}">
             <div class="col-auto mb-3">
                 <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
@@ -235,12 +263,16 @@
                     </div>
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title">From: ${trip.fromTrip}</h5>
-                            <h5 class="card-title">To: ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
                         </div>
                         <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
                         </div>
                         <div class="row p-2">
                             <div class="col-8">
@@ -259,6 +291,7 @@
             </div>
         </c:forEach>
     </div>
+    <br>
 </div>
 
 </body>

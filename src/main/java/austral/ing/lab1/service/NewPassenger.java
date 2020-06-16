@@ -1,10 +1,9 @@
 package austral.ing.lab1.service;
 
-import austral.ing.lab1.entity.TripPassengers;
+import austral.ing.lab1.entity.TripsPassengers;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
-import austral.ing.lab1.model.TripPassenger;
 import austral.ing.lab1.model.User;
 
 import javax.servlet.ServletException;
@@ -54,7 +53,7 @@ public class NewPassenger extends HttpServlet {
 
         if (optionalUser.isPresent()) {
             Long userId = optionalUser.get().getUserId();
-            TripPassengers.acceptPassenger(userId, tripId);
+            TripsPassengers.acceptPassenger(userId, tripId);
         }
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);

@@ -5,7 +5,7 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-public class TripPassengers {
+public class TripsPassengers {
 
     public static void acceptPassenger(Long userId, Long tripId){
         try {
@@ -15,7 +15,7 @@ public class TripPassengers {
             Class.forName(myDriver);
             Connection conn = DriverManager.getConnection(myUrl, "root", "");
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("UPDATE lab1.trip_passenger_table t " +
+            ResultSet rs = st.executeQuery("UPDATE lab1.TRIPS_PASSENGERS t " +
                                                 "SET t.STATE = true" +
                                                 " WHERE t.TRIP_ID = "+ tripId +
                                                 " AND t.PASSENGER_ID = " + userId);
