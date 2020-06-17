@@ -126,8 +126,13 @@
 </nav> <!-- NavBar -->
 
 <div class = "notif container mt-5 border border-secondary rounded">
-    <div>name lastname has requested to join to one of your trips. </div>
+    <a class = "font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">name lastname has requested to join to one of your trips. <span class = "font-weight-light font-italic "> date</span> </a>
 </div>
-
+<div class = "notif container mt-0 border border-secondary rounded">
+    <a class = "font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">You still have a trip to clasify. <span class = "font-weight-light font-italic "> date</span> </a>
+</div>
+<div class = "notif container mt-0 border border-secondary rounded">
+    <a class = "font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">Your trip to "lugar" has been finished. <span class = "font-weight-light font-italic "> date</span> </a>
+</div>
 </body>
 </html>
