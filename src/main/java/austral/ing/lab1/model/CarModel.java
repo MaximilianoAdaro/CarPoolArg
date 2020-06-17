@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "carmodel_table")
+@Table(name = "MODELS_CARS")
 public class CarModel{
 
     public CarModel() {
@@ -61,7 +61,6 @@ public class CarModel{
         return "CarModel{" +
                 "carModelId=" + carModelId +
                 ", name='" + name + '\'' +
-                ", cars=" + cars +
                 '}';
     }
 }

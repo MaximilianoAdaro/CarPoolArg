@@ -8,19 +8,15 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-
     <title>CarPoolArg</title>
 
-    <!-- Bootstrap CSS -->
+    <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="../bootstrap/css/style.css">
-
-    <!-- Font awesome icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
 </head>
 <style>
     body {
@@ -61,7 +57,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -126,11 +123,13 @@
         <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3>
         <form class="form-inline justify-content-center mt-4" action="${pageContext.request.contextPath}/filterHome.do"
               method="get">
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Origin"
+            <input class="form-control mr-3 shadow p-3 bg-white rounded"
+                   style="border-color: orange" type="search" placeholder="Origin"
                    id="fromTrip"
                    name="fromTrip" aria-label="Search">
 
-            <input class="form-control mr-3 shadow p-3 bg-white rounded" type="search" placeholder="Destination"
+            <input class="form-control mr-3 shadow p-3 bg-white rounded"
+                   style="border-color: #1c7430" type="search" placeholder="Destination"
                    id="toTrip"
                    name="toTrip" aria-label="Search">
 
@@ -149,20 +148,24 @@
                     <div class="row p-2 mb-5">
                         <div class="col-5 align-content-center imgDriver">
                             <img src="${trip.driver.avatarPath}" class="rounded-circle"
-                                 alt="Your Avatar" width="90"
-                                 height="90"></div>
+                                 alt="Your Avatar" width="70"
+                                 height="70"></div>
                         <div class="col-7 align-content-center nameDriver mt-4">
                                 ${trip.driver.firstName} ${trip.driver.lastName}
                         </div>
                     </div>
                     <div class="card-body">
                         <div>
-                            <h5 class="card-title" style="color: orange">From: <i class="fa fa-map-marker-alt"></i > ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">To: <i class="fas fa-map-marker-alt"></i> ${trip.toTrip}</h5>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
                         </div>
                         <div>
-                            <p class="card-text">Day: ${trip.date.toString()}</p>
-                            <p class="card-text">Hour: ${trip.time.toString()}</p>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
                         </div>
                         <div class="row p-2">
                             <div class="col-8">

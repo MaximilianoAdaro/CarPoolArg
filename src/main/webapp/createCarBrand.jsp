@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="java.util.Optional" %>
@@ -5,7 +6,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create car</title>
+    <title>CarPoolArg</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -100,7 +101,7 @@
     </div>
 </nav>
 
-<form class="form-group container text-center" method="post" action="/newCarModel.do">
+<form class="form-group container text-center" method="post" action="${pageContext.request.contextPath}/newCarModel.do">
     <h1 class="mt-5 pt-4"> Create a Car</h1>
     <div class = "">
         <label for="car"> Create your brand and model car: </label>

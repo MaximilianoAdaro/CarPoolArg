@@ -5,7 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "car_table")
+@Table(name = "CARS")
 public class Car {
 
     public Car() {}
@@ -78,8 +78,8 @@ public class Car {
     public String toString() {
         return "Car{" +
                 "id=" + carId +
-                ", carModel=" + carModel +
-                ", user=" + user +
+                ", carModel=" + carModel.getName() +
+                ", user=" + user.getUserId() +
                 ", color='" + color + '\'' +
                 ", patent='" + patent + '\'' +
                 '}';

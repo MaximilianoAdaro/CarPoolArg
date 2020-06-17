@@ -11,7 +11,8 @@
         <class>austral.ing.lab1.model.User</class>
         <class>austral.ing.lab1.model.Car</class>
         <class>austral.ing.lab1.model.CarModel</class>
-
+        <class>austral.ing.lab1.model.Trip</class>
+        <class>austral.ing.lab1.model.TripPassenger</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />

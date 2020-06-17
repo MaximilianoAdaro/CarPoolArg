@@ -3,9 +3,9 @@
 <%@ page import="java.util.Optional" %>
 <%@ page import="java.time.LocalDate" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <!DOCTYPE html>
-<html lang="en" xmlns:https="http://java.sun.com/JSP/Page" xmlns:c="http://www.w3.org/1999/XSL/Transform">
+<html lang="en" xmlns:c="http://www.w3.org/1999/XSL/Transform">
 <head>
     <meta charset="UTF-8">
     <title>Create a Trip</title>
@@ -18,7 +18,7 @@
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
-<body style="background-image: url(https://gottakeepmovin.com/wp-content/uploads/2015/04/2015-04-28-09.03.59-3.jpg)">
+<body style="background-image: url(/images/createTripImage.jpg)">
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="${pageContext.request.contextPath}/bootstrap/js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -57,7 +57,6 @@
             <a class="nav-link btn btn-light mr-1" href="createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -141,7 +140,7 @@
         <div class="form-group">
             <label for="com">Commentary</label>
             <input type="text" class="form-control" id="com" placeholder="Do you want to clarify something?"
-                   name="commentTrip">
+                   name="commentTrip" maxlength="200" required>
         </div>
         <div class="form-group">
             <label for="inputState">Available Seats</label>

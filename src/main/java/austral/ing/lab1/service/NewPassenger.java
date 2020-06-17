@@ -1,5 +1,6 @@
 package austral.ing.lab1.service;
 
+import austral.ing.lab1.entity.TripsPassengers;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
@@ -31,12 +32,28 @@ public class NewPassenger extends HttpServlet {
                     req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
                     return;
                 }
+
                 trip.addPassenger(passenger);
                 Trips.persist(trip);
             }
 
             List<Trip> trips = Trips.listCurrentTrips(passenger.getUserId());
             req.getSession().setAttribute("trip", trips);
+        }
+
+        req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
+    }
+
+    //todo: not used yet
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+        Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
+        Long tripId = Long.parseLong(req.getParameter("tripId"));
+
+        if (optionalUser.isPresent()) {
+            Long userId = optionalUser.get().getUserId();
+            TripsPassengers.acceptPassenger(userId, tripId);
         }
 
         req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);

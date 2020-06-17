@@ -2,6 +2,7 @@ package austral.ing.lab1.service;
 
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
 
 import javax.servlet.ServletException;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/myTrips.do")
@@ -21,8 +23,22 @@ public class MyTrips extends HttpServlet {
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()){
             User user = optionalUser.get();
-            req.setAttribute("tripsAsDriver", Trips.listDriverTrips(user.getUserId()));
-            req.setAttribute("tripsAsPassenger", Trips.listPassengerTrips(user.getUserId()));
+            final List<Trip> driverTrips = Trips.listDriverTrips(user.getUserId(), true);
+            req.setAttribute("tripsAsDriver", driverTrips);
+
+            final List<Trip> passengerTrips = Trips.listPassengerTrips(user.getUserId(), true);
+            req.setAttribute("tripsAsPassenger", passengerTrips);
+
+            final List<Trip> beforeDriverTrips = Trips.listDriverTrips(user.getUserId(), false);
+            req.setAttribute("tripsBeforeAsDriver", beforeDriverTrips);
+
+            final List<Trip> beforePassengerTrips = Trips.listPassengerTrips(user.getUserId(), false);
+            req.setAttribute("tripsBeforeAsPassenger", beforePassengerTrips);
+
+            req.setAttribute("emptyTripsAsDriver", driverTrips.isEmpty());
+            req.setAttribute("emptyTripsAsPassenger", passengerTrips.isEmpty());
+            req.setAttribute("emptyTripsBeforeAsDriver", beforeDriverTrips.isEmpty());
+            req.setAttribute("emptyTripsBeforeAsPassenger", beforePassengerTrips.isEmpty());
         }
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

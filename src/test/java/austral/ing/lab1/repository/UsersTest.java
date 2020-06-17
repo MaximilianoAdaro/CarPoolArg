@@ -43,7 +43,7 @@ public class UsersTest {
         }
     }*/
 
-    @Test
+ /*   @Test
     public void createAdmin() {
         if (Users.findByEmail("admin@gmail.com").isPresent()) return;
 
@@ -51,7 +51,7 @@ public class UsersTest {
         userAdmin.setAdministrator(true);
         Users.persist(userAdmin);
     }
-
+*/
 
     /*
     @Test

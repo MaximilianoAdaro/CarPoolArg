@@ -27,7 +27,6 @@
         body {
             background-color: #EEEEEE;
         }
-
     </style>
 </head>
 <body>
@@ -132,7 +131,7 @@
         <div class="col-md-6">
             <div class="profile-head">
                 <h3>
-                    Your Profile
+                    Profile
                 </h3>
             </div>
         </div>

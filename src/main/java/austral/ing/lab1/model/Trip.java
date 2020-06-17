@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "trip_table")
+@Table(name = "TRIPS")
 public class Trip {
 
     public Trip() {
@@ -59,6 +59,9 @@ public class Trip {
     @Column(name = "AVAILABLE_SEATS")
     private int availableSeats;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idTrip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratings;
+
     public int getAvailableSeats() {
         return availableSeats;
     }
@@ -108,7 +111,7 @@ public class Trip {
             availableSeats--;
             TripPassenger personAddress = new TripPassenger(user, this);
             passengers.add(personAddress);
-            user.getPassenger().add(personAddress);
+            user.addTripAsPassenger(personAddress);
         }
     }
 
@@ -159,16 +162,24 @@ public class Trip {
         this.toTrip = to;
     }
 
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
+    }
+
     @Override
     public String toString() {
         return "Trip{" +
                 "tripId=" + tripId +
-                ", driver=" + driver +
-                ", passengers=" + passengers +
+                ", driver=" + driver.getUserId() +
+                ", passenger=" + passengers.size() +
                 ", date=" + date +
                 ", from='" + fromTrip + '\'' +
                 ", to='" + toTrip + '\'' +
-                ", time=" + time +
+                ", time=" + time.toString() +
                 ", comment='" + comment + '\'' +
                 ", seats=" + seats +
                 '}';

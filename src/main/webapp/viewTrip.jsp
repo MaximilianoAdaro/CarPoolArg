@@ -38,9 +38,10 @@
     long driverID = -2;
     boolean isNotOwner;
     boolean isNotPassengerYet = true;
-
+    boolean availableSeats = false;
     if (optionalTrip.isPresent()) {
         Trip trip = optionalTrip.get();
+        availableSeats = trip.getAvailableSeats() > 0;
         request.setAttribute("trip", trip);
         request.getSession().setAttribute("tripId", trip.getTripId());
         User driver = trip.getDriver();
@@ -59,15 +60,15 @@
             request.setAttribute("avatarPath", user.getAvatarPath());
             request.setAttribute("hasCar", user.getCar() != null);
 
-            List<Trip> trips = Trips.listPassengerTrips(userID);
+            List<Trip> trips = Trips.listPassengerTrips(userID, true);
             if (trips.contains(trip))
                 isNotPassengerYet = false;
         }
     }
 
     isNotOwner = (userID != driverID);
-    boolean toReturn =  isNotPassengerYet && isNotOwner;
-    request.setAttribute("notAppearJoinTrip", toReturn);
+    boolean toReturn =  isNotPassengerYet && isNotOwner && availableSeats;
+    request.setAttribute("appearJoinTrip", toReturn);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -155,7 +156,7 @@
         <div class="col-8" style="background-color: #89e3a0">
             Details of the trip
             <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
-            <c:if test="${notAppearJoinTrip}">
+            <c:if test="${appearJoinTrip}">
                 <a class="nav-link btn btn-primary ml-2 col-auto"
                    href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
             </c:if>
