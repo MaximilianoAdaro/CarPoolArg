@@ -2,6 +2,7 @@
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -29,6 +30,10 @@
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
+
+    .jointrip{
+        position:relative; left:80px;
+    }
 </style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -42,6 +47,7 @@
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
+    Ratings.setRating();
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
@@ -52,6 +58,7 @@
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -61,6 +68,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -113,9 +122,32 @@
                 </div>
             </div>
         </c:if>
-
     </div>
 </nav> <!-- NavBar -->
+
+<!-- cuando alguien se quiere subir -->
+<div class=" row col-8 mt-2">
+
+    <!-- esto arranca a repetir aca-->
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
+                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
+                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- termina de repetir aca -->
+
+
+</div>
+
+<!-- y aca termina-->
+
+
+
 <br>
 <div class="container">
     <h2 class="col-12">My next trips as driver</h2>
@@ -238,6 +270,7 @@
                                class="viewButton col-4 btn btn-default" role="button"> View
                             </a>
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -293,6 +326,5 @@
     </div>
     <br>
 </div>
-
 </body>
 </html>

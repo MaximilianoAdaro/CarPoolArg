@@ -1,7 +1,6 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.CarModel;
-import austral.ing.lab1.util.LangUtils;
 
 import javax.persistence.EntityTransaction;
 import java.util.List;
@@ -16,14 +15,6 @@ public class CarModels {
     public static Optional<CarModel> findById(Long id) {
         return tx(() ->
                 Optional.of(currentEntityManager().find(CarModel.class, id))
-        );
-    }
-
-    public static Optional<CarModel> findByName(String name) {
-        return tx(() -> LangUtils.<CarModel>checkedList(currentEntityManager()
-                .createQuery("SELECT cm FROM CarModel cm WHERE cm.name LIKE :name")
-                .setParameter("name", name).getResultList()).stream()
-                .findFirst()
         );
     }
 

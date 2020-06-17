@@ -1,9 +1,7 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.Trip;
-import austral.ing.lab1.util.EntityManagers;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -28,14 +26,15 @@ public class Trips {
     }
 
     public static List<Trip> searchList(String fromTrip, String toTrip, Long driverID) {
-        LocalDate date = LocalDate.now();
         List<Trip> trips = tx(() -> checkedList(currentEntityManager()
-                .createQuery("SELECT t " +
-                        "FROM Trip t " +
-                        "WHERE t.fromTrip LIKE :param " +
-                        "and t.toTrip LIKE :param2 " +
-                        "and t.availableSeats > 0 " +
-                        "and t.driver.userId <> :driverID")
+                .createQuery("SELECT t FROM Trip t " +
+                        "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
+                        " where tp.passenger is NULL" +
+                        " and tp.trip is NULL" +
+                        " and t.fromTrip LIKE :param " +
+                        " and t.toTrip LIKE :param2 " +
+                        " and t.availableSeats > 0 " +
+                        " and t.driver.userId <> :driverID")
                 .setParameter("param", "%" + fromTrip + "%")
                 .setParameter("param2", "%" + toTrip + "%")
                 .setParameter("driverID", driverID)
@@ -51,7 +50,8 @@ public class Trips {
     public static List<Trip> listDriverTrips(Long driverID, boolean nextTrip) {
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
-                        .createQuery("SELECT t FROM Trip t " +
+                        .createQuery("SELECT t " +
+                                " FROM Trip t " +
                                 " where t.driver.userId = :driverID")
                         .setParameter("driverID", driverID)
                         .getResultList())
@@ -78,9 +78,9 @@ public class Trips {
             Connection conn = DriverManager.getConnection(myUrl, "root", "");
             Statement st = conn.createStatement();
             ResultSet rs = st.executeQuery(
-                    "SELECT j.TRIP_ID FROM TRIPS_PASSENGERS j " +
-                            "where PASSENGER_ID = " + driverID +
-                            " and j.STATE = TRUE");
+                    "SELECT j.TRIP_ID " +
+                            "FROM TRIPS_PASSENGERS j " +
+                            "where PASSENGER_ID = " + driverID);
             while (rs.next()) {
                 int id = rs.getInt("TRIP_ID");
                 Optional<Trip> optionalTrip = Trips.findById((long) id);
@@ -103,12 +103,27 @@ public class Trips {
         return trips;
     }
 
+/*  "SELECT t FROM Trip t " +
+    "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
+    " where tp.passenger is NULL" +
+    " and tp.trip is NULL" +
+    " and t.availableSeats > 0 " +
+    " and t.driver.userId <> :driverID"
+
+
+    "SELECT t FROM Trip t " +
+    "where t.availableSeats > 0 " +
+    "and t.driver.userId <> :driverID"
+*/
     public static List<Trip> listCurrentTrips(Long driverID) {
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
                         .createQuery("SELECT t FROM Trip t " +
-                                "where t.availableSeats > 0 " +
-                                "and t.driver.userId <> :driverID")
+                                "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
+                                " where tp.passenger is NULL" +
+                                " and tp.trip is NULL" +
+                                " and t.availableSeats > 0 " +
+                                " and t.driver.userId <> :driverID ")
                         .setParameter("driverID", driverID)
                         .getResultList())
         );
@@ -230,12 +245,4 @@ public class Trips {
         }
     }
 
-    public static void deleteTrip(Long id) {
-        EntityManager em = EntityManagers.currentEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        Optional<Trip> trip = findById(id);
-        trip.ifPresent(em::remove);
-        tx.commit();
-    }
 }

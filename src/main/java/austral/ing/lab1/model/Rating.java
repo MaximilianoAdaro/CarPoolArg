@@ -18,6 +18,9 @@ public class Rating {
         this.isRated = isRated;
     }
 
+    public Rating() {
+    }
+
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")

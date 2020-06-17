@@ -6,10 +6,8 @@ import austral.ing.lab1.model.TripPassenger;
 import austral.ing.lab1.util.LangUtils;
 
 import javax.persistence.EntityTransaction;
-
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +19,7 @@ import static austral.ing.lab1.util.Transactions.tx;
 
 public class Ratings {
 
-    public static Optional<Rating> findByEmail(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver) {
+    public static Optional<Rating> findRating(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver) {
         return tx(() -> LangUtils.<Rating>checkedList(currentEntityManager()
                 .createQuery("SELECT r FROM Rating r " +
                         "WHERE r.idTrip = :idTrip " +
@@ -36,18 +34,7 @@ public class Ratings {
         );
     }
 
-//    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value, String message) {
-//        Optional<Rating> optionalRating = findByEmail(idTrip, idDriver, idPassenger, isDriver);
-//        if (optionalRating.isPresent()) {
-//            Rating rating = optionalRating.get();
-//            rating.setValue(value);
-//            rating.setMessage(message);
-//            rating.setRated(true);
-//            persist(rating);
-//        }
-//    }
-
-    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value, String message){
+    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value, String message) {
         try {
             // create our mysql database connection
             String myDriver = "com.mysql.jdbc.Driver";
@@ -55,15 +42,14 @@ public class Ratings {
             Class.forName(myDriver);
             Connection conn = DriverManager.getConnection(myUrl, "root", "");
             Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery("UPDATE ratings r " +
-                                            " SET r.VALUE = " + value +
-                                            " and r.MESSAGE = " + message +
-                                            " and r.IS_RATED = true " +
-                                            " WHERE r.ID_TRIP = " + idTrip +
-                                            " AND r.ID_DRIVER = " + idDriver +
-                                            " AND r.IS_DRIVER = " + isDriver +
-                                            " AND r.ID_PASSENGER = " + idPassenger);
-            rs.close();
+            st.executeUpdate("UPDATE ratings r " +
+                    " SET r.VALUE = " + value +
+                    " and r.MESSAGE = " + message +
+                    " and r.IS_RATED = true " +
+                    " WHERE r.ID_TRIP = " + idTrip +
+                    " AND r.ID_DRIVER = " + idDriver +
+                    " AND r.IS_DRIVER = " + isDriver +
+                    " AND r.ID_PASSENGER = " + idPassenger);
             st.close();
             conn.close();
         } catch (Exception e) {

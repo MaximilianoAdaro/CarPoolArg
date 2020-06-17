@@ -69,7 +69,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i
+                class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -122,11 +123,26 @@
                 </div>
             </div>
         </c:if>
+
     </div>
 </nav> <!-- NavBar -->
 
-<div class = "notif container mt-5 border border-secondary rounded">
-    <div>name lastname has requested to join to one of your trips. </div>
+<div class="notif container mt-5 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        Name lastname has requested to join to one of your trips.
+        <span class="font-weight-light font-italic "> date</span> </a>
+</div>
+
+<div class="notif container mt-0 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        You still have a trip to classify.
+        <span class="font-weight-light font-italic "> date</span> </a>
+</div>
+
+<div class="notif container mt-0 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        Your trip to "lugar" has been finished.
+        <span class="font-weight-light font-italic "> date</span> </a>
 </div>
 
 </body>

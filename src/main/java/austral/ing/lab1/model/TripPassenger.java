@@ -56,4 +56,13 @@ public class TripPassenger implements Serializable {
     public void setTrip(Trip trip) {
         this.trip = trip;
     }
+
+    @Override
+    public String toString() {
+        return "TripPassenger{" +
+                "passenger=" + passenger +
+                ", trip=" + trip +
+                ", state=" + state +
+                '}';
+    }
 }

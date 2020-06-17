@@ -6,7 +6,10 @@
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
+<%@ page import="austral.ing.lab1.entity.TripsPassengers" %>
+<%@ page import="java.util.ArrayList" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -34,11 +37,15 @@
     Long idTrip = Long.parseLong(request.getParameter("trip"));
     Optional<Trip> optionalTrip = Trips.findById(idTrip);
 
+    Ratings.setRating();
+
     long userID = -1;
     long driverID = -2;
     boolean isNotOwner;
-    boolean isNotPassengerYet = true;
+    boolean isNotPassengerYetAfter = true;
     boolean availableSeats = false;
+    boolean isNotPassengerYetBefore = true;
+    List<User> passengers = new ArrayList<>();
     if (optionalTrip.isPresent()) {
         Trip trip = optionalTrip.get();
         availableSeats = trip.getAvailableSeats() > 0;
@@ -60,18 +67,33 @@
             request.setAttribute("avatarPath", user.getAvatarPath());
             request.setAttribute("hasCar", user.getCar() != null);
 
-            List<Trip> trips = Trips.listPassengerTrips(userID, true);
-            if (trips.contains(trip))
-                isNotPassengerYet = false;
+            List<Trip> tripsBefore = Trips.listPassengerTrips(userID, false);
+            List<Trip> tripsAfter = Trips.listPassengerTrips(userID, true);
+
+            if (tripsAfter.contains(trip)) {
+                isNotPassengerYetAfter = false;
+            }
+            if (tripsBefore.contains(trip))
+                isNotPassengerYetBefore = false;
+
+            passengers = TripsPassengers.listPassengers(trip);
         }
     }
 
     isNotOwner = (userID != driverID);
-    boolean toReturn =  isNotPassengerYet && isNotOwner && availableSeats;
+    request.setAttribute("passengers", passengers);
+    request.setAttribute("passengersIsEmpty", passengers.isEmpty());
+    request.setAttribute("isNotOwner", isNotOwner);
+
+    boolean toReturn = isNotPassengerYetAfter && isNotOwner && availableSeats && isNotPassengerYetBefore;
     request.setAttribute("appearJoinTrip", toReturn);
+
+    boolean toReject = !isNotPassengerYetAfter && isNotPassengerYetBefore;
+    request.setAttribute("appearGoDownTrip", toReject);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -81,6 +103,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -154,12 +178,58 @@
             </div>
         </div>
         <div class="col-8" style="background-color: #89e3a0">
-            Details of the trip
-            <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
+
+            <div class="card-body">
+                <div>
+                    <h5 class="card-title" style="color: orange">
+                        <i class="fa fa-map-marker"></i>
+                        ${trip.fromTrip}</h5>
+                    <h5 class="card-title" style="color: #1c7430">
+                        <i class="fa fa-map-marker"></i>
+                        ${trip.toTrip}</h5>
+                </div>
+                <div>
+                    <p class="card-text text-center"> ${trip.date.toString()}</p>
+                    <p class="card-text text-center"> ${trip.time.toString()}</p>
+                </div>
+                <div class="row p-2">
+                    <div class="col-8">
+                        <div class="row">
+                            <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                            <span class="col-9 availableSeats">
+                                        Available seats</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             <c:if test="${appearJoinTrip}">
                 <a class="nav-link btn btn-primary ml-2 col-auto"
-                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
+                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
+                    Join trip</a>
             </c:if>
+            <c:if test="${appearGoDownTrip}">
+                <a class="nav-link btn btn-primary ml-2 col-auto"
+                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=goDown">
+                    Go down</a>
+            </c:if>
+            <div class="container">
+                <c:if test="${!isNotOwner}">
+                    <c:if test="${passengersIsEmpty}">
+                        <h4>There is no passenger in your trip</h4>
+                    </c:if>
+                    <c:if test="${!passengersIsEmpty}">
+                        <h4>The passengers:</h4>
+                        <c:forEach var="passenger" items="${passengers}">
+                            <div style="color: black">
+                                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30"
+                                     height="30">
+                                    ${passenger.firstName} ${passenger.lastName}
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                </c:if>
+            </div>
 
         </div>
         <div class="col-12" style="background-color: #d78f8f">
