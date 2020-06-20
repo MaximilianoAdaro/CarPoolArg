@@ -26,10 +26,11 @@
     <style>
         body {
             background-color: #EEEEEE;
+            font-family: Roboto, Muli, sans-serif !important;
         }
     </style>
 </head>
-<body>
+<body style="background-image: url(/images/carpoolback2.jpg)">
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1

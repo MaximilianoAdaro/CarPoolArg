@@ -18,6 +18,15 @@
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+
+    body{
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
+</style>
+
 <body style="background-image: url(/images/createTripImage.jpg)">
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="${pageContext.request.contextPath}/bootstrap/js/jquery-v3.5.js"></script>

@@ -20,6 +20,15 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+
+    body{
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
+</style>
+
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="bootstrap/js/jquery-v3.5.js"></script>

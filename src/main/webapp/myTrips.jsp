@@ -235,7 +235,7 @@
     <br>
     <h2 class="col-12">Last trips as driver</h2>
     <c:if test="${emptyTripsBeforeAsDriver}">
-        <p class="alert alert-warning mx-3">You do not have past trips created</p>
+        <p class="alert alert-warning mx-3">You do not have past trips</p>
     </c:if>
     <div class="row justify-content-center myTrip">
         <c:forEach var="trip" items="${tripsBeforeAsDriver}">
