@@ -119,30 +119,6 @@
         </c:if>
 
     </div>
-</nav> <!-- NavBar -->
-
-<!-- cuando alguien se quiere subir -->
-<div class=" row col-8 mt-2">
-
-    <!-- esto arranca a repetir aca-->
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
-                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- termina de repetir aca -->
-
-</div>
-
-<!-- y aca termina-->
-
-
-
 <br>
 
 <div class="container">

@@ -131,8 +131,32 @@
 </nav> <!-- NavBar -->
 
 <div class = "notif container mt-5 border border-secondary rounded">
-    <a class = "font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">name lastname has requested to join to one of your trips. <span class = "font-weight-light font-italic "> date</span> </a>
+    <a class = "font-weight-bold text-dark" href="#" data-toggle="collapse" data-target="#join-card">name lastname has requested to join to one of your trips. <span class = "font-weight-light font-italic "> date</span> </a>
 </div>
+
+<div class="collapse multi-collapse" id="join-card">
+
+<!-- cuando alguien se quiere subir -->
+<div class=" row col-8 mt-2">
+
+    <!-- esto arranca a repetir aca-->
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
+                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
+                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- termina de repetir aca -->
+
+</div>
+
+<!-- y aca termina-->
+</div>
+
 <div class = "notif container mt-0 border border-secondary rounded">
     <a class = "font-weight-bold text-dark" href="#"  data-toggle="collapse" data-target="#ratingCards">You still have a people to rate. <span class = "font-weight-light font-italic "> date</span> </a>
 </div>
