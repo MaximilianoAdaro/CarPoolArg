@@ -33,10 +33,15 @@
         background-color: white;
     }
 
+    .ratingsize{
+        font-size: 15px;
+    }
+
+
 </style>
 
-<body>
 
+<body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="bootstrap/js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -134,51 +139,56 @@
 <div class="collapse multi-collapse" id="ratingCards">
     <div class=" row col-8 mt-2 mb-2">
         <!-- rate -->
-
         <!-- esto arranca a repetir aca-->
-
-        <div class="col-sm-6">
-            <div class="card">
-                <div class="card-body">
-                    <p class="card-text jointrip col-11"> You havent rated <span class="font-weight-bold text-dark">Nombre y apellido</span> from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                    <button class="btn btn-success col-3" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1" type = "submit">Rate</button>
-
-                    <div class="collapse multi-collapse jointrip" id="multiCollapseExample1">
-                        <div class="form-check-inline mt-1">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="1">1
-                            </label>
+        <div class="col-5">
+            <div class="card" style="height: 8rem ; width: 25rem">
+                <div class="container">
+                    <div class = "row">
+                        <div class="col-3">
+                            <p> avatar</p>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="2">2
-                            </label>
+                        <div class = "col-9">
+                            <p class="card-text ratingsize "> You havent rated <span class="font-weight-bold text-dark">Nombre y apellido</span> from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="3">3
-                            </label>
+                        <div class = "col-3">
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="4">4
-                            </label>
+                        <div class ="col-9 mt-0">
+                            <div class="form-check-inline mt-1">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="1">1
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="2">2
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="3">3
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="4">4
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="5">5
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Rate</button>
                         </div>
-                        <div class="form-check-inline">
-                            <label class="form-check-label">
-                                <input type="checkbox" class="form-check-input" value="5">5
-                            </label>
-                        </div>
-
-
 
                     </div>
-
                 </div>
             </div>
+
         </div>
     </div>
-    <!-- termina el rate -->
+    <!-- termina de repetir -->
+</div>
 </div>
 
 <!-- y aca termina-->
