@@ -156,6 +156,10 @@ public class User {
         passenger.add(trip);
     }
 
+    public void removeTripAsPassenger(TripPassenger trip) {
+        passenger.remove(trip);
+    }
+
     public void deleteCar() {
         car = null;
     }

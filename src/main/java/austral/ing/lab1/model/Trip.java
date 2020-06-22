@@ -120,14 +120,14 @@ public class Trip {
 
     public void removePassenger(User user) {
         TripPassenger personAddress = new TripPassenger(user, this);
-        if (user.getPassenger().remove(personAddress))
-            availableSeats++;
         passengers.remove(personAddress);
+        user.removeTripAsPassenger(personAddress);
+        availableSeats++;
         personAddress.setPassenger(null);
         personAddress.setTrip(null);
         personAddress.setState(false);
-    }
 
+    }
 
     public void setTime(Time time) {
         this.time = time;

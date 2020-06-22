@@ -1,14 +1,13 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="austral.ing.lab1.model.Trip" %>
-<%@ page import="java.util.Optional" %>
-<%@ page import="austral.ing.lab1.entity.Users" %>
-<%@ page import="austral.ing.lab1.model.User" %>
-<%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
-<%@ page import="java.util.List" %>
 <%@ page import="austral.ing.lab1.entity.Ratings" %>
+<%@ page import="austral.ing.lab1.entity.Trips" %>
 <%@ page import="austral.ing.lab1.entity.TripsPassengers" %>
+<%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="austral.ing.lab1.model.Trip" %>
+<%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -23,6 +22,15 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+
+    body{
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
+</style>
+
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="bootstrap/js/jquery-v3.5.js"></script>
@@ -234,6 +242,8 @@
         </div>
         <div class="col-12" style="background-color: #d78f8f">
             This is the map on Google
+            <br>
+            <br>
         </div>
     </div>
 

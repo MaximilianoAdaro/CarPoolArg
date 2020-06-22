@@ -19,6 +19,7 @@ import static austral.ing.lab1.util.Transactions.tx;
 
 public class Ratings {
 
+    //todo: usar
     public static Optional<Rating> findRating(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver) {
         return tx(() -> LangUtils.<Rating>checkedList(currentEntityManager()
                 .createQuery("SELECT r FROM Rating r " +
