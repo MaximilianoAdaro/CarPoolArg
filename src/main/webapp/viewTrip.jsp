@@ -146,29 +146,60 @@
     </div>
 </nav> <!-- NavBar -->
 
-<div class="container mt-5">
+<div class="container mt-5 border rounded">
     <div class="row">
-        <div class="col-4" style="background-color: #93b1d0">
+        <div class="col-3 bg-primary text-white border-right rounded-left" style="background-color: #93b1d0; height: 18rem">
             <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
-            <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
-            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-            <div class="col-12"> Color: ${driverCar.color} </div>
-            <div class="col-12"> Patent: ${driverCar.patent} </div>
-            <div></div>
+
+            <p> General rating:</p>
+
             <div class="col-12" style="max-lines: 7">
                 <i class="fa fa-quote-left"></i>
                 <span>${trip.comment}</span>
                 <i class="fa fa-quote-right"></i>
             </div>
+
+            puedo poner un boton para ver el perfil si queres
         </div>
-        <div class="col-8" style="background-color: #89e3a0">
-            Details of the trip
-            <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
-            <c:if test="${appearJoinTrip}">
-                <a class="nav-link btn btn-primary ml-2 col-auto"
-                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
-            </c:if>
+        <div class="col-6">
+            <div class="col-8">
+
+                <div>
+                    <h5 class="card-title" style="color: orange">
+                        <i class="fa fa-map-marker"></i>
+                        ${trip.fromTrip}</h5>
+                    <h5 class="card-title" style="color: #1c7430">
+                        <i class="fa fa-map-marker"></i>
+                        ${trip.toTrip}</h5>
+                </div>
+                <div>
+                    <p class="card-text"> <span>${trip.date.toString()} </span> <span style="color: orange;"> ${trip.time.toString()}</span></p>
+                </div>
+                <p><span style="color: orange; font-size: 1.3em; font-weight: bold;">X </span>free seats</p>
+
+                <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
+                <c:if test="${appearJoinTrip}">
+                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
+                </c:if>
+
+            </div>
+        </div>
+        <div class = "col-3 border-left" style="background-color: #ced4da" >
+
+            <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
+            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
+            <div class="col-12"> Color: ${driverCar.color} </div>
+            <div class="col-12"> Patent: ${driverCar.patent} </div>
+
+            <ul style="list-style-type:none;" class = "col-12 mt-1" >
+
+                <li  style="font-size: 1.3em; font-weight: bold;">Passengers:</li>
+                <li> theres no passengers</li>
+                <li>Numa</li>
+                <li>Maxi</li>
+            </ul>
 
         </div>
         <div class="col-12" style="background-color: #d78f8f">
