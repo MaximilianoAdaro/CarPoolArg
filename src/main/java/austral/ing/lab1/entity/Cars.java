@@ -1,31 +1,12 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.Car;
-import austral.ing.lab1.util.EntityManagers;
 
-import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 
-import java.util.List;
-import java.util.Optional;
-
 import static austral.ing.lab1.util.EntityManagers.currentEntityManager;
-import static austral.ing.lab1.util.LangUtils.checkedList;
-import static austral.ing.lab1.util.Transactions.tx;
 
 public class Cars {
-
-    public static Optional<Car> findById(Long id) {
-        return tx(() ->
-                Optional.of(currentEntityManager().find(Car.class, id))
-        );
-    }
-
-    public static List<Car> listAll() {
-        return tx(() ->
-                checkedList(currentEntityManager().createQuery("SELECT u FROM Car u").getResultList())
-        );
-    }
 
     public static Car persist(Car car) {
         final EntityTransaction tx = currentEntityManager().getTransaction();
@@ -43,12 +24,4 @@ public class Cars {
         }
     }
 
-    public static void deleteCar(Long id) {
-        EntityManager em = EntityManagers.currentEntityManager();
-        EntityTransaction tx = em.getTransaction();
-        tx.begin();
-        Optional<Car> car = findById(id);
-        car.ifPresent(em::remove);
-        tx.commit();
-    }
 }

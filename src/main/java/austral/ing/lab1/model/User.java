@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "user_table")
+@Table(name = "USERS")
 public class User {
 
     @Id
@@ -45,6 +45,15 @@ public class User {
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "passenger", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TripPassenger> passenger = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idDriver", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> rateDriver;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idPassenger", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Rating> ratePassenger;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
 
     public User() {
     }
@@ -147,7 +156,11 @@ public class User {
         passenger.add(trip);
     }
 
-    public void deleteCar(){
+    public void removeTripAsPassenger(TripPassenger trip) {
+        passenger.remove(trip);
+    }
+
+    public void deleteCar() {
         car = null;
     }
 
@@ -159,4 +172,47 @@ public class User {
         this.passenger = trips;
     }
 
+    public List<Rating> getRateDriver() {
+        return rateDriver;
+    }
+
+    public void setRateDriver(List<Rating> rateDriver) {
+        this.rateDriver = rateDriver;
+    }
+
+    public List<Rating> getRatePassenger() {
+        return ratePassenger;
+    }
+
+    public void setRatePassenger(List<Rating> ratePassenger) {
+        this.ratePassenger = ratePassenger;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId=" + userId +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", isActive=" + isActive +
+                ", car=" + car.toString() +
+                ", avatarPath='" + avatarPath + '\'' +
+                ", isAdministrator=" + isAdministrator +
+                ", driver=" + driver.size() +
+                ", passenger=" + passenger.size() +
+                ", rateDriver=" + rateDriver.size() +
+                ", ratePassenger=" + ratePassenger.size() +
+                ", notifications=" + notifications.size() +
+                '}';
+    }
 }

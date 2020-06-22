@@ -4,13 +4,16 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "trip_passenger_table")
+@Table(name = "TRIPS_PASSENGERS")
 public class TripPassenger implements Serializable {
 
     public TripPassenger(User passenger, Trip trip) {
         this.passenger = passenger;
         this.trip = trip;
         state = false;
+    }
+
+    public TripPassenger() {
     }
 
     @Id
@@ -52,5 +55,14 @@ public class TripPassenger implements Serializable {
 
     public void setTrip(Trip trip) {
         this.trip = trip;
+    }
+
+    @Override
+    public String toString() {
+        return "TripPassenger{" +
+                "passenger=" + passenger +
+                ", trip=" + trip +
+                ", state=" + state +
+                '}';
     }
 }

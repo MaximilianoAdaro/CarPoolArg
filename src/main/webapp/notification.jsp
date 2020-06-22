@@ -33,6 +33,11 @@
         background-color: white;
     }
 
+    .ratingsize{
+        font-size: 15px;
+    }
+
+
 </style>
 
 <body>
@@ -122,11 +127,105 @@
                 </div>
             </div>
         </c:if>
+
     </div>
 </nav> <!-- NavBar -->
 
-<div class = "notif container mt-5 border border-secondary rounded">
-    <div>name lastname has requested to join to one of your trips. </div>
+<div class="notif container mt-5 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        Name lastname has requested to join to one of your trips.
+        <span class="font-weight-light font-italic "> date</span> </a>
+</div>
+
+<div class="collapse multi-collapse" id="join-card">
+
+<!-- cuando alguien se quiere subir -->
+<div class=" row col-8 mt-2">
+
+    <!-- esto arranca a repetir aca-->
+    <div class="col-sm-6">
+        <div class="card">
+            <div class="card-body">
+                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
+                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
+                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- termina de repetir aca -->
+
+</div>
+
+<!-- y aca termina-->
+</div>
+
+<div class="notif container mt-0 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        You still have a trip to classify.
+        <span class="font-weight-light font-italic "> date</span> </a>
+</div>
+<div class="collapse multi-collapse" id="ratingCards">
+    <div class=" row col-8 mt-2 mb-2">
+        <!-- rate -->
+        <!-- esto arranca a repetir aca-->
+        <div class="col-5">
+            <div class="card" style="height: 8rem ; width: 25rem">
+                <div class="container">
+                    <div class = "row">
+                        <div class="col-3">
+                            <p> avatar</p>
+                        </div>
+                        <div class = "col-9">
+                            <p class="card-text ratingsize "> You havent rated <span class="font-weight-bold text-dark">Nombre y apellido</span> from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
+                        </div>
+                        <div class = "col-3">
+                        </div>
+                        <div class ="col-9 mt-0">
+                            <div class="form-check-inline mt-1">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="1">1
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="2">2
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="3">3
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="4">4
+                                </label>
+                            </div>
+                            <div class="form-check-inline">
+                                <label class="form-check-label">
+                                    <input type="checkbox" class="form-check-input" value="5">5
+                                </label>
+                            </div>
+                            <button type="submit" class="btn btn-success">Rate</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- termina de repetir -->
+</div>
+</div>
+
+<!-- y aca termina-->
+
+<div class="notif container mt-0 border border-secondary rounded">
+    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+        Your trip to "lugar" has been finished.
+        <span class="font-weight-light font-italic "> date</span> </a>
 </div>
 
 </body>

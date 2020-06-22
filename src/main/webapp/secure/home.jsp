@@ -1,6 +1,7 @@
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
@@ -36,6 +37,7 @@
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
+    Ratings.setRating();
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
@@ -156,7 +158,6 @@
                     </div>
                     <div class="card-body">
                         <div>
-
                             <h5 class="card-title" style="color: orange">
                                 <i class="fa fa-map-marker"></i>
                                     ${trip.fromTrip}</h5>

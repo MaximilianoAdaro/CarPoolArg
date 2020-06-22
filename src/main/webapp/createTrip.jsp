@@ -18,6 +18,15 @@
     <!-- Font awesome icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 </head>
+
+<style>
+
+    body{
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
+</style>
+
 <body style="background-image: url(/images/createTripImage.jpg)">
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="${pageContext.request.contextPath}/bootstrap/js/jquery-v3.5.js"></script>
@@ -57,6 +66,8 @@
             <a class="nav-link btn btn-light mr-1" href="createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"

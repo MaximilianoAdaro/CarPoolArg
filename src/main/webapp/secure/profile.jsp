@@ -26,10 +26,11 @@
     <style>
         body {
             background-color: #EEEEEE;
+            font-family: Roboto, Muli, sans-serif !important;
         }
     </style>
 </head>
-<body>
+<body style="background-image: url(/images/carpoolback2.jpg)">
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -68,6 +69,7 @@
         </c:if>
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
