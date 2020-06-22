@@ -25,7 +25,7 @@
 
 <style>
 
-    body{
+    body {
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -53,6 +53,7 @@
     boolean isNotPassengerYetAfter = true;
     boolean availableSeats = false;
     boolean isNotPassengerYetBefore = true;
+    boolean isOldTrip = false;
     List<User> passengers = new ArrayList<>();
     if (optionalTrip.isPresent()) {
         Trip trip = optionalTrip.get();
@@ -75,6 +76,7 @@
             request.setAttribute("avatarPath", user.getAvatarPath());
             request.setAttribute("hasCar", user.getCar() != null);
 
+            isOldTrip = Trips.listBeforeTrips().contains(trip);
             List<Trip> tripsBefore = Trips.listPassengerTrips(userID, false);
             List<Trip> tripsAfter = Trips.listPassengerTrips(userID, true);
 
@@ -92,12 +94,13 @@
     request.setAttribute("passengers", passengers);
     request.setAttribute("passengersIsEmpty", passengers.isEmpty());
     request.setAttribute("isNotOwner", isNotOwner);
+    request.setAttribute("isOldTrip", isOldTrip);
 
     boolean toReturn = isNotPassengerYetAfter && isNotOwner && availableSeats && isNotPassengerYetBefore;
-    request.setAttribute("appearJoinTrip", toReturn);
+    request.setAttribute("appearJoinTrip", toReturn & !isOldTrip);
 
     boolean toReject = !isNotPassengerYetAfter && isNotPassengerYetBefore;
-    request.setAttribute("appearGoDownTrip", toReject);
+    request.setAttribute("appearGoDownTrip", toReject & !isOldTrip);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -169,25 +172,25 @@
     </div>
 </nav> <!-- NavBar -->
 
-<div class="container mt-5">
+<div class="container mt-5 border rounded">
     <div class="row">
-        <div class="col-4" style="background-color: #93b1d0">
-            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
+        <div class="col-3 bg-primary text-white border-right rounded-left viewTripAvatar">
+            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="80" width="80">
             ${driverName}
-            <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
-            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-            <div class="col-12"> Color: ${driverCar.color} </div>
-            <div class="col-12"> Patent: ${driverCar.patent} </div>
-            <div></div>
+
+            <p> General rating:</p>
+
             <div class="col-12" style="max-lines: 7">
                 <i class="fa fa-quote-left"></i>
                 <span>${trip.comment}</span>
                 <i class="fa fa-quote-right"></i>
             </div>
-        </div>
-        <div class="col-8" style="background-color: #89e3a0">
 
-            <div class="card-body">
+            Puedo poner un boton para ver el perfil si queres
+        </div>
+        <div class="col-6">
+            <div class="col-8">
+
                 <div>
                     <h5 class="card-title" style="color: orange">
                         <i class="fa fa-map-marker"></i>
@@ -197,47 +200,49 @@
                         ${trip.toTrip}</h5>
                 </div>
                 <div>
-                    <p class="card-text text-center"> ${trip.date.toString()}</p>
-                    <p class="card-text text-center"> ${trip.time.toString()}</p>
+                    <p class="card-text"><span>${trip.date.toString()} </span> <span
+                            style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
-                <div class="row p-2">
-                    <div class="col-8">
-                        <div class="row">
-                            <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                            <span class="col-9 availableSeats">
-                                        Available seats</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+                <p><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
-            <c:if test="${appearJoinTrip}">
-                <a class="nav-link btn btn-primary ml-2 col-auto"
-                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
-                    Join trip</a>
-            </c:if>
-            <c:if test="${appearGoDownTrip}">
-                <a class="nav-link btn btn-primary ml-2 col-auto"
-                   href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=goDown">
-                    Go down</a>
-            </c:if>
-            <div class="container">
-                <c:if test="${!isNotOwner}">
-                    <c:if test="${passengersIsEmpty}">
-                        <h4>There is no passenger in your trip</h4>
-                    </c:if>
-                    <c:if test="${!passengersIsEmpty}">
-                        <h4>The passengers:</h4>
-                        <c:forEach var="passenger" items="${passengers}">
-                            <div style="color: black">
-                                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30"
-                                     height="30">
-                                    ${passenger.firstName} ${passenger.lastName}
-                            </div>
-                        </c:forEach>
-                    </c:if>
+                <c:if test="${appearJoinTrip}">
+                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
+                        Join trip</a>
                 </c:if>
+                <c:if test="${appearGoDownTrip}">
+                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=goDown">
+                        Go down</a>
+                </c:if>
+
             </div>
+        </div>
+        <div class="col-3 border-left" style="background-color: #ced4da">
+            <div class="col-12 carDetailViewTrip">Car details</div>
+            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
+            <div class="col-12"> Color: ${driverCar.color} </div>
+            <div class="col-12"> Patent: ${driverCar.patent} </div>
+
+            <c:if test="${!isNotOwner}">
+                <br>
+                <c:if test="${passengersIsEmpty}">
+                    <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
+                        There is no passenger in your trip
+                    </div>
+                </c:if>
+                <c:if test="${!passengersIsEmpty}">
+                    <ul style="list-style-type:none;" class="col-12 mt-1">
+                        <li class="passengerViewTrip">Passengers:</li>
+                        <c:forEach var="passenger" items="${passengers}">
+                            <li style="color: black">
+                                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30"
+                                     height="30"> ${passenger.firstName} ${passenger.lastName}
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+            </c:if>
 
         </div>
         <div class="col-12" style="background-color: #d78f8f">

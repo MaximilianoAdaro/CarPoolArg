@@ -22,12 +22,12 @@
     }
 
     h1 {
-        color: #08576f;
+        color: #4178b3;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
     h2 {
-        color: #046d90;
+        color: #4178b3;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -126,15 +126,20 @@
         </c:if>
     </div>
 </nav> <!-- NavBar -->
-
 <br>
-<div class="container">
-    <h1 class="text-center">My trips</h1>
-
-    <a data-toggle="collapse" href="#multiCollapseExample1" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample1">
-        <h2 class="col-12">My next trips as driver</h2></a>
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
+<h1 class="text-center">My trips</h1>
+<nav>
+    <div class="nav nav-tabs container text-center justify-content-center" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+           aria-controls="nav-home" aria-selected="true"> Current trips </a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+           aria-controls="nav-profile" aria-selected="false"> Past trips </a>
+    </div>
+</nav>
+<br>
+<div class="tab-content container" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <h2 class="col-12">Next trips as driver</h2>
         <c:if test="${emptyTripsAsDriver}">
             <p class="alert alert-warning mx-3">You do not have trips created</p>
         </c:if>
@@ -172,14 +177,8 @@
                 </div>
             </c:forEach>
         </div>
-    </div>
-    <br>
 
-    <a data-toggle="collapse" href="#multiCollapseExample2" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample2">
-        <h2 class="col-12">My next trips as passenger</h2>
-    </a>
-    <div class="collapse multi-collapse" id="multiCollapseExample2">
+        <h2 class="col-12">Next trips as passenger</h2>
         <c:if test="${emptyTripsAsPassenger}">
             <p class="alert alert-warning mx-3">You do not have trips as a passenger</p>
         </c:if>
@@ -227,13 +226,8 @@
             </c:forEach>
         </div>
     </div>
-    <br>
-
-    <a data-toggle="collapse" href="#multiCollapseExample3" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample3">
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
         <h2 class="col-12">Last trips as driver</h2>
-    </a>
-    <div class="collapse multi-collapse" id="multiCollapseExample3">
         <c:if test="${emptyTripsBeforeAsDriver}">
             <p class="alert alert-warning mx-3">You do not have past trips created</p>
         </c:if>
@@ -272,14 +266,8 @@
                 </div>
             </c:forEach>
         </div>
-    </div>
-    <br>
 
-    <a data-toggle="collapse" href="#multiCollapseExample4" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample4">
         <h2 class="col-12">Last trips as passenger</h2>
-    </a>
-    <div class="collapse multi-collapse" id="multiCollapseExample4">
         <c:if test="${emptyTripsBeforeAsPassenger}">
             <p class="alert alert-warning mx-3">You do not have past trips as a passenger</p>
         </c:if>
@@ -327,7 +315,6 @@
             </c:forEach>
         </div>
     </div>
-    <br>
 </div>
 </body>
 </html>

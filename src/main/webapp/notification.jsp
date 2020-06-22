@@ -29,11 +29,11 @@
         font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .notif{
+    .notif {
         background-color: white;
     }
 
-    .ratingsize{
+    .ratingSize {
         font-size: 15px;
     }
 
@@ -74,7 +74,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i
+                class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -132,82 +133,92 @@
 </nav> <!-- NavBar -->
 
 <div class="notif container mt-5 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
+    <p class="font-weight-bold text-dark">
         Name lastname has requested to join to one of your trips.
-        <span class="font-weight-light font-italic "> date</span> </a>
+        <span class="font-weight-light font-italic "> date</span></p>
 </div>
 
-<div class="collapse multi-collapse" id="join-card">
+<%--<div class="collapse multi-collapse" id="join-card">--%>
+<div class="notif container mt-5 border border-secondary rounded" id="join-card">
 
-<!-- cuando alguien se quiere subir -->
-<div class=" row col-8 mt-2">
+    <!-- cuando alguien se quiere subir -->
+    <div class=" row col-8 mt-2">
 
-    <!-- esto arranca a repetir aca-->
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
-                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
+        <!-- esto arranca a repetir aca-->
+        <div class="col-12">
+            <div class="card">
+                <div class="card-body">
+                    <p class="card-text jointrip col-11">
+                        <span class="font-weight-bold text-dark">Nombre y apellido</span> want to join your trip to
+                        <span class="font-weight-bold text-dark"> lugar </span> in the day
+                        <span class="font-weight-light">17/7</span></p>
+                    <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
+                    <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
+                </div>
             </div>
         </div>
+
+        <!-- termina de repetir aca -->
+
     </div>
 
-    <!-- termina de repetir aca -->
-
-</div>
-
-<!-- y aca termina-->
+    <!-- y aca termina-->
 </div>
 
 <div class="notif container mt-0 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
-        You still have a trip to classify.
-        <span class="font-weight-light font-italic "> date</span> </a>
+    <p class="font-weight-bold text-dark">
+        You were accepted in the trip FROM to TO the day.
+        <span class="font-weight-light font-italic "> date</span>
+    </p>
 </div>
-<div class="collapse multi-collapse" id="ratingCards">
+
+<%--<div class="collapse multi-collapse" id="ratingCards">--%>
+<div class="notif container mt-5 border border-secondary rounded" id="ratingCards">
     <div class=" row col-8 mt-2 mb-2">
         <!-- rate -->
         <!-- esto arranca a repetir aca-->
         <div class="col-5">
             <div class="card" style="height: 8rem ; width: 25rem">
                 <div class="container">
-                    <div class = "row">
+                    <div class="row">
                         <div class="col-3">
                             <p> avatar</p>
                         </div>
-                        <div class = "col-9">
-                            <p class="card-text ratingsize "> You havent rated <span class="font-weight-bold text-dark">Nombre y apellido</span> from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                        </div>
-                        <div class = "col-3">
-                        </div>
-                        <div class ="col-9 mt-0">
-                            <div class="form-check-inline mt-1">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="1">1
-                                </label>
+                        <div class="col-9">
+                            <div class="col-12">
+                                <p class="card-text ratingSize "> You have not rated <span
+                                        class="font-weight-bold text-dark">Nombre y apellido</span>
+                                    from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day
+                                    <span class="font-weight-light">17/7</span></p>
                             </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="2">2
-                                </label>
+                            <div class="col-12">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio1"
+                                           value="1"> <label class="form-check-label" for="inlineRadio1">1</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio2"
+                                           value="2"> <label class="form-check-label" for="inlineRadio2">2</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio3"
+                                           value="3"> <label class="form-check-label" for="inlineRadio3">3</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio4"
+                                           value="4"> <label class="form-check-label" for="inlineRadio4">4</label>
+                                </div>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                           id="inlineRadio5"
+                                           value="5"> <label class="form-check-label" for="inlineRadio5">5</label>
+                                </div>
+                                <button type="submit" class="btn btn-success">Rate</button>
                             </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="3">3
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="4">4
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="5">5
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-success">Rate</button>
                         </div>
 
                     </div>
@@ -218,15 +229,8 @@
     </div>
     <!-- termina de repetir -->
 </div>
-</div>
 
 <!-- y aca termina-->
-
-<div class="notif container mt-0 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
-        Your trip to "lugar" has been finished.
-        <span class="font-weight-light font-italic "> date</span> </a>
-</div>
 
 </body>
 </html>
