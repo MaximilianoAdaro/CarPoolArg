@@ -28,6 +28,9 @@
             background-color: #EEEEEE;
             font-family: Roboto, Muli, sans-serif !important;
         }
+        h2,h5{
+            color: #4178b3;
+        }
     </style>
 </head>
 <body style="background-image: url(/images/carpoolback2.jpg)">
@@ -122,15 +125,18 @@
     </div>
 </nav>
 
+<div class="my-4">
+    <h2 style = "text-align:center">My profile</h2>
+</div>
+<div class="container emp-profile my-5">
 
-
-<div class="container emp-profile mt-2">
     <div class="row">
         <div class="col-4">
             <div class="profile-img">
                 <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
             </div>
             <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
+            <h5 class = "my-4"> Rating: <i>rating</i> </h5>
         </div>
         <div class="col-8">
 
@@ -161,7 +167,7 @@
                     <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                         <div class="row">
                             <div class="col-md-6">
-                                <label>First Name</label>
+                                <label><i class="fa fa-id-card"></i></label>
                             </div>
                             <div class="col-md-6">
                                 <b>${firstNameUser}</b>
@@ -169,7 +175,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Last Name</label>
+                                <label><i class="fa fa-id-card"></i></label>
                             </div>
                             <div class="col-md-6">
                                 <b>${lastNameUser}</b>
@@ -177,7 +183,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Email</label>
+                                <label><i class="fa fa-envelope"></i></label>
                             </div>
                             <div class="col-md-6">
                                 <p>${emailUser}</p>
@@ -185,7 +191,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Car</label>
+                                <label><i class="fa fa-car"></i></label>
                             </div>
                             <div class="col-md-6">
                                 <p>${carUser}</p>
@@ -193,70 +199,61 @@
                         </div>
                         <div class="row">
                             <div class="col-md-6">
-                                <label>Rating</label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>numerito</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label>Plate</label>
+                                <label><i class="fa fa-car"></i></label>
                             </div>
                             <div class="col-md-6">
                                 <p>patente bro</p>
                             </div>
                         </div>
 
-                        </div>
-                            <button type="button" class="btn btn-primary" data-toggle="collapse"
-                                    data-target="#createCar">Edit your car</button>
-
                     </div>
+                    <button type="button" class="btn btn-primary" data-toggle="collapse"
+                            data-target="#createCar">Edit your car</button>
+
                 </div>
             </div>
         </div>
     </div>
+</div>
 
 
-    <form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
-          method="post">
-        <div class="form-row align-items-center jumbotron">
-            <div class="col-auto my-1">
-                <h1 class="display-4">Your car</h1>
-                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-                <div class="form-inline">
-                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
-                        <option selected>Choose a car</option>
-                        <c:forEach var="carModel" items="${carModels}">
-                            <option value="${carModel.carModelId}">${carModel.name}</option>
-                        </c:forEach>
-                    </select>
-                    <span class="form-group">
+<form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
+      method="post">
+    <div class="form-row align-items-center jumbotron">
+        <div class="col-auto my-1">
+            <h1 class="display-4">Your car</h1>
+            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+            <div class="form-inline">
+                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
+                    <option selected>Choose a car</option>
+                    <c:forEach var="carModel" items="${carModels}">
+                        <option value="${carModel.carModelId}">${carModel.name}</option>
+                    </c:forEach>
+                </select>
+                <span class="form-group">
                     <label for="color"></label><input style="max-width: 300px" type="text" class="form-control"
                                                       id="color" name="car_color"
                                                       placeholder="Type your car color" required/>
                     </span>
-                    <span class="form-group ml-2">
+                <span class="form-group ml-2">
                         <label for="patent"></label><input style="max-width: 300px" type="text" class="form-control"
                                                            id="patent" name="car_patent"
                                                            placeholder="Type your car patent" required/>
                     </span>
-                    <span class="ml-2">
+                <span class="ml-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </span>
-                    <div class="mr-5">
-                        <form action="${pageContext.request.contextPath}/carABM.do" method="get">
-                            <div class="mt-2">
-                                <button type="submit" class="btn btn-danger">Delete car</button>
-                            </div>
-                        </form>
-                    </div>
+                <div class="mr-5">
+                    <form action="${pageContext.request.contextPath}/carABM.do" method="get">
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-danger ml-2 mb-2">Delete car</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
-    </form>
+    </div>
+</form>
 
 </body>
-
 </html>
