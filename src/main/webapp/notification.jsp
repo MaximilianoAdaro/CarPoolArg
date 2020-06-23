@@ -29,138 +29,64 @@
         font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .notif{
-        background-color: white;
+    h1,h5 {
+        color: #4178b3;
+        font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .ratingsize{
+    .ratingSize {
         font-size: 15px;
     }
 
+    p {
+        margin: 0;
+    }
 
 </style>
 
-
 <body>
-<!-- jQuery (Bootstrap plugins depend on it) -->
-<script src="bootstrap/js/jquery-v3.5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
-        integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
-        crossorigin="anonymous"></script>
-<script src="bootstrap/js/bootstrap.js"></script>
-<!---------------------------------------------->
 
-<%
-    response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+<h1 class="text-center my-3">Notifications</h1>
 
-    Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
-    if (optionalUser.isPresent()) {
-        User user = optionalUser.get();
-        request.setAttribute("isAdmin", user.getAdministrator());
-        request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
-        request.setAttribute("avatarPath", user.getAvatarPath());
-        request.setAttribute("hasCar", user.getCar() != null);
-    }
-%>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-
-    <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
-
-        <div class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
-               data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                ${userName}
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
-            </a>
-            <div class="dropdown-menu mt-2 ml-5" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/myTrips.do">My trips</a>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/secure/profile.do">Profile</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="${pageContext.request.contextPath}/logout.do">Logout</a>
-            </div>
-        </div>
-
-        <c:if test="${hasCar}">
-            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto"
-               href="${pageContext.request.contextPath}/createTrip.jsp">Create Trip </a>
-        </c:if>
-        <c:if test="${!hasCar}">
-            <!-- Button to Open the Modal -->
-            <a class="nav-link btn btn-danger btn-outline-light ml-2 col-auto" data-toggle="modal"
-               data-target="#myModal" href="">
-                Create Trip
-            </a>
-            <!-- The Modal -->
-            <div class="modal fade" id="myModal">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">You cannot create a trip</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+<!-- Requests -->
+<h5 class="ml-3">Requests</h5>
+<!-- esto arranca a repetir aca-->
+<div id="requestCards">
+    <div class=" row col-8 mt-2 mb-2">
+        <!-- requests -->
+        <div class="col-5">
+            <div class="card" style="height: 8rem ; width: 25rem">
+                <div class="container">
+                    <div class = "row">
+                        <div class="col-3">
+                            <p> avatar</p>
                         </div>
-
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            You do not have the requirements, you must have a car added in your profile
+                        <div class = "col-9">
+                            <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
                         </div>
-
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <a class="nav-link btn btn-primary ml-2 col-auto"
-                               href="${pageContext.request.contextPath}/secure/profile.do">Go to profile</a>
-                            <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <div class = "col-3">
                         </div>
+                        <button type="submit" class="btn btn-success ml-4">Accept</button>
+                        <button type="submit" class="btn btn-danger ml-2 ">Deny</button>
 
                     </div>
+
                 </div>
             </div>
-        </c:if>
-    </div>
-</nav> <!-- NavBar -->
-
-<div class = "notif container mt-5 border border-secondary rounded">
-    <a class = "font-weight-bold text-dark" href="#" data-toggle="collapse" data-target="#join-card">name lastname has requested to join to one of your trips. <span class = "font-weight-light font-italic "> date</span> </a>
-</div>
-
-<div class="collapse multi-collapse" id="join-card">
-
-<!-- cuando alguien se quiere subir -->
-<div class=" row col-8 mt-2">
-
-    <!-- esto arranca a repetir aca-->
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
-                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
-            </div>
         </div>
+
     </div>
-
-    <!-- termina de repetir aca -->
-
+</div>
+<!-- termina de repetir -->
 </div>
 
-<!-- y aca termina-->
-</div>
+<!-- end of requests -->
 
-<div class = "notif container mt-0 border border-secondary rounded">
-    <a class = "font-weight-bold text-dark" href="#"  data-toggle="collapse" data-target="#ratingCards">You still have a people to rate. <span class = "font-weight-light font-italic "> date</span> </a>
-</div>
-<div class="collapse multi-collapse" id="ratingCards">
+<h5 class="ml-3">Ratings</h5>
+<!-- arranca los ratings -->
+
+<div id="ratingCards">
     <div class=" row col-8 mt-2 mb-2">
         <!-- rate -->
         <!-- esto arranca a repetir aca-->
@@ -213,13 +139,66 @@
     </div>
     <!-- termina de repetir -->
 </div>
+
+<!-- end of ratings -->
+
+<div class="container">
+    <ul class="list-group">
+
+        <%--Tipo 1--%>
+        <li class="list-group-item">
+            <div class="container">
+                You have accepted
+                <span class="font-weight-bold text-dark"> Name Lastname </span>
+                to your trip
+                <span class="font-weight-bold text-dark"> FROM </span>
+                to
+                <span class="font-weight-bold text-dark">TO</span>.
+
+                <span class="font-weight-light font-italic "> date </span>
+            </div>
+        </li>
+
+        <%--Tipo 2--%>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <p> avatar </p>
+                    </div>
+                    <div class="col-11">
+                        <div class="col-12">
+                            <span class="font-weight-bold text-dark"> Nombre y apellido </span>
+                            has accepted your request.
+                            <span class="font-weight-light font-italic"> 17/07 </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+
+        <%--Tipo 3--%>
+        <li class="list-group-item">
+            <div class="container">
+                <div class="row">
+                    <div class="col-1">
+                        <p> avatar </p>
+                    </div>
+                    <div class="col-11">
+                        <div class="col-12">
+                <span class="font-weight-bold text-dark">
+                    Name Lastname </span>
+                            has rejected you request.
+                            <span class="font-weight-light font-italic "> date </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </li>
+    </ul>
 </div>
 
-<!-- y aca termina-->
 
-<div class = "notif container mt-0 border border-secondary rounded">
-    <a class = "font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do" >Your trip to "lugar" has been finished. <span class = "font-weight-light font-italic "> date</span> </a>
-</div>
 </body>
 
 </html>

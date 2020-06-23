@@ -62,6 +62,9 @@ public class Trip {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idTrip", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratings;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idTrip", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
     public int getAvailableSeats() {
         return availableSeats;
     }
@@ -116,15 +119,15 @@ public class Trip {
     }
 
     public void removePassenger(User user) {
-        TripPassenger personAddress = new TripPassenger(user,this);
-        if(user.getPassenger().remove(personAddress))
-            availableSeats++;
+        TripPassenger personAddress = new TripPassenger(user, this);
         passengers.remove(personAddress);
+        user.removeTripAsPassenger(personAddress);
+        availableSeats++;
         personAddress.setPassenger(null);
         personAddress.setTrip(null);
         personAddress.setState(false);
-    }
 
+    }
 
     public void setTime(Time time) {
         this.time = time;
@@ -168,6 +171,14 @@ public class Trip {
 
     public void setRatings(List<Rating> ratings) {
         this.ratings = ratings;
+    }
+
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
     }
 
     @Override

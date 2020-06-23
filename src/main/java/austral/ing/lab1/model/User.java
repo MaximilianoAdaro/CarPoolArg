@@ -52,6 +52,9 @@ public class User {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idPassenger", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Rating> ratePassenger;
 
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Notification> notifications;
+
     public User() {
     }
 
@@ -153,6 +156,10 @@ public class User {
         passenger.add(trip);
     }
 
+    public void removeTripAsPassenger(TripPassenger trip) {
+        passenger.remove(trip);
+    }
+
     public void deleteCar() {
         car = null;
     }
@@ -181,6 +188,14 @@ public class User {
         this.ratePassenger = ratePassenger;
     }
 
+    public List<Notification> getNotifications() {
+        return notifications;
+    }
+
+    public void setNotifications(List<Notification> notifications) {
+        this.notifications = notifications;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -191,12 +206,13 @@ public class User {
                 ", password='" + password + '\'' +
                 ", isActive=" + isActive +
                 ", car=" + car.toString() +
-                //", avatarPath='" + avatarPath + '\'' +
+                ", avatarPath='" + avatarPath + '\'' +
                 ", isAdministrator=" + isAdministrator +
                 ", driver=" + driver.size() +
                 ", passenger=" + passenger.size() +
                 ", rateDriver=" + rateDriver.size() +
                 ", ratePassenger=" + ratePassenger.size() +
+                ", notifications=" + notifications.size() +
                 '}';
     }
 }
