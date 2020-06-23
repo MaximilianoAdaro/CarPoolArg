@@ -33,7 +33,7 @@
         }
     </style>
 </head>
-<body style="background-image: url(/images/carpoolback2.jpg)">
+<body>
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
