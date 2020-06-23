@@ -121,7 +121,6 @@
         </c:if>
     </div>
 </nav>
-
 <div class="container emp-profile mt-2">
     <div class="row">
         <div class="col-md-4">
@@ -136,63 +135,89 @@
                 </h3>
             </div>
         </div>
-        <div class="col-md-6 my-3">
-            <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
-                <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
-                <button type="submit" class="btn btn-primary"> Submit</button>
-            </form>
-        </div>
-    </div>
 
-    <div class="col-md-8 mt-auto mt-5">
-        <div class="tab-content profile-tab" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>First Name</label>
+    <div class="col-md-6 my-3">
+
+        <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
+
+        <div class="modal fade" id="changeAvatar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div class="col-md-6">
-                        <p>${firstNameUser}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Last Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${lastNameUser}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Email</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${emailUser}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Car</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${carUser}</p>
-                    </div>
-                    <div class="mr-5">
-                        <form action="${pageContext.request.contextPath}/carABM.do" method="get">
-                            <span class="ml-2">
-                                <button type="submit" class="btn btn-primary">Delete car</button>
-                            </span>
+                    <div class="modal-body">
+                        <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
+                            <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
                         </form>
                     </div>
-                    <span><button type="button" class="btn btn-primary" data-toggle="collapse"
-                                  data-target="#createCar">Edit your car</button></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-8 mt-auto mt-5">
+            <div class="tab-content profile-tab" id="myTabContent">
+                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>First Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${firstNameUser}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Last Name</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${lastNameUser}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Email</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${emailUser}</p>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label>Car</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>${carUser}</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Rating</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>numerito</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Plate</label>
+                        </div>
+                        <div class="col-md-6">
+                            <p>patente bro</p>
+                        </div>
+
+
+                        <button type="button" class="btn btn-primary" data-toggle="collapse"
+                                data-target="#createCar">Edit your car</button></span>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+    </div>
 </div>
-
 <form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
       method="post">
     <div class="form-row align-items-center jumbotron">
@@ -219,10 +244,16 @@
                 <span class="ml-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </span>
+                <div class="mr-5">
+                    <form action="${pageContext.request.contextPath}/carABM.do" method="get">
+                        <div class="ml-2">
+                            <button type="submit" class="btn btn-danger">Delete car</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </form>
-
 </body>
 </html>

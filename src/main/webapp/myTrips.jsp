@@ -2,6 +2,7 @@
 <%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
@@ -20,8 +21,13 @@
 
     }
 
+    h1 {
+        color: #08576f;
+        font-family: Roboto, Muli, sans-serif !important;
+    }
+
     h2 {
-        color: #036686;
+        color: #046d90;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -30,9 +36,6 @@
         font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .jointrip{
-        position:relative; left:80px;
-    }
 </style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -46,6 +49,7 @@
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
+    Ratings.setRating();
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
@@ -56,6 +60,7 @@
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -65,6 +70,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -117,37 +124,42 @@
                 </div>
             </div>
         </c:if>
-
     </div>
-<br>
+</nav> <!-- NavBar -->
 
+<br>
 <div class="container">
-    <h2 class="col-12">My next trips as driver</h2>
-    <c:if test="${emptyTripsAsDriver}">
-        <p class="alert alert-warning mx-3">You do not have trips created</p>
-    </c:if>
-    <div class="row justify-content-center myTrip">
-        <c:forEach var="trip" items="${tripsAsDriver}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
+    <h1 class="text-center">My trips</h1>
+
+    <a data-toggle="collapse" href="#multiCollapseExample1" role="button"
+       aria-expanded="false" aria-controls="multiCollapseExample1">
+        <h2 class="col-12">My next trips as driver</h2></a>
+    <div class="collapse multi-collapse" id="multiCollapseExample1">
+        <c:if test="${emptyTripsAsDriver}">
+            <p class="alert alert-warning mx-3">You do not have trips created</p>
+        </c:if>
+        <div class="row myTrip justify-content-center">
+            <c:forEach var="trip" items="${tripsAsDriver}">
+                <div class="col-auto mb-3">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title" style="color: orange">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.fromTrip}</h5>
+                                <h5 class="card-title" style="color: #1c7430">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.toTrip}</h5>
+                            </div>
+                            <div>
+                                <p class="card-text text-center"> ${trip.date.toString()}</p>
+                                <p class="card-text text-center"> ${trip.time.toString()}</p>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
                                         Available seats</span>
                                 </div>
                             </div>
