@@ -127,39 +127,45 @@
     </div>
 </nav> <!-- NavBar -->
 
+<div class="my-4">
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item ml-3">
+            <a class = "nav-link active"  href="${pageContext.request.contextPath}/secure/home.do"><h2>My trips</h2></a>
+        </li>
+        <li class="nav-item">
+            <a class = "nav-link"  href="${pageContext.request.contextPath}/secure/profile.do"><h2>My profile</h2></a>
+        </li>
+    </ul>
+</div>
+
 <br>
 <div class="container">
-    <h1 class="text-center">My trips</h1>
-
-    <a data-toggle="collapse" href="#multiCollapseExample1" role="button"
-       aria-expanded="false" aria-controls="multiCollapseExample1">
-        <h2 class="col-12">My next trips as driver</h2></a>
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
-        <c:if test="${emptyTripsAsDriver}">
-            <p class="alert alert-warning mx-3">You do not have trips created</p>
-        </c:if>
-        <div class="row myTrip justify-content-center">
-            <c:forEach var="trip" items="${tripsAsDriver}">
-                <div class="col-auto mb-3">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                        <div class="card-body">
-                            <div>
-                                <h5 class="card-title" style="color: orange">
-                                    <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
-                                <h5 class="card-title" style="color: #1c7430">
-                                    <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
-                            </div>
-                            <div>
-                                <p class="card-text text-center"> ${trip.date.toString()}</p>
-                                <p class="card-text text-center"> ${trip.time.toString()}</p>
-                            </div>
-                            <div class="row p-2">
-                                <div class="col-8">
-                                    <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                        <span class="col-9 availableSeats">
+    <h2 class="col-12">My next trips as driver</h2>
+    <c:if test="${emptyTripsAsDriver}">
+        <p class="alert alert-warning mx-3">You do not have trips created</p>
+    </c:if>
+    <div class="row justify-content-center myTrip">
+        <c:forEach var="trip" items="${tripsAsDriver}">
+            <div class="col-auto mb-3">
+                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card-body">
+                        <div>
+                            <h5 class="card-title" style="color: orange">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.fromTrip}</h5>
+                            <h5 class="card-title" style="color: #1c7430">
+                                <i class="fa fa-map-marker"></i>
+                                    ${trip.toTrip}</h5>
+                        </div>
+                        <div>
+                            <p class="card-text text-center"> ${trip.date.toString()}</p>
+                            <p class="card-text text-center"> ${trip.time.toString()}</p>
+                        </div>
+                        <div class="row p-2">
+                            <div class="col-8">
+                                <div class="row">
+                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                    <span class="col-9 availableSeats">
                                         Available seats</span>
                                 </div>
                             </div>

@@ -126,7 +126,14 @@
 </nav>
 
 <div class="my-4">
-    <h2 style = "text-align:center">My profile</h2>
+    <ul class="nav nav-tabs justify-content-center">
+        <li class="nav-item ml-3">
+            <a class = "nav-link"  href="${pageContext.request.contextPath}/secure/home.do"><h2>My trips</h2></a>
+        </li>
+        <li class="nav-item">
+            <a class = "nav-link active"  href="${pageContext.request.contextPath}/secure/profile.do"><h2>My profile</h2></a>
+        </li>
+    </ul>
 </div>
 <div class="container emp-profile my-5">
 
