@@ -3,15 +3,15 @@ package austral.ing.lab1.entity;
 import austral.ing.lab1.model.Rating;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.TripPassenger;
-import austral.ing.lab1.util.LangUtils;
+import austral.ing.lab1.model.User;
 
 import javax.persistence.EntityTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-import java.util.Optional;
 
 import static austral.ing.lab1.util.EntityManagers.currentEntityManager;
 import static austral.ing.lab1.util.LangUtils.checkedList;
@@ -19,23 +19,42 @@ import static austral.ing.lab1.util.Transactions.tx;
 
 public class Ratings {
 
-    //todo: usar
-    public static Optional<Rating> findRating(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver) {
-        return tx(() -> LangUtils.<Rating>checkedList(currentEntityManager()
+    public static List<Rating> ratingsUserAsDriver(User user) {
+        List<Rating> rate = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT r FROM Rating r " +
-                        "WHERE r.idTrip = :idTrip " +
-                        "and r.idDriver = :driver " +
-                        "and r.idPassenger = :passenger " +
-                        "and r.isDriver = :isDriver")
-                .setParameter("idTrip", idTrip)
-                .setParameter("driver", idDriver)
-                .setParameter("passenger", idPassenger)
-                .setParameter("isDriver", isDriver).getResultList()).stream()
-                .findFirst()
-        );
+                        " where r.isRated = false" +
+                        " and r.idDriver = :user " +
+                        "and r.isDriver = true")
+                .setParameter("user", user)
+                .getResultList()
+        ));
+        sortRating(rate);
+        return rate;
     }
 
-    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value, String message) {
+    public static List<Rating> ratingsUserAsPassenger(User user) {
+        List<Rating> rate = tx(() -> checkedList(currentEntityManager()
+                .createQuery("SELECT r FROM Rating r " +
+                        " where r.isRated = false" +
+                        " and r.idPassenger = :user " +
+                        "and r.isDriver = false")
+                .setParameter("user", user)
+                .getResultList()
+        ));
+        sortRating(rate);
+        return rate;
+    }
+
+    private static void sortRating(List<Rating> ratings) {
+        if (ratings.isEmpty()) return;
+        ratings.sort((o1, o2) -> {
+            if (o2.getIdTrip().getDate().equals(o1.getIdTrip().getDate()))
+                return (o2.getIdTrip().getTime().before(o1.getIdTrip().getTime()) ? -1 : (o2.getIdTrip().getTime().after(o1.getIdTrip().getTime())) ? 1 : 0);
+            return o2.getIdTrip().getDate().compareTo(o1.getIdTrip().getDate());
+        });
+    }
+
+    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value) {
         try {
             // create our mysql database connection
             String myDriver = "com.mysql.jdbc.Driver";
@@ -45,7 +64,6 @@ public class Ratings {
             Statement st = conn.createStatement();
             st.executeUpdate("UPDATE ratings r " +
                     " SET r.VALUE = " + value +
-                    " and r.MESSAGE = " + message +
                     " and r.IS_RATED = true " +
                     " WHERE r.ID_TRIP = " + idTrip +
                     " AND r.ID_DRIVER = " + idDriver +
@@ -78,9 +96,9 @@ public class Ratings {
             if (trip.getPassengers() != null) {
                 for (TripPassenger passenger : trip.getPassengers()) {
                     Ratings.persist(new Rating(trip, trip.getDriver(), passenger.getPassenger(), true, 0,
-                            "", false));
+                            false));
                     Ratings.persist(new Rating(trip, trip.getDriver(), passenger.getPassenger(), false, 0,
-                            "", false));
+                            false));
                 }
             }
         }

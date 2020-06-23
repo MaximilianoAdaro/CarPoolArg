@@ -61,4 +61,14 @@ public class TripsPassengers {
         );
     }
 
+    public static List<TripsPassengers> listTrips(User user) {
+        return tx(() ->
+                checkedList(currentEntityManager()
+                        .createQuery("SELECT t FROM TripPassenger t " +
+                                " where t.trip.driver = :user" +
+                                " and t.state = false")
+                        .setParameter("user", user)
+                        .getResultList())
+        );
+    }
 }
