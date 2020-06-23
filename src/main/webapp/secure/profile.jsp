@@ -121,139 +121,142 @@
         </c:if>
     </div>
 </nav>
+
+
+
 <div class="container emp-profile mt-2">
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-4">
             <div class="profile-img">
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="150" height="150">
+                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
             </div>
+            <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
         </div>
-        <div class="col-md-6">
-            <div class="profile-head">
-                <h3>
-                    Profile
-                </h3>
-            </div>
-        </div>
+        <div class="col-8">
 
-    <div class="col-md-6 my-3">
-
-        <button class="btn btn-primary mb-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
-
-        <div class="modal fade" id="changeAvatar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+            <div class="modal fade" id="changeAvatar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
+                                <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Save changes</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
-                    <div class="modal-body">
-                        <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
-                            <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+
+            <div class="col-md-8 mt-auto mt-5">
+                <div class="tab-content profile-tab" id="myTabContent">
+                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>First Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <b>${firstNameUser}</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Last Name</label>
+                            </div>
+                            <div class="col-md-6">
+                                <b>${lastNameUser}</b>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Email</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${emailUser}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Car</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>${carUser}</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Rating</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>numerito</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <label>Plate</label>
+                            </div>
+                            <div class="col-md-6">
+                                <p>patente bro</p>
+                            </div>
+                        </div>
+
+                        </div>
+                            <button type="button" class="btn btn-primary" data-toggle="collapse"
+                                    data-target="#createCar">Edit your car</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
+          method="post">
+        <div class="form-row align-items-center jumbotron">
+            <div class="col-auto my-1">
+                <h1 class="display-4">Your car</h1>
+                <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
+                <div class="form-inline">
+                    <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
+                        <option selected>Choose a car</option>
+                        <c:forEach var="carModel" items="${carModels}">
+                            <option value="${carModel.carModelId}">${carModel.name}</option>
+                        </c:forEach>
+                    </select>
+                    <span class="form-group">
+                    <label for="color"></label><input style="max-width: 300px" type="text" class="form-control"
+                                                      id="color" name="car_color"
+                                                      placeholder="Type your car color" required/>
+                    </span>
+                    <span class="form-group ml-2">
+                        <label for="patent"></label><input style="max-width: 300px" type="text" class="form-control"
+                                                           id="patent" name="car_patent"
+                                                           placeholder="Type your car patent" required/>
+                    </span>
+                    <span class="ml-2">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </span>
+                    <div class="mr-5">
+                        <form action="${pageContext.request.contextPath}/carABM.do" method="get">
+                            <div class="mt-2">
+                                <button type="submit" class="btn btn-danger">Delete car</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="col-md-8 mt-auto mt-5">
-            <div class="tab-content profile-tab" id="myTabContent">
-                <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>First Name</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>${firstNameUser}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Last Name</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>${lastNameUser}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Email</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>${emailUser}</p>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <label>Car</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>${carUser}</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Rating</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>numerito</p>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Plate</label>
-                        </div>
-                        <div class="col-md-6">
-                            <p>patente bro</p>
-                        </div>
+    </form>
 
-
-                        <button type="button" class="btn btn-primary" data-toggle="collapse"
-                                data-target="#createCar">Edit your car</button></span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    </div>
-</div>
-<form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
-      method="post">
-    <div class="form-row align-items-center jumbotron">
-        <div class="col-auto my-1">
-            <h1 class="display-4">Your car</h1>
-            <label class="mr-sm-2 sr-only" for="inlineFormCustomSelect">Preference</label>
-            <div class="form-inline">
-                <select class="custom-select mr-sm-2" id="inlineFormCustomSelect" name="carModelId">
-                    <option selected>Choose a car</option>
-                    <c:forEach var="carModel" items="${carModels}">
-                        <option value="${carModel.carModelId}">${carModel.name}</option>
-                    </c:forEach>
-                </select>
-                <span class="form-group">
-                    <label for="color"></label><input style="max-width: 300px" type="text" class="form-control"
-                                                      id="color" name="car_color"
-                                                      placeholder="Type your car color" required/>
-                    </span>
-                <span class="form-group ml-2">
-                        <label for="patent"></label><input style="max-width: 300px" type="text" class="form-control"
-                                                           id="patent" name="car_patent"
-                                                           placeholder="Type your car patent" required/>
-                    </span>
-                <span class="ml-2">
-                        <button type="submit" class="btn btn-primary">Submit</button>
-                    </span>
-                <div class="mr-5">
-                    <form action="${pageContext.request.contextPath}/carABM.do" method="get">
-                        <div class="ml-2">
-                            <button type="submit" class="btn btn-danger">Delete car</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 </body>
+
 </html>
