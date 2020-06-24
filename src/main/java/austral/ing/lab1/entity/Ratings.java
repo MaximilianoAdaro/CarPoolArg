@@ -4,14 +4,15 @@ import austral.ing.lab1.model.Rating;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.TripPassenger;
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.util.LangUtils;
 
 import javax.persistence.EntityTransaction;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static austral.ing.lab1.util.EntityManagers.currentEntityManager;
 import static austral.ing.lab1.util.LangUtils.checkedList;
@@ -54,7 +55,24 @@ public class Ratings {
         });
     }
 
+    public static Optional<Rating> findRate(Trip idTrip, User idDriver, User idPassenger, boolean isDriver) {
+        return tx(() -> LangUtils.<Rating>checkedList(currentEntityManager()
+                .createQuery("SELECT r FROM Rating r " +
+                        "WHERE r.idTrip =  :idTrip" +
+                        " AND r.idDriver = :idDriver" +
+                        " AND r.isDriver =  :isDriver" +
+                        " AND r.idPassenger = :idPassenger")
+                .setParameter("idTrip", idTrip)
+                .setParameter("idDriver", idDriver)
+                .setParameter("isDriver", isDriver)
+                .setParameter("idPassenger", idPassenger)
+                .getResultList()).stream()
+                .findFirst()
+        );
+    }
+
     public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value) {
+
         try {
             // create our mysql database connection
             String myDriver = "com.mysql.jdbc.Driver";
@@ -103,6 +121,38 @@ public class Ratings {
             }
         }
     }
+
+    public static int rateUser(User user) {
+        Double rating = 0.0;
+        List<Integer> rate = tx(() -> checkedList(currentEntityManager()
+                .createQuery("SELECT r.value FROM Rating r " +
+                        " where r.isRated = true" +
+                        " and (r.idPassenger = :user and r.isDriver = false)" +
+                        " or (r.idDriver = :user and r.isDriver = true)")
+                .setParameter("user", user)
+                .getResultList()
+        ));
+        for (Integer aDouble : rate) {
+            rating += aDouble;
+        }
+        if (!rate.isEmpty())
+            rating /= rate.size();
+        System.out.println("rating = " + rating);
+        return rating.intValue();
+    }
+
+    public static int getSizeRate(User user) {
+        List<Integer> rate = tx(() -> checkedList(currentEntityManager()
+                .createQuery("SELECT r.value FROM Rating r " +
+                        " where r.isRated = true" +
+                        " and (r.idPassenger = :user and r.isDriver = false)" +
+                        " or (r.idDriver = :user and r.isDriver = true)")
+                .setParameter("user", user)
+                .getResultList()
+        ));
+        return rate.size();
+    }
+
 
     private static List<Trip> tripsNotRated() {
         List<Trip> rated = tx(() ->

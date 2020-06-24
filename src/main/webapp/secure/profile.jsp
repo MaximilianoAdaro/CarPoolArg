@@ -4,6 +4,7 @@
 <%@ page import="austral.ing.lab1.model.CarModel" %>
 <%@ page import="java.util.List" %>
 <%@ page import="austral.ing.lab1.entity.CarModels" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
@@ -27,7 +28,10 @@
         body {
             background-color: #EEEEEE;
             font-family: Roboto, Muli, sans-serif !important;
-            /*background-image: url(/images/carpoolback2.jpg)*/
+        }
+
+        h2, h5 {
+            color: #4178b3;
         }
     </style>
 </head>
@@ -42,10 +46,12 @@
         request.setAttribute("isAdmin", user.getAdministrator());
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
+        request.setAttribute("rateUser", Ratings.rateUser(user));
+        request.setAttribute("rateSizeUser", Ratings.rateUser(user));
         request.setAttribute("emailUser", user.getEmail());
         request.setAttribute("hasCar", user.getCar() != null);
         if (user.getCar() != null)
-            request.setAttribute("carUser", user.getCar().getCarModel().getName());
+            request.setAttribute("carUser", user.getCar());
         request.setAttribute("avatarPath", user.getAvatarPath());
         request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
     }
@@ -70,7 +76,8 @@
         </c:if>
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do"><i
+                class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -122,77 +129,108 @@
         </c:if>
     </div>
 </nav>
+<%--navbar--%>
 
-<div class="container emp-profile mt-2">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="profile-img">
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="150" height="150">
+<div class="my-4">
+    <h2 style="text-align:center">
+        My Profile
+    </h2>
+    <div class="container emp-profile my-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="profile-img">
+                    <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
+                </div>
+                <c:if test="${rateSizeUser > 0}">
+                    <p> Rating: ${rateUser} (${rateSizeUser} times rated)</p>
+                </c:if>
+                <c:if test="${rateSizeUser < 1}">
+                    <p> No one have rated you </p>
+                </c:if>
+                <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar
+                </button>
             </div>
-        </div>
-        <div class="col-md-6">
-            <div class="profile-head">
-                <h3>
-                    Profile
-                </h3>
-            </div>
-        </div>
-        <div class="col-md-6 my-3">
-            <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
-                <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
-                <button type="submit" class="btn btn-primary"> Submit</button>
-            </form>
-        </div>
-    </div>
+            <div class="col-8">
 
-    <div class="col-md-8 mt-auto mt-5">
-        <div class="tab-content profile-tab" id="myTabContent">
-            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>First Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${firstNameUser}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Last Name</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${lastNameUser}</p>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Email</label>
-                    </div>
-                    <div class="col-md-6">
-                        <p>${emailUser}</p>
+                <div class="modal fade" id="changeAvatar" tabindex="-1" role="dialog"
+                     aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="${pageContext.request.contextPath}/upload.do"
+                                      enctype="multipart/form-data">
+                                    <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img"
+                                           accept="image/*"/>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close
+                                        </button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <label>Car</label>
+
+                <div class="col-md-8 mt-auto mt-5">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class="ml-3 mb-2">
+                                    <h4><b>${firstNameUser} ${lastNameUser} </b></h4>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i class="fa fa-envelope" style="color: #4178b3;"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>${emailUser}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i style="color: #4178b3;" class="fa fa-car"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>${carUser.carModel.name}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i style="color: #4178b3;" class="fa fa-car"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p> ${carUser.patent} </p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label>Color</label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p> ${carUser.color} </p>
+                                </div>
+                            </div>
+
+                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="collapse"
+                                data-target="#createCar">Edit your car
+                        </button>
+
                     </div>
-                    <div class="col-md-6">
-                        <p>${carUser}</p>
-                    </div>
-                    <div class="mr-5">
-                        <form action="${pageContext.request.contextPath}/carABM.do" method="get">
-                            <span class="ml-2">
-                                <button type="submit" class="btn btn-primary">Delete car</button>
-                            </span>
-                        </form>
-                    </div>
-                    <span><button type="button" class="btn btn-primary" data-toggle="collapse"
-                                  data-target="#createCar">Edit your car</button></span>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
 
 <form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do"
       method="post">
@@ -220,10 +258,49 @@
                 <span class="ml-2">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </span>
+                <div class="mr-5">
+                    <form action="${pageContext.request.contextPath}/carABM.do" method="get">
+                        <div class="mt-2">
+                            <button type="submit" class="btn btn-danger ml-2 mb-2">Delete car</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
 </form>
 
+
+<footer style="background-color:#33363A; color:white">
+    <div class="row col-12">
+        <div class="col-3">
+            Logo universidad Austral
+        </div>
+        <div class="col-3">
+            Developers:
+            <ul>
+                <li>
+                    Maximiliano Adaro
+                </li>
+                <li>
+                    Numa Leone Elizalde
+                </li>
+            </ul>
+        </div>
+        <div class="col-3">
+            Materia: Laboratorio 1
+            <ul>
+                <li>
+                    Paca
+                </li>
+                <li>
+                    Diego
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
+
 </body>
+
 </html>

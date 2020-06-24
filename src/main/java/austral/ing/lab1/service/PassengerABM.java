@@ -19,15 +19,14 @@ import java.util.Optional;
 @WebServlet("/passenger.do")
 public class PassengerABM extends HttpServlet {
 
-//    todo: use this
-//    debe ser accepted si lo acepta al pasajero,o rejected en caso contrario y este lo elimina
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        Optional<User> optionalUser = Users.findByEmail(req.getParameter("user"));
+        Optional<User> optionalUser = Users.findById(Long.parseLong(req.getParameter("user")));
         Long tripId = Long.parseLong(req.getParameter("tripId"));
         Optional<Trip> optionalTrip = Trips.findById(tripId);
         String accepted = req.getParameter("case");
+        System.out.println("accepted = " + accepted);
 
         if (optionalUser.isPresent() & optionalTrip.isPresent()) {
             User user = optionalUser.get();
@@ -42,7 +41,7 @@ public class PassengerABM extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
+        req.getRequestDispatcher("/notification.jsp").forward(req, resp);
 
     }
 }

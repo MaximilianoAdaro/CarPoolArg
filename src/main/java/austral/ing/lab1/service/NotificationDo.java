@@ -35,7 +35,8 @@ public class NotificationDo extends HttpServlet {
             req.getSession().setAttribute("ratingsUserAsPassenger", ratingsUserAsPassenger);
             req.getSession().setAttribute("tripsPassengers", tripsPassengers);
 
-            req.getSession().setAttribute("ratingNotEmpty", !ratingsUserAsDriver.isEmpty() || !ratingsUserAsPassenger.isEmpty());
+            req.getSession().setAttribute("ratingAsDriver", !ratingsUserAsDriver.isEmpty());
+            req.getSession().setAttribute("ratingAsPassenger", !ratingsUserAsPassenger.isEmpty());
             req.getSession().setAttribute("tripPassNotEmpty", !tripsPassengers.isEmpty());
         }
         req.getRequestDispatcher("/notification.jsp").forward(req, resp);

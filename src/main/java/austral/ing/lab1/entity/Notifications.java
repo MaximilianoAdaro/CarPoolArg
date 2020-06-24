@@ -1,12 +1,12 @@
 package austral.ing.lab1.entity;
 
-import austral.ing.lab1.model.*;
+import austral.ing.lab1.model.Notification;
+import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.model.TypeNotification;
+import austral.ing.lab1.model.User;
 
 import javax.persistence.EntityTransaction;
-
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 

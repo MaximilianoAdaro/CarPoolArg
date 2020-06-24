@@ -22,12 +22,12 @@
     }
 
     h1 {
-        color: #4178b3;
+        color: #08576f;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
-    h2 {
-        color: #4178b3;
+    h2, .tripCurrent {
+        color: #046d90;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -130,9 +130,9 @@
 <h1 class="text-center">My trips</h1>
 <nav>
     <div class="nav nav-tabs container text-center justify-content-center" id="nav-tab" role="tablist">
-        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+        <a class="nav-item nav-link active tripCurrent" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
            aria-controls="nav-home" aria-selected="true"> Current trips </a>
-        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+        <a class="nav-item nav-link tripCurrent" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
            aria-controls="nav-profile" aria-selected="false"> Past trips </a>
     </div>
 </nav>

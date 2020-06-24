@@ -6,6 +6,7 @@
 <%@ page import="austral.ing.lab1.model.Trip" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.ArrayList" %>
+<%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -26,6 +27,7 @@
 <style>
 
     body {
+        background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -42,6 +44,7 @@
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+
     Long idTrip = Long.parseLong(request.getParameter("trip"));
     Optional<Trip> optionalTrip = Trips.findById(idTrip);
 
@@ -64,8 +67,11 @@
         driverID = driver.getUserId();
         request.setAttribute("driver", driver);
         request.setAttribute("driverID", driver.getUserId());
+        request.setAttribute("driverEmail", driver.getEmail());
         request.setAttribute("driverCar", driver.getCar());
         request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
+        request.setAttribute("ratingDriver", Ratings.rateUser(driver));
+        request.setAttribute("ratingSize", Ratings.getSizeRate(driver));
 
         Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
@@ -174,28 +180,30 @@
 
 <div class="container mt-5 border rounded">
     <div class="row">
+        <%--        Seccion izquierda--%>
         <div class="col-3 bg-primary text-white border-right rounded-left viewTripAvatar">
-            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="80" width="80">
+            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
-
-            <p> General rating:</p>
+            <c:if test="${ratingSize > 0}">
+                <p> Rating: ${ratingDriver} (${ratingSize} times rated)</p>
+            </c:if>
+            <p> Email: ${driverEmail}</p>
 
             <div class="col-12" style="max-lines: 7">
                 <i class="fa fa-quote-left"></i>
                 <span>${trip.comment}</span>
                 <i class="fa fa-quote-right"></i>
             </div>
-
-            Puedo poner un boton para ver el perfil si queres
         </div>
-        <div class="col-6">
-            <div class="col-8">
+        <%--    Seccion medio--%>
+        <div class="col-6" style="background-color: white">
+            <div class="col-8 ml-4">
 
                 <div>
-                    <h5 class="card-title" style="color: orange">
+                    <h5 class="card-title" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.fromTrip}</h5>
-                    <h5 class="card-title" style="color: #1c7430">
+                    <h5 class="card-title" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.toTrip}</h5>
                 </div>
@@ -218,38 +226,45 @@
 
             </div>
         </div>
+        <%--    Seccion derecha--%>
         <div class="col-3 border-left" style="background-color: #ced4da">
-            <div class="col-12 carDetailViewTrip">Car details</div>
-            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-            <div class="col-12"> Color: ${driverCar.color} </div>
-            <div class="col-12"> Patent: ${driverCar.patent} </div>
-
-            <c:if test="${!isNotOwner}">
-                <br>
-                <c:if test="${passengersIsEmpty}">
-                    <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
-                        There is no passenger in your trip
-                    </div>
+            <div class="row ml-2">
+                <div class="col-12 carDetailViewTrip">Car details</div>
+                <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
+                <div class="col-12"> Color: ${driverCar.color} </div>
+                <div class="col-12"> Patent: ${driverCar.patent} </div>
+            </div>
+            <div class="row ml-2">
+                <c:if test="${!isNotOwner}">
+                    <br>
+                    <c:if test="${passengersIsEmpty}">
+                        <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
+                            There is no passenger in your trip
+                        </div>
+                    </c:if>
+                    <c:if test="${!passengersIsEmpty}">
+                        <ul style="list-style-type:none;" class="col-12 mt-1">
+                            <li class="passengerViewTrip">Passengers:</li>
+                            <c:forEach var="passenger" items="${passengers}">
+                                <li style="color: black">
+                                    <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
+                                         width="30"
+                                         height="30"> ${passenger.firstName} ${passenger.lastName}
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </c:if>
-                <c:if test="${!passengersIsEmpty}">
-                    <ul style="list-style-type:none;" class="col-12 mt-1">
-                        <li class="passengerViewTrip">Passengers:</li>
-                        <c:forEach var="passenger" items="${passengers}">
-                            <li style="color: black">
-                                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30"
-                                     height="30"> ${passenger.firstName} ${passenger.lastName}
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-            </c:if>
-
+            </div>
+            <div class="row ml-2 col-12">
+                Distance to travel: <i> x km </i>
+            </div>
         </div>
-        <div class="col-12" style="background-color: #d78f8f">
-            This is the map on Google
-            <br>
-            <br>
+        <div class="col-12" style="background-color: #b49e9e">
+            <p> This is the map on Google </p>
         </div>
+        <br>
+        <br>
     </div>
 
 </div>
