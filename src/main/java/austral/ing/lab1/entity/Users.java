@@ -13,6 +13,12 @@ import static austral.ing.lab1.util.Transactions.tx;
 
 public class Users {
 
+    public static Optional<User> findById(Long idUser) {
+        return tx(() ->
+                Optional.of(currentEntityManager().find(User.class, idUser))
+        );
+    }
+
     public static Optional<User> findByEmail(String email) {
         return tx(() -> LangUtils.<User>checkedList(currentEntityManager()
                 .createQuery("SELECT u FROM User u WHERE u.email LIKE :email")
@@ -42,5 +48,4 @@ public class Users {
             throw e;
         }
     }
-
 }

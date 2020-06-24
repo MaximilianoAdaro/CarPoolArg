@@ -1,12 +1,15 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ page import="austral.ing.lab1.entity.Trips" %>
-<%@ page import="austral.ing.lab1.model.Trip" %>
-<%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.entity.TripsPassengers" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="austral.ing.lab1.model.Trip" %>
 <%@ page import="austral.ing.lab1.model.User" %>
+<%@ page import="java.util.ArrayList" %>
 <%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
 <%@ page import="java.util.List" %>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page import="java.util.Optional" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -19,11 +22,15 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <style>
 
-    body{
+    body {
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
@@ -41,14 +48,20 @@
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+
     Long idTrip = Long.parseLong(request.getParameter("trip"));
     Optional<Trip> optionalTrip = Trips.findById(idTrip);
+
+    Ratings.setRating();
 
     long userID = -1;
     long driverID = -2;
     boolean isNotOwner;
-    boolean isNotPassengerYet = true;
+    boolean isNotPassengerYetAfter = true;
     boolean availableSeats = false;
+    boolean isNotPassengerYetBefore = true;
+    boolean isOldTrip = false;
+    List<User> passengers = new ArrayList<>();
     if (optionalTrip.isPresent()) {
         Trip trip = optionalTrip.get();
         availableSeats = trip.getAvailableSeats() > 0;
@@ -58,8 +71,11 @@
         driverID = driver.getUserId();
         request.setAttribute("driver", driver);
         request.setAttribute("driverID", driver.getUserId());
+        request.setAttribute("driverEmail", driver.getEmail());
         request.setAttribute("driverCar", driver.getCar());
         request.setAttribute("driverName", driver.getFirstName() + " " + driver.getLastName());
+        request.setAttribute("ratingDriver", Ratings.rateUser(driver));
+        request.setAttribute("ratingSize", Ratings.getSizeRate(driver));
 
         Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
@@ -70,18 +86,35 @@
             request.setAttribute("avatarPath", user.getAvatarPath());
             request.setAttribute("hasCar", user.getCar() != null);
 
-            List<Trip> trips = Trips.listPassengerTrips(userID, true);
-            if (trips.contains(trip))
-                isNotPassengerYet = false;
+            isOldTrip = Trips.listBeforeTrips().contains(trip);
+            List<Trip> tripsBefore = Trips.listPassengerTrips(userID, false);
+            List<Trip> tripsAfter = Trips.listPassengerTrips(userID, true);
+
+            if (tripsAfter.contains(trip)) {
+                isNotPassengerYetAfter = false;
+            }
+            if (tripsBefore.contains(trip))
+                isNotPassengerYetBefore = false;
+
+            passengers = TripsPassengers.listPassengers(trip);
         }
     }
 
     isNotOwner = (userID != driverID);
-    boolean toReturn =  isNotPassengerYet && isNotOwner && availableSeats;
-    request.setAttribute("appearJoinTrip", toReturn);
+    request.setAttribute("passengers", passengers);
+    request.setAttribute("passengersIsEmpty", passengers.isEmpty());
+    request.setAttribute("isNotOwner", isNotOwner);
+    request.setAttribute("isOldTrip", isOldTrip);
+
+    boolean toReturn = isNotPassengerYetAfter && isNotOwner && availableSeats && isNotPassengerYetBefore;
+    request.setAttribute("appearJoinTrip", toReturn & !isOldTrip);
+
+    boolean toReject = !isNotPassengerYetAfter && isNotPassengerYetBefore;
+    request.setAttribute("appearGoDownTrip", toReject & !isOldTrip);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -91,6 +124,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -149,20 +184,22 @@
 
 <div class="container mt-5 border rounded">
     <div class="row">
-        <div class="col-3 bg-primary text-white border-right rounded-left" style="background-color: #93b1d0; height: 18rem">
+        <%--        Seccion izquierda--%>
+        <div class="col-3 bg-primary text-white border-right rounded-left viewTripAvatar">
             <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
-
-            <p> General rating:</p>
+            <c:if test="${ratingSize > 0}">
+                <p> Rating: ${ratingDriver} <i class="fa fa-star" style="color:yellow"></i>(${ratingSize} times rated)</p>
+            </c:if>
+            <p> Email: ${driverEmail}</p>
 
             <div class="col-12" style="max-lines: 7">
                 <i class="fa fa-quote-left"></i>
                 <span>${trip.comment}</span>
                 <i class="fa fa-quote-right"></i>
             </div>
-
-            puedo poner un boton para ver el perfil si queres
         </div>
+        <%--    Seccion medio--%>
         <div class="col-6" style="background-color: white">
             <div class="col-8 ml-4">
 
@@ -175,49 +212,71 @@
                         ${trip.toTrip}</h5>
                 </div>
                 <div>
-                    <p class="card-text"> <span>${trip.date.toString()} </span> <span style="color: orange;"> ${trip.time.toString()}</span></p>
+                    <p class="card-text"><span>${trip.date.toString()} </span> <span
+                            style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
-                <p><span style="color: orange; font-size: 1.3em; font-weight: bold;">X </span>free seats</p>
+                <p><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
-                <%--            <% request.getSession().setAttribute("tripId", idTrip); %>--%>
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto"
-                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}">Join trip</a>
+                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
+                        Join trip</a>
+                </c:if>
+                <c:if test="${appearGoDownTrip}">
+                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=goDown">
+                        Go down</a>
                 </c:if>
 
             </div>
         </div>
-
-        <div class = "col-3 border-left" style="background-color: #ced4da" >
-            <div class = "row ml-2">
-
-                <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
+        <%--    Seccion derecha--%>
+        <div class="col-3 border-left" style="background-color: #ced4da">
+            <div class="row ml-2">
+                <div class="col-12 carDetailViewTrip">Car details</div>
                 <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
                 <div class="col-12"> Color: ${driverCar.color} </div>
                 <div class="col-12"> Patent: ${driverCar.patent} </div>
-
             </div>
-            <div class = "row ml-2">
-
-                <ul style="list-style-type:none;" class = "col-12 mt-1" >
-
-                    <li  style="font-size: 1.3em; font-weight: bold;">Passengers:</li>
-                    <li> theres no passengers</li>
-                    <li>Numa</li>
-                    <li>Maxi</li>
-                </ul>
-
+            <div class="row ml-2">
+                <c:if test="${!isNotOwner}">
+                    <br>
+                    <c:if test="${passengersIsEmpty}">
+                        <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
+                            There is no passenger in your trip
+                        </div>
+                    </c:if>
+                    <c:if test="${!passengersIsEmpty}">
+                        <ul style="list-style-type:none;" class="col-12 mt-1">
+                            <li class="passengerViewTrip">Passengers:</li>
+                            <c:forEach var="passenger" items="${passengers}">
+                                <li style="color: black">
+                                    <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
+                                         width="30"
+                                         height="30"> ${passenger.firstName} ${passenger.lastName}
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
+                </c:if>
             </div>
-            <div class = "row ml-2 col-12">
+            <div class="row ml-2 col-12">
                 Distance to travel: <i> x km </i>
             </div>
         </div>
-        <div class="col-12" style="background-color: #d78f8f">
-            This is the map on Google
+        <div class="col-12" style="background-color: #b49e9e">
+            <p> This is the map on Google </p>
         </div>
+        <br>
+        <br>
     </div>
 
 </div>
+
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 
 </body>
 </html>

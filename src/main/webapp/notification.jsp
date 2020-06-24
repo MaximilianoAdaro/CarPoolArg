@@ -134,41 +134,44 @@
 <div class="container">
     <!-- Requests -->
     <c:if test="${tripPassNotEmpty}">
-        <br>
         <h3 class="ml-3">Pending requests</h3>
         <div class=" row col-12 mt-2 mb-2">
             <c:forEach var="tripsPassenger" items="${tripsPassengers}">
-                <div class="col-3 mt-3 mr-3">
-                    <div class="card" style="height: 10rem ; width: 25rem">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-3">
-                                    <img src="${tripsPassenger.passenger.avatarPath}"
-                                         class="rounded-circle" alt="Your Avatar" width="50" height="50">
-                                </div>
-                                <div class="col-9">
-                                    <p class="card-text col-11"><span class="font-weight-bold text-dark">
+                <form>
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem; width: 25rem;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="${tripsPassenger.passenger.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text col-11"><span class="font-weight-bold text-dark">
                                         ${tripsPassenger.passenger.firstName} ${tripsPassenger.passenger.lastName} </span>
-                                        want to join your trip from
-                                        <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span>
-                                        to
-                                        <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip} </span>
-                                        in the day <span
-                                                class="font-weight-light"> ${tripsPassenger.trip.date} </span>
-                                    </p>
+                                            want to join your trip from
+                                            <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip} </span>
+                                            in the day <span
+                                                    class="font-weight-light"> ${tripsPassenger.trip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=accepted"
+                                       role="button" onClick="window.location.reload();" type="submit"
+                                       class="btn btn-success ml-4"> Accept
+                                    </a>
+                                    <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=rejected"
+                                       role="button" onClick="window.location.reload();" type="submit"
+                                       class="btn btn-danger ml-2 "> Deny
+                                    </a>
                                 </div>
-                                <div class="col-3">
-                                </div>
-                                <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=accepted"
-                                   role="button" onClick="window.location.reload();" type="submit" class="btn btn-success ml-4"> Accept
-                                </a>
-                                <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=rejected"
-                                   role="button" onClick="window.location.reload();" type="submit" class="btn btn-danger ml-2 "> Deny
-                                </a>
                             </div>
                         </div>
                     </div>
-                </div>
+                </form>
             </c:forEach>
         </div>
     </c:if>
@@ -235,7 +238,8 @@
                                                    value="5"> <label class="form-check-label"
                                                                      for="inlineRadio5">5</label>
                                         </div>
-                                        <button onClick="window.location.reload();" type="submit" class="btn btn-success"> Rate
+                                        <button onClick="window.location.reload();" type="submit"
+                                                class="btn btn-success"> Rate
                                         </button>
                                     </div>
                                 </div>
@@ -309,7 +313,8 @@
                                                    value="5"> <label class="form-check-label"
                                                                      for="inlineRadio10">5</label>
                                         </div>
-                                        <button onClick="window.location.reload();" type="submit" class="btn btn-success"> Rate
+                                        <button onClick="window.location.reload();" type="submit"
+                                                class="btn btn-success"> Rate
                                         </button>
                                     </div>
                                 </div>
@@ -411,6 +416,11 @@
     <br>
     <br>
 </div>
+
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 
 </body>
 </html>
