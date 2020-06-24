@@ -57,9 +57,12 @@
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
+        request.setAttribute("userId", user.getUserId());
         request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
         request.setAttribute("avatarPath", user.getAvatarPath());
         request.setAttribute("hasCar", user.getCar() != null);
+
+
     }
 
 %>
@@ -106,25 +109,21 @@
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">You cannot create a trip</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
                         <!-- Modal body -->
                         <div class="modal-body">
                             You do not have the requirements, you must have a car added in your profile
                         </div>
-
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <a class="nav-link btn btn-primary ml-2 col-auto"
                                href="${pageContext.request.contextPath}/secure/profile.do">Go to profile</a>
                             <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -135,157 +134,189 @@
 <div class="container">
     <!-- Requests -->
     <c:if test="${tripPassNotEmpty}">
+        <br>
         <h3 class="ml-3">Pending requests</h3>
         <div class=" row col-12 mt-2 mb-2">
             <c:forEach var="tripsPassenger" items="${tripsPassengers}">
-                <!-- esto arranca a repetir aca-->
-                <div class="col-3 ml-5 mt-3 mr-5">
-                <div class="card" style="height: 8rem ; width: 25rem">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-3">
-                                <img src="${tripsPassenger.trip.passenger.avatarPath}"
-                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                <div class="col-3 mt-3 mr-3">
+                    <div class="card" style="height: 10rem ; width: 25rem">
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-3">
+                                    <img src="${tripsPassenger.passenger.avatarPath}"
+                                         class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                </div>
+                                <div class="col-9">
+                                    <p class="card-text col-11"><span class="font-weight-bold text-dark">
+                                        ${tripsPassenger.passenger.firstName} ${tripsPassenger.passenger.lastName} </span>
+                                        want to join your trip from
+                                        <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span>
+                                        to
+                                        <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip} </span>
+                                        in the day <span
+                                                class="font-weight-light"> ${tripsPassenger.trip.date} </span>
+                                    </p>
+                                </div>
+                                <div class="col-3">
+                                </div>
+                                <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=accepted"
+                                   role="button" onClick="window.location.reload();" type="submit" class="btn btn-success ml-4"> Accept
+                                </a>
+                                <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=rejected"
+                                   role="button" onClick="window.location.reload();" type="submit" class="btn btn-danger ml-2 "> Deny
+                                </a>
                             </div>
-                            <div class="col-9">
-                                <p class="card-text col-11"><span class="font-weight-bold text-dark">
-                                        ${tripsPassenger.trip.passenger.firstName} ${tripsPassenger.trip.passenger.lastName} </span>
-                                    want to join your trip from
-                                    <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span> to
-                                    <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip} </span>
-                                    in the day <span class="font-weight-light"> ${tripsPassenger.trip.date} </span></p>
-                            </div>
-                            <div class="col-3">
-                            </div>
-                            <button href="#" type="submit" class="btn btn-success ml-4"> Accept</button>
-                            <button href="#" type="submit" class="btn btn-danger ml-2 "> Deny</button>
                         </div>
                     </div>
                 </div>
-                </div>
             </c:forEach>
-            <!-- termina de repetir -->
         </div>
     </c:if>
     <!-- end of requests -->
 
     <!-- Starts ratings -->
-    <c:if test="${ratingNotEmpty}">
+    <c:if test="${ratingAsDriver}">
+        <br>
         <h3 class="ml-3">Pending ratings as driver</h3>
         <%--        Rating as driver--%>
         <div class=" row col-12 mt-2 mb-2">
             <!-- esto arranca a repetir aca-->
             <c:forEach var="rateAsDriver" items="${ratingsUserAsDriver}">
-            <div class="col-3 ml-5 mt-3 mr-5">
-                <div class="card" style="height: 8rem ; width: 25rem">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-3">
-                                <img src="${rateAsDriver.idPassenger.avatarPath}"
-                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
-                            </div>
-                            <div class="col-9">
-                                <p class="card-text"> Rate <span class="font-weight-bold text-dark">
+                <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
+                      method="post">
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem ; width: 25rem">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="${rateAsDriver.idPassenger.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text"> Rate <span class="font-weight-bold text-dark">
                                         ${rateAsDriver.idPassenger.firstName} ${rateAsDriver.idPassenger.lastName}</span>
-                                    in your trip from
-                                    <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.fromTrip} </span> to
-                                    <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.toTrip} </span>
-                                    the day <span class="font-weight-light"> ${rateAsDriver.idTrip.date} </span></p>
-                            </div>
-                            <div class="col-3">
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio1"
-                                           value="1"> <label class="form-check-label" for="inlineRadio1">1</label>
+                                            in your trip from
+                                            <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.fromTrip} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.toTrip} </span>
+                                            the day <span class="font-weight-light"> ${rateAsDriver.idTrip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio1"
+                                                   value="1"> <label class="form-check-label"
+                                                                     for="inlineRadio1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio2"
+                                                   value="2"> <label class="form-check-label"
+                                                                     for="inlineRadio2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio3"
+                                                   value="3"> <label class="form-check-label"
+                                                                     for="inlineRadio3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio4"
+                                                   value="4"> <label class="form-check-label"
+                                                                     for="inlineRadio4">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio5"
+                                                   value="5"> <label class="form-check-label"
+                                                                     for="inlineRadio5">5</label>
+                                        </div>
+                                        <button onClick="window.location.reload();" type="submit" class="btn btn-success"> Rate
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio2"
-                                           value="2"> <label class="form-check-label" for="inlineRadio2">2</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio3"
-                                           value="3"> <label class="form-check-label" for="inlineRadio3">3</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio4"
-                                           value="4"> <label class="form-check-label" for="inlineRadio4">4</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio5"
-                                           value="5"> <label class="form-check-label" for="inlineRadio5">5</label>
-                                </div>
-                                <button type="submit" class="btn btn-success"> Rate</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </form>
             </c:forEach>
             <!-- termina de repetir -->
         </div>
+    </c:if>
 
+    <c:if test="${ratingAsPassenger}">
+        <br>
         <%--        Rating as passenger--%>
         <h3 class="ml-3">Rating as passenger</h3>
         <div class=" row col-12 mt-2 mb-2">
             <!-- esto arranca a repetir aca-->
             <c:forEach var="rateAsPassenger" items="${ratingsUserAsPassenger}">
-            <div class="col-3 ml-5 mt-3 mr-5">
-                <div class="card" style="height: 8rem ; width: 25rem">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-3">
-                                <img src="${rateAsPassenger.idDriver.avatarPath}"
-                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
-                            </div>
-                            <div class="col-9">
-                                <p class="card-text"> Rate <span class="font-weight-bold text-dark">
+                <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${rateAsPassenger.idDriver.userId}&idPassenger=${userId}&idTrip=${rateAsPassenger.idTrip.tripId}&isDriver=false"
+                      method="post">
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem ; width: 25rem">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3">
+                                        <img src="${rateAsPassenger.idDriver.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text"> Rate <span class="font-weight-bold text-dark">
                                         ${rateAsPassenger.idDriver.firstName} ${rateAsPassenger.idDriver.lastName}</span>
-                                    in his/her trip from
-                                    <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.fromTrip} </span>
-                                    to
-                                    <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.toTrip} </span>
-                                    the day <span class="font-weight-light"> ${rateAsPassenger.idTrip.date} </span></p>
-                            </div>
-                            <div class="col-3">
-                            </div>
-                            <div class="col-12">
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio6"
-                                           value="1"> <label class="form-check-label" for="inlineRadio6">1</label>
+                                            in his/her trip from
+                                            <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.fromTrip} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.toTrip} </span>
+                                            the day <span
+                                                    class="font-weight-light"> ${rateAsPassenger.idTrip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio6"
+                                                   value="1"> <label class="form-check-label"
+                                                                     for="inlineRadio6">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio7"
+                                                   value="2"> <label class="form-check-label"
+                                                                     for="inlineRadio7">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio8"
+                                                   value="3"> <label class="form-check-label"
+                                                                     for="inlineRadio8">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio9"
+                                                   value="4"> <label class="form-check-label"
+                                                                     for="inlineRadio9">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio10"
+                                                   value="5"> <label class="form-check-label"
+                                                                     for="inlineRadio10">5</label>
+                                        </div>
+                                        <button onClick="window.location.reload();" type="submit" class="btn btn-success"> Rate
+                                        </button>
+                                    </div>
                                 </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio7"
-                                           value="2"> <label class="form-check-label" for="inlineRadio7">2</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio8"
-                                           value="3"> <label class="form-check-label" for="inlineRadio8">3</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio9"
-                                           value="4"> <label class="form-check-label" for="inlineRadio9">4</label>
-                                </div>
-                                <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                           id="inlineRadio10"
-                                           value="5"> <label class="form-check-label" for="inlineRadio10">5</label>
-                                </div>
-                                <button type="submit" class="btn btn-success"> Rate</button>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+                </form>
             </c:forEach>
             <!-- termina de repetir -->
         </div>
@@ -364,7 +395,7 @@
                                     <span class="font-weight-bold text-dark">
                                             ${notifList.notification.idTrip.driver.firstName}
                                             ${notifList.notification.idTrip.driver.lastName}</span>
-                                    has rejected you request in the trip from
+                                    has rejected your request in the trip from
                                     <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip} </span>
                                     to
                                     <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip} </span>.
