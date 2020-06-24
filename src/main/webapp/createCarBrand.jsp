@@ -45,7 +45,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do"><i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -110,6 +110,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
+<div id="footer">
+</div>
+<br><br><br><br><br><br><br><br><br><br><br>
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 
 </body>
 </html>
