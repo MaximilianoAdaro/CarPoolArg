@@ -126,7 +126,7 @@
         <form class="form-inline justify-content-center mt-4" action="${pageContext.request.contextPath}/filterHome.do"
               method="get">
             <input class="form-control mr-3 shadow p-3 bg-white rounded"
-                   style="border-color: orange" type="search" placeholder="Origin"
+                   style="border-color: orange;" type="search" placeholder="Origin"
                    id="fromTrip"
                    name="fromTrip" aria-label="Search">
 

@@ -24,6 +24,7 @@
 <style>
 
     body{
+        background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -162,14 +163,14 @@
 
             puedo poner un boton para ver el perfil si queres
         </div>
-        <div class="col-6">
-            <div class="col-8">
+        <div class="col-6" style="background-color: white">
+            <div class="col-8 ml-4">
 
                 <div>
-                    <h5 class="card-title" style="color: orange">
+                    <h5 class="card-title" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.fromTrip}</h5>
-                    <h5 class="card-title" style="color: #1c7430">
+                    <h5 class="card-title" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.toTrip}</h5>
                 </div>
@@ -186,21 +187,30 @@
 
             </div>
         </div>
+
         <div class = "col-3 border-left" style="background-color: #ced4da" >
+            <div class = "row ml-2">
 
-            <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
-            <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-            <div class="col-12"> Color: ${driverCar.color} </div>
-            <div class="col-12"> Patent: ${driverCar.patent} </div>
+                <div class="col-12" style="font-size: 1.3em; font-weight: bold;">Car details</div>
+                <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
+                <div class="col-12"> Color: ${driverCar.color} </div>
+                <div class="col-12"> Patent: ${driverCar.patent} </div>
 
-            <ul style="list-style-type:none;" class = "col-12 mt-1" >
+            </div>
+            <div class = "row ml-2">
 
-                <li  style="font-size: 1.3em; font-weight: bold;">Passengers:</li>
-                <li> theres no passengers</li>
-                <li>Numa</li>
-                <li>Maxi</li>
-            </ul>
+                <ul style="list-style-type:none;" class = "col-12 mt-1" >
 
+                    <li  style="font-size: 1.3em; font-weight: bold;">Passengers:</li>
+                    <li> theres no passengers</li>
+                    <li>Numa</li>
+                    <li>Maxi</li>
+                </ul>
+
+            </div>
+            <div class = "row ml-2 col-12">
+                Distance to travel: <i> x km </i>
+            </div>
         </div>
         <div class="col-12" style="background-color: #d78f8f">
             This is the map on Google

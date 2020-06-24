@@ -126,97 +126,80 @@
 </nav>
 
 <div class="my-4">
-    <ul class="nav nav-tabs justify-content-center">
-        <li class="nav-item ml-3">
-            <a class = "nav-link"  href="${pageContext.request.contextPath}/secure/home.do"><h2>My trips</h2></a>
-        </li>
-        <li class="nav-item">
-            <a class = "nav-link active"  href="${pageContext.request.contextPath}/secure/profile.do"><h2>My profile</h2></a>
-        </li>
-    </ul>
-</div>
-<div class="container emp-profile my-5">
-
-    <div class="row">
-        <div class="col-4">
-            <div class="profile-img">
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
+    <h2 style = "text-align:center">
+        My Profile
+    </h2>
+    <div class="container emp-profile my-5">
+        <div class="row">
+            <div class="col-4">
+                <div class="profile-img">
+                    <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
+                </div>
+                <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
+                <h5 class = "my-4"> Rating: <i>rating</i> </h5>
             </div>
-            <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar</button>
-            <h5 class = "my-4"> Rating: <i>rating</i> </h5>
-        </div>
-        <div class="col-8">
+            <div class="col-8">
 
-            <div class="modal fade" id="changeAvatar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
-                                <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    <button type="submit" class="btn btn-primary">Save changes</button>
-                                </div>
-                            </form>
+                <div class="modal fade" id="changeAvatar"  tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">Change your avatar</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="${pageContext.request.contextPath}/upload.do" enctype="multipart/form-data">
+                                    <input class="ml-3 mb-3" style="width:220px" type="file" name="file" id="img" accept="image/*"/>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Save changes</button>
+                                    </div>
+                                </form>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <div class="col-md-8 mt-auto mt-5">
-                <div class="tab-content profile-tab" id="myTabContent">
-                    <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label><i class="fa fa-id-card"></i></label>
+                <div class="col-md-8 mt-auto mt-5">
+                    <div class="tab-content profile-tab" id="myTabContent">
+                        <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                            <div class="row">
+                                <div class = "ml-3 mb-2">
+                                    <h4><b>Numa Leone Elizalde</b></h4>
+                                </div>
                             </div>
-                            <div class="col-md-6">
-                                <b>${firstNameUser}</b>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i class="fa fa-envelope" style = "color: #4178b3;"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>${emailUser}</p>
+                                </div>
                             </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i style = "color: #4178b3;" class="fa fa-car"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>${carUser}</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <label><i style = "color: #4178b3;" class="fa fa-car"></i></label>
+                                </div>
+                                <div class="col-md-6">
+                                    <p>patente bro</p>
+                                </div>
+                            </div>
+
                         </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label><i class="fa fa-id-card"></i></label>
-                            </div>
-                            <div class="col-md-6">
-                                <b>${lastNameUser}</b>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label><i class="fa fa-envelope"></i></label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${emailUser}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label><i class="fa fa-car"></i></label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>${carUser}</p>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6">
-                                <label><i class="fa fa-car"></i></label>
-                            </div>
-                            <div class="col-md-6">
-                                <p>patente bro</p>
-                            </div>
-                        </div>
+                        <button type="button" class="btn btn-primary" data-toggle="collapse"
+                                data-target="#createCar">Edit your car</button>
 
                     </div>
-                    <button type="button" class="btn btn-primary" data-toggle="collapse"
-                            data-target="#createCar">Edit your car</button>
-
                 </div>
             </div>
         </div>
@@ -261,6 +244,37 @@
         </div>
     </div>
 </form>
+
+
+<footer style = "background-color:#33363A; color:white">
+    <div class = "row col-12">
+        <div class = "col-3">
+            Logo universidad Austral
+        </div>
+        <div class = "col-3">
+            Developers:
+            <ul>
+                <li>
+                    Maximiliano Adaro
+                </li>
+                <li>
+                    Numa Leone Elizalde
+                </li>
+            </ul>
+        </div>
+        <div class = "col-3">
+            Materia: Laboratorio 1
+            <ul>
+                <li>
+                    Paca
+                </li>
+                <li>
+                    Diego
+                </li>
+            </ul>
+        </div>
+    </div>
+</footer>
 
 </body>
 </html>
