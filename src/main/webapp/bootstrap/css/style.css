@@ -4,7 +4,7 @@
     font-weight: 300;
 }
 
-.lightBlueTag{
+.lightBlueTag {
     font-size: 20px;
     color: #009ce1;
     font-weight: 300;
@@ -34,6 +34,12 @@
     text-transform: uppercase;
 }
 
+.seatsViewTrip {
+    color: orange;
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
 .viewButton {
     color: #fe9900;
     border-color: #fe9900;
@@ -50,3 +56,12 @@
     background-color: #2a62cb;
 }
 
+.viewTripAvatar {
+    background-color: #93b1d0;
+    height: 18rem
+}
+
+.passengerViewTrip, .carDetailViewTrip {
+    font-size: 1.3em;
+    font-weight: bold;
+}

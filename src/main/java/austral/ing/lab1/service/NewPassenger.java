@@ -1,11 +1,9 @@
 package austral.ing.lab1.service;
 
-import austral.ing.lab1.entity.Notifications;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.TripsPassengers;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
-import austral.ing.lab1.model.TypeNotification;
 import austral.ing.lab1.model.User;
 
 import javax.servlet.ServletException;
@@ -14,7 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -39,13 +36,9 @@ public class NewPassenger extends HttpServlet {
                 }
 
                 if (addPassenger.equals("join")) {
-                    Optional<TypeNotification> typeNotification = Notifications.findById(1L);
-                    if (typeNotification.isPresent()) {
-                        Notifications.newNotification(passenger, trip, typeNotification.get(), LocalDate.now().toString());
-                        trip.addPassenger(passenger);
-                        Trips.persist(trip);
-                        Users.persist(passenger);
-                    }
+                    trip.addPassenger(passenger);
+                    Trips.persist(trip);
+                    Users.persist(passenger);
                 } else if (addPassenger.equals("goDown")) {
                     TripsPassengers.rejectPassenger(passenger.getUserId(), trip.getTripId());
                     trip.removePassenger(passenger);

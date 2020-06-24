@@ -56,7 +56,7 @@ public class UploadAvatar extends HttpServlet {
         }
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
-        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
+        req.getRequestDispatcher("/secure/profile.do").forward(req, resp);
     }
 
     private void deletePhoto(String oldPhoto) {
