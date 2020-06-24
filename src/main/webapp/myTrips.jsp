@@ -22,12 +22,12 @@
     }
 
     h1 {
-        color: #08576f;
+        color: #4178b3;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
     h2 {
-        color: #046d90;
+        color: #4178b3;
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -70,7 +70,7 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
@@ -126,196 +126,195 @@
         </c:if>
     </div>
 </nav> <!-- NavBar -->
-
-<div class="my-4">
-    <ul class="nav nav-tabs justify-content-center">
-        <li class="nav-item ml-3">
-            <a class = "nav-link active"  href="${pageContext.request.contextPath}/secure/home.do"><h2>My trips</h2></a>
-        </li>
-        <li class="nav-item">
-            <a class = "nav-link"  href="${pageContext.request.contextPath}/secure/profile.do"><h2>My profile</h2></a>
-        </li>
-    </ul>
-</div>
-
 <br>
-<div class="container">
-    <h2 class="col-12">My next trips as driver</h2>
-    <c:if test="${emptyTripsAsDriver}">
-        <p class="alert alert-warning mx-3">You do not have trips created</p>
-    </c:if>
-    <div class="row justify-content-center myTrip">
-        <c:forEach var="trip" items="${tripsAsDriver}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
+<h1 class="text-center">My trips</h1>
+<nav>
+    <div class="nav nav-tabs container text-center justify-content-center" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-home-tab" data-toggle="tab" href="#nav-home" role="tab"
+           aria-controls="nav-home" aria-selected="true"> Current trips </a>
+        <a class="nav-item nav-link" id="nav-profile-tab" data-toggle="tab" href="#nav-profile" role="tab"
+           aria-controls="nav-profile" aria-selected="false"> Past trips </a>
+    </div>
+</nav>
+<br>
+<div class="tab-content container" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-home" role="tabpanel" aria-labelledby="nav-home-tab">
+        <h2 class="col-12">Next trips as driver</h2>
+        <c:if test="${emptyTripsAsDriver}">
+            <p class="alert alert-warning mx-3">You do not have trips created</p>
+        </c:if>
+        <div class="row myTrip justify-content-center">
+            <c:forEach var="trip" items="${tripsAsDriver}">
+                <div class="col-auto mb-3">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title" style="color: orange">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.fromTrip}</h5>
+                                <h5 class="card-title" style="color: #1c7430">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.toTrip}</h5>
                             </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
+                            <div>
+                                <p class="card-text text-center"> ${trip.date.toString()}</p>
+                                <p class="card-text text-center"> ${trip.time.toString()}</p>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                    </div>
+                                </div>
+                                <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                                   class="viewButton col-4 btn btn-default" role="button"> View
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
-    </div>
-    <br>
-    <h2 class="col-12">My next trips as passenger</h2>
-    <c:if test="${emptyTripsAsPassenger}">
-        <p class="alert alert-warning mx-3">You do not have trips as a passenger</p>
-    </c:if>
-    <div class="row justify-content-center myTrip">
-        <c:forEach var="trip" items="${tripsAsPassenger}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="row p-2 mb-5">
-                        <div class="col-5 align-content-center imgDriver">
-                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
-                                 alt="Your Avatar" width="90"
-                                 height="90"></div>
-                        <div class="col-7 align-content-center nameDriver mt-4">
-                                ${trip.driver.firstName} ${trip.driver.lastName}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
+            </c:forEach>
+        </div>
+
+        <h2 class="col-12">Next trips as passenger</h2>
+        <c:if test="${emptyTripsAsPassenger}">
+            <p class="alert alert-warning mx-3">You do not have trips as a passenger</p>
+        </c:if>
+        <div class="row myTrip justify-content-center">
+            <c:forEach var="trip" items="${tripsAsPassenger}">
+                <div class="col-auto mb-3">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="row p-2 mb-5">
+                            <div class="col-5 align-content-center imgDriver">
+                                <img src="${trip.driver.avatarPath}" class="rounded-circle"
+                                     alt="Your Avatar" width="90"
+                                     height="90"></div>
+                            <div class="col-7 align-content-center nameDriver mt-4">
+                                    ${trip.driver.firstName} ${trip.driver.lastName}
                             </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title" style="color: orange">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.fromTrip}</h5>
+                                <h5 class="card-title" style="color: #1c7430">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.toTrip}</h5>
+                            </div>
+                            <div>
+                                <p class="card-text text-center"> ${trip.date.toString()}</p>
+                                <p class="card-text text-center"> ${trip.time.toString()}</p>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                    </div>
+                                </div>
+                                <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                                   class="viewButton col-4 btn btn-default" role="button"> View
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </div>
-    <br>
-    <h2 class="col-12">Last trips as driver</h2>
-    <c:if test="${emptyTripsBeforeAsDriver}">
-        <p class="alert alert-warning mx-3">You do not have past trips</p>
-    </c:if>
-    <div class="row justify-content-center myTrip">
-        <c:forEach var="trip" items="${tripsBeforeAsDriver}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
+    <div class="tab-pane fade" id="nav-profile" role="tabpanel" aria-labelledby="nav-profile-tab">
+        <h2 class="col-12">Last trips as driver</h2>
+        <c:if test="${emptyTripsBeforeAsDriver}">
+            <p class="alert alert-warning mx-3">You do not have past trips created</p>
+        </c:if>
+        <div class="row myTrip justify-content-center">
+            <c:forEach var="trip" items="${tripsBeforeAsDriver}">
+                <div class="col-auto mb-3">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title" style="color: orange">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.fromTrip}</h5>
+                                <h5 class="card-title" style="color: #1c7430">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.toTrip}</h5>
                             </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
+                            <div>
+                                <p class="card-text text-center"> ${trip.date.toString()}</p>
+                                <p class="card-text text-center"> ${trip.time.toString()}</p>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                    </div>
+                                </div>
+                                <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                                   class="viewButton col-4 btn btn-default" role="button"> View
+                                </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
-    </div>
-    <br>
-    <h2 class="col-12">Last trips as passenger</h2>
-    <c:if test="${emptyTripsBeforeAsPassenger}">
-        <p class="alert alert-warning mx-3">You do not have past trips as a passenger</p>
-    </c:if>
-    <div class="row justify-content-center myTrip">
-        <c:forEach var="trip" items="${tripsBeforeAsPassenger}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="row p-2 mb-5">
-                        <div class="col-5 align-content-center imgDriver">
-                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
-                                 alt="Your Avatar" width="90"
-                                 height="90"></div>
-                        <div class="col-7 align-content-center nameDriver mt-4">
-                                ${trip.driver.firstName} ${trip.driver.lastName}
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
+            </c:forEach>
+        </div>
+
+        <h2 class="col-12">Last trips as passenger</h2>
+        <c:if test="${emptyTripsBeforeAsPassenger}">
+            <p class="alert alert-warning mx-3">You do not have past trips as a passenger</p>
+        </c:if>
+        <div class="row myTrip justify-content-center">
+            <c:forEach var="trip" items="${tripsBeforeAsPassenger}">
+                <div class="col-auto mb-3">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                        <div class="row p-2 mb-5">
+                            <div class="col-5 align-content-center imgDriver">
+                                <img src="${trip.driver.avatarPath}" class="rounded-circle"
+                                     alt="Your Avatar" width="90"
+                                     height="90"></div>
+                            <div class="col-7 align-content-center nameDriver mt-4">
+                                    ${trip.driver.firstName} ${trip.driver.lastName}
                             </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
+                        </div>
+                        <div class="card-body">
+                            <div>
+                                <h5 class="card-title" style="color: orange">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.fromTrip}</h5>
+                                <h5 class="card-title" style="color: #1c7430">
+                                    <i class="fa fa-map-marker"></i>
+                                        ${trip.toTrip}</h5>
+                            </div>
+                            <div>
+                                <p class="card-text text-center"> ${trip.date.toString()}</p>
+                                <p class="card-text text-center"> ${trip.time.toString()}</p>
+                            </div>
+                            <div class="row p-2">
+                                <div class="col-8">
+                                    <div class="row">
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
+                                    </div>
+                                </div>
+                                <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
+                                   class="viewButton col-4 btn btn-default" role="button"> View
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-        </c:forEach>
+            </c:forEach>
+        </div>
     </div>
-    <br>
 </div>
-
 </body>
-
 </html>
