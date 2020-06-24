@@ -176,7 +176,8 @@
         </c:if>
 
     </div>
-</nav> <!-- NavBar -->
+</nav>
+<!-- NavBar -->
 
 <div class="container mt-5 border rounded">
     <div class="row">
@@ -185,7 +186,10 @@
             <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
             <c:if test="${ratingSize > 0}">
-                <p> Rating: ${ratingDriver} (${ratingSize} times rated)</p>
+                <p> ${ratingDriver} <i class="fa fa-star" style="color: yellow;"></i> (${ratingSize} ratings)</p>
+            </c:if>
+            <c:if test="${ratingSize < 1}">
+                <p> (${ratingSize} ratings)</p>
             </c:if>
             <p> Email: ${driverEmail}</p>
 
@@ -197,7 +201,7 @@
         </div>
         <%--    Seccion medio--%>
         <div class="col-6" style="background-color: white">
-            <div class="col-8 ml-4">
+            <div class="container col-8 justify-content-center">
 
                 <div>
                     <h5 class="card-title" style="color: orange;font-size: 2em;">
@@ -207,11 +211,13 @@
                         <i class="fa fa-map-marker"></i>
                         ${trip.toTrip}</h5>
                 </div>
+                <br>
                 <div>
                     <p class="card-text"><span>${trip.date.toString()} </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
-                <p><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
+                <br>
+                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto"
@@ -256,11 +262,12 @@
                     </c:if>
                 </c:if>
             </div>
+            <br>
             <div class="row ml-2 col-12">
                 Distance to travel: <i> x km </i>
             </div>
         </div>
-        <div class="col-12" style="background-color: #b49e9e">
+        <div class="col-12 mb-5" style="background-color: #b49e9e; height: 300px">
             <p> This is the map on Google </p>
         </div>
         <br>

@@ -47,7 +47,7 @@
         request.setAttribute("firstNameUser", user.getFirstName());
         request.setAttribute("lastNameUser", user.getLastName());
         request.setAttribute("rateUser", Ratings.rateUser(user));
-        request.setAttribute("rateSizeUser", Ratings.rateUser(user));
+        request.setAttribute("rateSizeUser", Ratings.getSizeRate(user));
         request.setAttribute("emailUser", user.getEmail());
         request.setAttribute("hasCar", user.getCar() != null);
         if (user.getCar() != null)
@@ -142,10 +142,10 @@
                     <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="200" height="200">
                 </div>
                 <c:if test="${rateSizeUser > 0}">
-                    <p> Rating: ${rateUser} (${rateSizeUser} times rated)</p>
+                    <p> ${rateUser} <i class="fa fa-star" style="color: yellow;"></i> (${rateSizeUser} ratings)</p>
                 </c:if>
                 <c:if test="${rateSizeUser < 1}">
-                    <p> No one have rated you </p>
+                    <p>   (no ratings) </p>
                 </c:if>
                 <button class="btn btn-primary mt-2" data-toggle="modal" data-target="#changeAvatar">Change Avatar
                 </button>
@@ -189,6 +189,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label><i class="fa fa-envelope" style="color: #4178b3;"></i></label>
+                                    E-mail
                                 </div>
                                 <div class="col-md-6">
                                     <p>${emailUser}</p>
@@ -197,6 +198,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label><i style="color: #4178b3;" class="fa fa-car"></i></label>
+                                    Model
                                 </div>
                                 <div class="col-md-6">
                                     <p>${carUser.carModel.name}</p>
@@ -205,6 +207,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <label><i style="color: #4178b3;" class="fa fa-car"></i></label>
+                                    Patent
                                 </div>
                                 <div class="col-md-6">
                                     <p> ${carUser.patent} </p>
@@ -212,7 +215,8 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
-                                    <label>Color</label>
+                                    <label><i style="color: #4178b3;" class="fa fa-car"></i></label>
+                                    Color
                                 </div>
                                 <div class="col-md-6">
                                     <p> ${carUser.color} </p>

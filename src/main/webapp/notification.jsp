@@ -142,9 +142,9 @@
                         <div class="card" style="height: 10rem; width: 25rem;">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3 text-center mt-3">
                                         <img src="${tripsPassenger.passenger.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text col-11"><span class="font-weight-bold text-dark">
@@ -160,11 +160,11 @@
                                     <div class="col-3">
                                     </div>
                                     <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=accepted"
-                                       role="button" onClick="window.location.reload();" type="submit"
+                                       role="button" type="submit"
                                        class="btn btn-success ml-4"> Accept
                                     </a>
                                     <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=rejected"
-                                       role="button" onClick="window.location.reload();" type="submit"
+                                       role="button" type="submit"
                                        class="btn btn-danger ml-2 "> Deny
                                     </a>
                                 </div>
@@ -191,9 +191,9 @@
                         <div class="card" style="height: 10rem ; width: 25rem">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3 text-center mt-3">
                                         <img src="${rateAsDriver.idPassenger.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text"> Rate <span class="font-weight-bold text-dark">
@@ -207,7 +207,7 @@
                                     </div>
                                     <div class="col-3">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-9">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                                    id="inlineRadio1"
@@ -238,7 +238,7 @@
                                                    value="5"> <label class="form-check-label"
                                                                      for="inlineRadio5">5</label>
                                         </div>
-                                        <button onClick="window.location.reload();" type="submit"
+                                        <button type="submit"
                                                 class="btn btn-success"> Rate
                                         </button>
                                     </div>
@@ -265,9 +265,9 @@
                         <div class="card" style="height: 10rem ; width: 25rem">
                             <div class="container">
                                 <div class="row">
-                                    <div class="col-3">
+                                    <div class="col-3 text-center mt-3">
                                         <img src="${rateAsPassenger.idDriver.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text"> Rate <span class="font-weight-bold text-dark">
@@ -282,7 +282,7 @@
                                     </div>
                                     <div class="col-3">
                                     </div>
-                                    <div class="col-12">
+                                    <div class="col-9">
                                         <div class="form-check form-check-inline">
                                             <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                                    id="inlineRadio6"
@@ -313,7 +313,7 @@
                                                    value="5"> <label class="form-check-label"
                                                                      for="inlineRadio10">5</label>
                                         </div>
-                                        <button onClick="window.location.reload();" type="submit"
+                                        <button type="submit"
                                                 class="btn btn-success"> Rate
                                         </button>
                                     </div>
