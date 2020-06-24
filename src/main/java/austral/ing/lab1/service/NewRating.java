@@ -41,7 +41,6 @@ public class NewRating extends HttpServlet {
             }
         }
 
-//        resp.sendRedirect("/notification.jsp");
-        req.getRequestDispatcher("/notification.jsp").forward(req, resp);
+        req.getRequestDispatcher("/notification.do").forward(req, resp);
     }
 }

@@ -41,7 +41,7 @@ public class PassengerABM extends HttpServlet {
             }
         }
 
-        req.getRequestDispatcher("/notification.jsp").forward(req, resp);
+        req.getRequestDispatcher("/notification.do").forward(req, resp);
 
     }
 }

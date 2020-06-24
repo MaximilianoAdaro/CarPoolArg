@@ -125,6 +125,7 @@
 
 </nav>
 
+<br>
 <form class="container center" action="${pageContext.request.contextPath}/createTrip.do" method="post">
     <div class="jumbotron">
         <h1> Create a trip</h1>
@@ -167,6 +168,11 @@
         <button type="submit" class="btn btn-primary">Submit</button>
     </div>
 </form>
+
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 
 </body>
 </html>

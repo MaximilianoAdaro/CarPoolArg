@@ -316,5 +316,11 @@
         </div>
     </div>
 </div>
+
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+
 </body>
 </html>

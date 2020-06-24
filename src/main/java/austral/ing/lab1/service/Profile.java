@@ -17,4 +17,12 @@ public class Profile extends HttpServlet {
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
         req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
     }
+
+    @Override
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+
+        resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");
+        req.getRequestDispatcher("/secure/profile.jsp").forward(req, resp);
+    }
 }

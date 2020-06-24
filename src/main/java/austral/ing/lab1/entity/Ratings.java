@@ -127,8 +127,8 @@ public class Ratings {
         List<Integer> rate = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT r.value FROM Rating r " +
                         " where r.isRated = true" +
-                        " and (r.idPassenger = :user and r.isDriver = false)" +
-                        " or (r.idDriver = :user and r.isDriver = true)")
+                        " and ((r.idPassenger = :user and r.isDriver = false)" +
+                        " or (r.idDriver = :user and r.isDriver = true))")
                 .setParameter("user", user)
                 .getResultList()
         ));
@@ -145,8 +145,8 @@ public class Ratings {
         List<Integer> rate = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT r.value FROM Rating r " +
                         " where r.isRated = true" +
-                        " and (r.idPassenger = :user and r.isDriver = false)" +
-                        " or (r.idDriver = :user and r.isDriver = true)")
+                        " and ((r.idPassenger = :user and r.isDriver = false)" +
+                        " or (r.idDriver = :user and r.isDriver = true))")
                 .setParameter("user", user)
                 .getResultList()
         ));

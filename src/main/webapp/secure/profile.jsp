@@ -270,37 +270,9 @@
     </div>
 </form>
 
+<div id="footer">
+</div>
 
-<footer style="background-color:#33363A; color:white">
-    <div class="row col-12">
-        <div class="col-3">
-            Logo universidad Austral
-        </div>
-        <div class="col-3">
-            Developers:
-            <ul>
-                <li>
-                    Maximiliano Adaro
-                </li>
-                <li>
-                    Numa Leone Elizalde
-                </li>
-            </ul>
-        </div>
-        <div class="col-3">
-            Materia: Laboratorio 1
-            <ul>
-                <li>
-                    Paca
-                </li>
-                <li>
-                    Diego
-                </li>
-            </ul>
-        </div>
-    </div>
-</footer>
-
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 </body>
-
 </html>

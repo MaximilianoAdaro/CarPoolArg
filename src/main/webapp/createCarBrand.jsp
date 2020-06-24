@@ -111,5 +111,10 @@
     </div>
 </form>
 
+<div id="footer">
+</div>
+<br><br><br><br><br><br><br><br><br><br><br>
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+
 </body>
 </html>
