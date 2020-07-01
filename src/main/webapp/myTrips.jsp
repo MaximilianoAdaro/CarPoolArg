@@ -251,8 +251,9 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats text-center">asientos ocupados</span>
                                     </div>
+                                    <br>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
                                    class="viewButton col-4 btn btn-default" role="button"> View
@@ -298,10 +299,9 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                        <span class="col-9 availableSeats">
-                                        Available seats</span>
+                                        <span class="col-3 numberSeats text-center"> "asientos ocupados"</span>
                                     </div>
+                                    <br>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
                                    class="viewButton col-4 btn btn-default" role="button"> View
