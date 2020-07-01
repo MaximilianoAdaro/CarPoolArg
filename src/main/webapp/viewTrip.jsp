@@ -34,6 +34,12 @@
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
+    .requestButton{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        backdrop-filter: blur();
+    }
 
 </style>
 
@@ -204,10 +210,10 @@
             <div class="col-8 ml-4">
 
                 <div>
-                    <h5 class="card-title" style="color: orange;font-size: 2em;">
+                    <h5 class="card-title text-center" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.fromTrip}</h5>
-                    <h5 class="card-title" style="color: #1c7430;font-size: 2em;">
+                    <h5 class="card-title text-center" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.toTrip}</h5>
                 </div>
@@ -218,7 +224,7 @@
                 <p><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
                 <c:if test="${appearJoinTrip}">
-                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                    <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
                        href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
                         Join trip</a>
                 </c:if>
@@ -277,6 +283,30 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+
+<!-- El request to join toast -->
+<div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-5">CarPoolArg</strong>
+        <small class = "mr-5">a moment ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        You have just requested to join a trip.
+    </div>
+</div>
+<!-- hasta aca -->
+<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+<script>
+    $(document).ready(function(){
+        $(".requestButton").click(function(){
+            $(".requestToJoin").toast('show');
+        });
+    });
+</script>
+
 
 </body>
 </html>

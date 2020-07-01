@@ -175,6 +175,7 @@
                                     <span class="col-3 numberSeats">${trip.availableSeats}</span>
                                     <span class="col-9 availableSeats">
                                         Available seats</span>
+                                    <span>Owner's Rating: ${trip.driver.rating}</span> <!-- aca no se si esta bien la verdad pero croe que si -->
                                 </div>
                             </div>
                             <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
