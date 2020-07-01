@@ -34,11 +34,12 @@
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
     }
-    .requestButton{
-        position: fixed;
-        left: 0;
-        bottom: 0;
+    .requestToJoin{
         backdrop-filter: blur();
+    }
+    .bs-example{
+        position:fixed;
+        top: 15px; right: 10px;
     }
 
 </style>
@@ -222,7 +223,7 @@
                 </div>
                 <br>
                 <div>
-                    <p class="card-text"><span>${trip.date.toString()} </span> <span
+                    <p class="card-text text-center"><span>${trip.date.toString()} </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>
@@ -234,7 +235,7 @@
                         Join trip</a>
                 </c:if>
                 <c:if test="${appearGoDownTrip}">
-                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                    <a class="nav-link btn btn-primary ml-2 col-auto goDownButton"
                        href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=goDown">
                         Go down</a>
                 </c:if>
@@ -287,7 +288,7 @@
 
 <div id="footer">
 </div>
-
+<div class="bs-example">
 <!-- El request to join toast -->
 <div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
@@ -302,10 +303,28 @@
     </div>
 </div>
 <!-- hasta aca -->
+    <div class="toast goDown" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+        <div class="toast-header">
+            <strong class="mr-5">CarPoolArg</strong>
+            <small class = "mr-5">a moment ago</small>
+            <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div class="toast-body">
+            You have just got down from a trip.
+        </div>
+    </div>
+</div>
 <script>
     $(document).ready(function(){
         $(".requestButton").click(function(){
             $(".requestToJoin").toast('show');
+        });
+    });
+    $(document).ready(function(){
+        $(".goDownButton").click(function(){
+            $(".goDown").toast('show');
         });
     });
 </script>
