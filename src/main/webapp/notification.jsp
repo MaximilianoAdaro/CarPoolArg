@@ -38,12 +38,12 @@
     p {
         margin: 0;
     }
-
-    .ratingpassenger, .ratingdriver, .acceptpassenger, .rejectpassenger {
-        position: fixed;
-        left: 0;
-        bottom: 0;
+    .ratingpassenger, .ratingdriver,.acceptpassenger, .rejectpassenger {
         backdrop-filter: blur();
+    }
+    .bs-example{
+        position:fixed;
+        top: 15px; right: 10px;
     }
 
 </style>
@@ -266,7 +266,7 @@
                     </div>
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success ratingButtonpassenger"> Rate</button>
+                        <button type="submit" class="btn btn-success ratingButtonpassenger" data-dismiss="modal"> Rate</button>
                         <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                     </div>
                 </div>
@@ -354,7 +354,7 @@
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button type="submit" class="btn btn-success ratingButtondriver"> Rate</button>
+                                <button type="submit" class="btn btn-success ratingButtondriver" data-dismiss="modal"> Rate</button>
                                 <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                             </div>
                         </div>
@@ -458,6 +458,7 @@
 <div id="footer">
 </div>
 
+<div class = "bs-example">
 <!-- El rating passenger toast -->
 <div class="toast ratingpassenger" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
@@ -518,6 +519,7 @@
     </div>
 </div>
 <!-- hasta aca -->
+</div>
 
 <script>
     $(document).ready(function () {
