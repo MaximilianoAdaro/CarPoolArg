@@ -22,6 +22,10 @@
     <link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.css">
     <link rel="stylesheet" type="text/css" href="bootstrap/css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Font awesome icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 </head>
 
 <style>
@@ -29,6 +33,12 @@
     body {
         background-color: #EEEEEE;
         font-family: Roboto, Muli, sans-serif !important;
+    }
+    .requestButton{
+        position: fixed;
+        left: 0;
+        bottom: 0;
+        backdrop-filter: blur();
     }
 
 </style>
@@ -176,8 +186,7 @@
         </c:if>
 
     </div>
-</nav>
-<!-- NavBar -->
+</nav> <!-- NavBar -->
 
 <div class="container mt-5 border rounded">
     <div class="row">
@@ -201,15 +210,15 @@
         </div>
         <%--    Seccion medio--%>
         <div class="col-6" style="background-color: white">
-            <div class="container col-8 justify-content-center">
+            <div class="col-8 ml-4">
 
                 <div>
-                    <h5 class="card-title" style="color: orange;font-size: 2em;">
+                    <h5 class="card-title text-center" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
-                        ${trip.fromTrip}</h5>
-                    <h5 class="card-title" style="color: #1c7430;font-size: 2em;">
+                        ${trip.fromTrip.name}</h5>
+                    <h5 class="card-title text-center" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
-                        ${trip.toTrip}</h5>
+                        ${trip.toTrip.name}</h5>
                 </div>
                 <br>
                 <div>
@@ -220,7 +229,7 @@
                 <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
                 <c:if test="${appearJoinTrip}">
-                    <a class="nav-link btn btn-primary ml-2 col-auto"
+                    <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
                        href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
                         Join trip</a>
                 </c:if>
@@ -279,7 +288,28 @@
 <div id="footer">
 </div>
 
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+<!-- El request to join toast -->
+<div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+    <div class="toast-header">
+        <strong class="mr-5">CarPoolArg</strong>
+        <small class = "mr-5">a moment ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        You have just requested to join a trip.
+    </div>
+</div>
+<!-- hasta aca -->
+<script>
+    $(document).ready(function(){
+        $(".requestButton").click(function(){
+            $(".requestToJoin").toast('show');
+        });
+    });
+</script>
 
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 </body>
 </html>
