@@ -39,7 +39,7 @@
         margin: 0;
     }
 
-    .ratingpassenger,.ratingdriver,.acceptpassenger,.rejectpassenger {
+    .ratingpassenger, .ratingdriver, .acceptpassenger, .rejectpassenger {
         position: fixed;
         left: 0;
         bottom: 0;
@@ -148,15 +148,17 @@
                 <div class="container">
                     <div class="row">
                         <div class="col-1">
-                            <img src="${notifList.notification.idTrip.driver.avatarPath}"
+                            <img src="${tripsPassenger.passenger.avatarPath}"
                                  class="rounded-circle" alt="Your Avatar" width="50" height="50">
                         </div>
                         <div class="col-11">
                             <div class="col-12">
                                 <p class="card-text col-11"><span class="font-weight-bold text-dark">
-                                        ${tripsPassenger.passenger.firstName} ${tripsPassenger.passenger.lastName} </span>want to join your trip from <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span>
+                                        ${tripsPassenger.passenger.firstName} ${tripsPassenger.passenger.lastName} </span>want
+                                    to join your trip from <span
+                                            class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip} </span>
                                     to
-                                    <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip} </span>
+                                    <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip.name} </span>
                                     in the day <span
                                             class="font-weight-light"> ${tripsPassenger.trip.date} </span>
                                 </p>
@@ -187,91 +189,91 @@
         <h3 class="ml-3">Pending ratings as driver</h3>
         <%--        Rating as driver--%>
         <div class="list-group">
-        <!-- esto arranca a repetir aca-->
-        <c:forEach var="rateAsDriver" items="${ratingsUserAsDriver}">
+            <!-- esto arranca a repetir aca-->
+            <c:forEach var="rateAsDriver" items="${ratingsUserAsDriver}">
 
-            <button class="list-group-item list-group-item-action" data-toggle="modal" data-target=".ratemodal" action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
-                    method="post">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-1">
-                            <img src="${notifList.notification.idTrip.driver.avatarPath}"
-                                 class="rounded-circle" alt="Your Avatar" width="50" height="50">
-                        </div>
-                        <div class="col-11">
-                            <div class="col-12">
-                                <p class="card-text"> Rate <span class="font-weight-bold text-dark">
+                <form class="list-group-item list-group-item-action" data-toggle="modal" data-target=".ratemodal"
+                      action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
+                      method="post">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="${rateAsDriver.idPassenger.avatarPath}"
+                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                            </div>
+                            <div class="col-11">
+                                <div class="col-12">
+                                    <p class="card-text"> Rate <span class="font-weight-bold text-dark">
                                         ${rateAsDriver.idPassenger.firstName} ${rateAsDriver.idPassenger.lastName}</span>
-                                    in your trip from
-                                    <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.fromTrip} </span>
-                                    to
-                                    <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.toTrip} </span>
-                                    the day <span class="font-weight-light"> ${rateAsDriver.idTrip.date} </span>
-                                </p>
+                                        in your trip from
+                                        <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.fromTrip.name} </span>
+                                        to
+                                        <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.toTrip.name} </span>
+                                        the day <span class="font-weight-light"> ${rateAsDriver.idTrip.date} </span>
+                                    </p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </button>
-        </c:forEach>
+                </form>
+            </c:forEach>
         </div>
 
-            <!--RatingModal -->
-            <div class="modal fade ratemodal">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h4 class="modal-title">Rate this passenger</h4>
-                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <!--RatingModal -->
+        <div class="modal fade ratemodal">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <!-- Modal Header -->
+                    <div class="modal-header">
+                        <h4 class="modal-title">Rate this passenger</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <!-- Modal body -->
+                    <div class="modal-body">
+                        Please rate this passenger from 1 to 5. 1 being a bad passenger and 5 being an excelent
+                        passenger.
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                   id="inlineRadio1"
+                                   value="1"> <label class="form-check-label"
+                                                     for="inlineRadio1">1</label>
                         </div>
-                        <!-- Modal body -->
-                        <div class="modal-body">
-                            Please rate this passenger from 1 to 5. 1 being a bad passenger and 5 being an excelent passenger.
-                            <br>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio1"
-                                       value="1"> <label class="form-check-label"
-                                                         for="inlineRadio1">1</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio2"
-                                       value="2"> <label class="form-check-label"
-                                                         for="inlineRadio2">2</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio3"
-                                       value="3"> <label class="form-check-label"
-                                                         for="inlineRadio3">3</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio4"
-                                       value="4"> <label class="form-check-label"
-                                                         for="inlineRadio4">4</label>
-                            </div>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="inlineRadioOptions"
-                                       id="inlineRadio5"
-                                       value="5"> <label class="form-check-label"
-                                                         for="inlineRadio5">5</label>
-                            </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                   id="inlineRadio2"
+                                   value="2"> <label class="form-check-label"
+                                                     for="inlineRadio2">2</label>
                         </div>
-                        <!-- Modal footer -->
-                        <div class="modal-footer">
-                            <button onClick="window.location.reload();" type="submit"
-                                    class="btn btn-success ratingButtonpassenger"> Rate
-                            </button>
-                            <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                   id="inlineRadio3"
+                                   value="3"> <label class="form-check-label"
+                                                     for="inlineRadio3">3</label>
                         </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                   id="inlineRadio4"
+                                   value="4"> <label class="form-check-label"
+                                                     for="inlineRadio4">4</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                   id="inlineRadio5"
+                                   value="5"> <label class="form-check-label"
+                                                     for="inlineRadio5">5</label>
+                        </div>
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-success ratingButtonpassenger"> Rate</button>
+                        <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                     </div>
                 </div>
             </div>
-         </c:if>
-        <!-- termina de repetir -->
+        </div>
+    </c:if>
+    <!-- termina de repetir -->
 
     <c:if test="${ratingAsPassenger}">
         <br>
@@ -280,13 +282,13 @@
         <div class="list-group">
             <!-- esto arranca a repetir aca-->
             <c:forEach var="rateAsPassenger" items="${ratingsUserAsPassenger}">
-
-                <button class="list-group-item list-group-item-action" data-toggle="modal" data-target=".ratemodaldriver" action="${pageContext.request.contextPath}/newRating.do?idDriver=${rateAsPassenger.idDriver.userId}&idPassenger=${userId}&idTrip=${rateAsPassenger.idTrip.tripId}&isDriver=false"
-                        method="post">
+                <form class="list-group-item list-group-item-action" data-toggle="modal" data-target=".ratemodaldriver"
+                      action="${pageContext.request.contextPath}/newRating.do?idDriver=${rateAsPassenger.idDriver.userId}&idPassenger=${userId}&idTrip=${rateAsPassenger.idTrip.tripId}&isDriver=false"
+                      method="post">
                     <div class="container">
                         <div class="row">
                             <div class="col-1">
-                                <img src="${notifList.notification.idTrip.driver.avatarPath}"
+                                <img src="${rateAsPassenger.idDriver.avatarPath}"
                                      class="rounded-circle" alt="Your Avatar" width="50" height="50">
                             </div>
                             <div class="col-11">
@@ -294,9 +296,9 @@
                                     <p class="card-text"> Rate <span class="font-weight-bold text-dark">
                                         ${rateAsPassenger.idDriver.firstName} ${rateAsPassenger.idDriver.lastName}</span>
                                         in his/her trip from
-                                        <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.fromTrip} </span>
+                                        <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.fromTrip.name} </span>
                                         to
-                                        <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.toTrip} </span>
+                                        <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.toTrip.name} </span>
                                         the day <span
                                                 class="font-weight-light"> ${rateAsPassenger.idTrip.date} </span>
                                     </p>
@@ -304,7 +306,7 @@
                             </div>
                         </div>
                     </div>
-                </button>
+                </form>
 
                 <!--RatingModal -->
                 <div class="modal fade ratemodaldriver">
@@ -323,38 +325,36 @@
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                            id="inlineRadio1Driver"
                                            value="1"> <label class="form-check-label"
-                                                             for="inlineRadio1">1</label>
+                                                             for="inlineRadio1Driver">1</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                            id="inlineRadio2Driver"
                                            value="2"> <label class="form-check-label"
-                                                             for="inlineRadio2">2</label>
+                                                             for="inlineRadio2Driver">2</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                            id="inlineRadio3Driver"
                                            value="3"> <label class="form-check-label"
-                                                             for="inlineRadio3">3</label>
+                                                             for="inlineRadio3Driver">3</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                            id="inlineRadio4Driver"
                                            value="4"> <label class="form-check-label"
-                                                             for="inlineRadio4">4</label>
+                                                             for="inlineRadio4Driver">4</label>
                                 </div>
                                 <div class="form-check form-check-inline">
                                     <input class="form-check-input" type="radio" name="inlineRadioOptions"
                                            id="inlineRadio5Driver"
                                            value="5"> <label class="form-check-label"
-                                                             for="inlineRadio5">5</label>
+                                                             for="inlineRadio5Driver">5</label>
                                 </div>
                             </div>
                             <!-- Modal footer -->
                             <div class="modal-footer">
-                                <button onClick="window.location.reload();" type="submit"
-                                        class="btn btn-success ratingButtondriver"> Rate
-                                </button>
+                                <button type="submit" class="btn btn-success ratingButtondriver"> Rate</button>
                                 <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                             </div>
                         </div>
@@ -387,9 +387,9 @@
                                     <span class="font-weight-bold text-dark"> ${notifList.notification.idUser.firstName}
                                             ${notifList.notification.idUser.lastName}</span>
                                     to your trip from
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip} </span>
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
                                     to
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip} </span>.
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
 
                                     <span class="font-weight-light font-italic "> ${notifList.notification.date} </span>
                                 </div>
@@ -413,9 +413,9 @@
                                     <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.driver.firstName}
                                             ${notifList.notification.idTrip.driver.lastName} </span>
                                     has accepted your request in the trip from
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip} </span>
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
                                     to
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip} </span>.
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
                                     <span class="font-weight-light font-italic"> ${notifList.notification.date} </span>
                                 </div>
                             </div>
@@ -439,9 +439,9 @@
                                             ${notifList.notification.idTrip.driver.firstName}
                                             ${notifList.notification.idTrip.driver.lastName}</span>
                                     has rejected your request in the trip from
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip} </span>
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
                                     to
-                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip} </span>.
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
                                     <span class="font-weight-light font-italic "> ${notifList.notification.date} </span>
                                 </div>
                             </div>
@@ -462,7 +462,7 @@
 <div class="toast ratingpassenger" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
-        <small class = "mr-5">a moment ago</small>
+        <small class="mr-5">a moment ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -471,7 +471,6 @@
         You have just rated a passenger.
     </div>
 </div>
-
 <!-- hasta aca -->
 
 
@@ -479,7 +478,7 @@
 <div class="toast ratingdriver" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
-        <small class = "mr-5">a moment ago</small>
+        <small class="mr-5">a moment ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -488,13 +487,13 @@
         You have just rated a driver.
     </div>
 </div>
-
 <!-- hasta aca -->
+
 <!-- El accept passenger toast -->
 <div class="toast acceptpassenger" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
-        <small class = "mr-5">a moment ago</small>
+        <small class="mr-5">a moment ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -509,7 +508,7 @@
 <div class="toast rejectpassenger" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
-        <small class = "mr-5">a moment ago</small>
+        <small class="mr-5">a moment ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -520,39 +519,36 @@
 </div>
 <!-- hasta aca -->
 
-
-
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 <script>
-    $(document).ready(function(){
-        $(".ratingButtonpassenger").click(function(){
+    $(document).ready(function () {
+        $(".ratingButtonpassenger").click(function () {
             $(".ratingpassenger").toast('show');
         });
     });
-</script>
 
-<script>
-    $(document).ready(function(){
-        $(".ratingButtondriver").click(function(){
+    $(document).ready(function () {
+        $(".ratingButtondriver").click(function () {
             $(".ratingdriver").toast('show');
         });
     });
-</script>
-<script>
-    $(document).ready(function(){
-        $(".acceptbutton").click(function(){
+
+    $(document).ready(function () {
+        $(".acceptbutton").click(function () {
             $(".acceptpassenger").toast('show');
         });
     });
-</script>
-<script>
-    $(document).ready(function(){
-        $(".rejectbutton").click(function(){
+
+    $(document).ready(function () {
+        $(".rejectbutton").click(function () {
             $(".rejectpassenger").toast('show');
         });
     });
 </script>
 
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 
 </body>
 </html>

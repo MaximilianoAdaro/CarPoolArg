@@ -211,9 +211,9 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">This trip had </span>
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
-                                        X passengers.</span>
+                                        Available seats</span>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
@@ -252,8 +252,6 @@
                                 <div class="col-8">
                                     <div class="row">
                                         <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                        <span class="col-9 availableSeats">
-                                        Available seats</span>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"

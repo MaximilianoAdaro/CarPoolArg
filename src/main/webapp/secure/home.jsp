@@ -154,6 +154,8 @@
                                  height="70"></div>
                         <div class="col-7 align-content-center nameDriver mt-4">
                                 ${trip.driver.firstName} ${trip.driver.lastName}
+                            <br>
+                            <span>Rating : ${trip.driver.rate} (X rating ammount)</span>
                         </div>
                     </div>
                     <div class="card-body">
@@ -175,7 +177,6 @@
                                     <span class="col-3 numberSeats">${trip.availableSeats}</span>
                                     <span class="col-9 availableSeats">
                                         Available seats</span>
-                                    <span>Owner's Rating: ${trip.driver.rating}</span> <!-- aca no se si esta bien la verdad pero croe que si -->
                                 </div>
                             </div>
                             <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"

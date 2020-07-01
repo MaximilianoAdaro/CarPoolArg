@@ -195,7 +195,10 @@
             <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
             ${driverName}
             <c:if test="${ratingSize > 0}">
-                <p> Rating: ${ratingDriver} <i class="fa fa-star" style="color:yellow"></i>(${ratingSize} times rated)</p>
+                <p> ${ratingDriver} <i class="fa fa-star" style="color: yellow;"></i> (${ratingSize} ratings)</p>
+            </c:if>
+            <c:if test="${ratingSize < 1}">
+                <p> (${ratingSize} ratings)</p>
             </c:if>
             <p> Email: ${driverEmail}</p>
 
@@ -212,16 +215,18 @@
                 <div>
                     <h5 class="card-title text-center" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
-                        ${trip.fromTrip}</h5>
+                        ${trip.fromTrip.name}</h5>
                     <h5 class="card-title text-center" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
-                        ${trip.toTrip}</h5>
+                        ${trip.toTrip.name}</h5>
                 </div>
+                <br>
                 <div>
                     <p class="card-text"><span>${trip.date.toString()} </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
-                <p><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
+                <br>
+                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
@@ -266,11 +271,12 @@
                     </c:if>
                 </c:if>
             </div>
+            <br>
             <div class="row ml-2 col-12">
                 Distance to travel: <i> x km </i>
             </div>
         </div>
-        <div class="col-12" style="background-color: #b49e9e">
+        <div class="col-12 mb-5" style="background-color: #b49e9e; height: 300px">
             <p> This is the map on Google </p>
         </div>
         <br>
@@ -281,8 +287,6 @@
 
 <div id="footer">
 </div>
-
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 
 <!-- El request to join toast -->
 <div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
@@ -298,7 +302,6 @@
     </div>
 </div>
 <!-- hasta aca -->
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
 <script>
     $(document).ready(function(){
         $(".requestButton").click(function(){
@@ -307,6 +310,6 @@
     });
 </script>
 
-
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 </body>
 </html>
