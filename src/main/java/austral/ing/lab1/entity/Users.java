@@ -1,9 +1,11 @@
 package austral.ing.lab1.entity;
 
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.jsonModel.UserData;
 import austral.ing.lab1.util.LangUtils;
 
 import javax.persistence.EntityTransaction;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,5 +49,14 @@ public class Users {
             tx.rollback();
             throw e;
         }
+    }
+
+    public static List<UserData> listUsersData(List<User> users) {
+        List<UserData> data = new ArrayList<>(users.size());
+        for (User u : users) {
+            data.add(new UserData(u.getUserId(), u.getFirstName(), u.getLastName(), u.getEmail(),
+                    u.getPassword(), u.getAvatarPath(), u.getAdministrator()));
+        }
+        return data;
     }
 }

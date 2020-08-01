@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.home;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;

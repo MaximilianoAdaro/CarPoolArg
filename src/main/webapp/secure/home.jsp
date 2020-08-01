@@ -1,7 +1,8 @@
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
+<%@ page import="austral.ing.lab1.entity.Trips" %>
+<%@ page import="austral.ing.lab1.entity.Users" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.Optional" %>
-<%@ page import="austral.ing.lab1.entity.Users" %>
-<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
@@ -33,6 +34,10 @@
         crossorigin="anonymous"></script>
 <script src="../bootstrap/js/bootstrap.js"></script>
 <!---------------------------------------------->
+<script src="${pageContext.request.contextPath}/bootstrap/js/filterTrips.js"></script>
+<script defer
+        src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -45,9 +50,11 @@
         request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
         request.setAttribute("avatarPath", user.getAvatarPath());
         request.setAttribute("hasCar", user.getCar() != null);
+        request.setAttribute("trip", Trips.listCurrentTrips(user.getUserId()));
     }
-%>
 
+%>
+<!-- NavBar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
 
     <a class="navbar-brand" id="home" href="${pageContext.request.contextPath}/secure/home.do">CarPool</a>
@@ -115,84 +122,38 @@
         </c:if>
 
     </div>
-</nav> <!-- NavBar -->
-
+</nav>
 <%--Search of a trip--%>
-
 <div class="container">
     <div class="mt-5">
         <h1 class="text-center blueTag">Find who to share your next trip with!</h1>
         <h3 class="text-center lightBlueTag">Choose origin or destination and find it!</h3>
-        <form class="form-inline justify-content-center mt-4" action="${pageContext.request.contextPath}/filterHome.do"
-              method="get">
+        <div class="form-inline justify-content-center mt-4">
             <input class="form-control mr-3 shadow p-3 bg-white rounded"
                    style="border-color: orange;" type="search" placeholder="Origin"
                    id="fromTrip"
                    name="fromTrip" aria-label="Search">
-
             <input class="form-control mr-3 shadow p-3 bg-white rounded"
                    style="border-color: #1c7430" type="search" placeholder="Destination"
                    id="toTrip"
                    name="toTrip" aria-label="Search">
-
-            <button class="btn btn-primary shadow bg-primary rounded" type="submit">SEARCH</button>
-        </form>
+            <button class="btn btn-primary shadow bg-primary rounded" type="submit" onclick="searchTrip()"> SEARCH
+            </button>
+        </div>
     </div>
 </div>
 
 <!-- searching for a trip -->
-
 <div class="container-fluid mt-4">
-    <div class="row justify-content-center">
-        <c:forEach var="trip" items="${trip}">
-            <div class="col-auto mb-3">
-                <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
-                    <div class="row p-2 mb-5">
-                        <div class="col-5 align-content-center imgDriver">
-                            <img src="${trip.driver.avatarPath}" class="rounded-circle"
-                                 alt="Your Avatar" width="70"
-                                 height="70"></div>
-                        <div class="col-7 align-content-center nameDriver mt-4">
-                                ${trip.driver.firstName} ${trip.driver.lastName}
-                            <br>
-                            <span>Rating : ${trip.driver.rate} (X rating ammount)</span>
-                        </div>
-                    </div>
-                    <div class="card-body">
-                        <div>
-                            <h5 class="card-title" style="color: orange">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.fromTrip}</h5>
-                            <h5 class="card-title" style="color: #1c7430">
-                                <i class="fa fa-map-marker"></i>
-                                    ${trip.toTrip}</h5>
-                        </div>
-                        <div>
-                            <p class="card-text text-center"> ${trip.date.toString()}</p>
-                            <p class="card-text text-center"> ${trip.time.toString()}</p>
-                        </div>
-                        <div class="row p-2">
-                            <div class="col-8">
-                                <div class="row">
-                                    <span class="col-3 numberSeats">${trip.availableSeats}</span>
-                                    <span class="col-9 availableSeats">
-                                        Available seats</span>
-                                </div>
-                            </div>
-                            <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
-                               class="viewButton col-4 btn btn-default" role="button"> View
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach>
+    <div class="row justify-content-center" id="tripsHome">
     </div>
 </div>
-
-<div id="footer">
+<br><br>
+<div id="footer" class="mt-auto">
 </div>
 
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+<%--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>--%>
+<script src="${pageContext.request.contextPath}/bootstrap/js/tripsHome.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 </body>
 </html>

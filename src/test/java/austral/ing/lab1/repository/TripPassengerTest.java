@@ -1,7 +1,8 @@
 package austral.ing.lab1.repository;
 
-import austral.ing.lab1.entity.Ratings;
-import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.entity.Trips;
+import austral.ing.lab1.entity.TripsPassengers;
+import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.EntityManagers;
 import org.junit.After;
@@ -10,9 +11,10 @@ import org.junit.Test;
 
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import java.util.List;
 import java.util.Optional;
 
-public class RatingTest {
+public class TripPassengerTest {
 
     private EntityManagerFactory emf;
 
@@ -27,18 +29,15 @@ public class RatingTest {
         emf.close();
     }
 
-//    @Test
-//    public void setRating() {
-//        Ratings.setRating();
-//    }
-
     @Test
-    public void testRatingUser() {
-        Optional<User> optionalUser = Users.findByEmail("admin@gmail.com");
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            System.out.println(Ratings.rateUser(user));
-            System.out.println(Ratings.getSizeRate(user));
+    public void passengerTest() {
+
+        Optional<Trip> optionalTrip = Trips.findById(15L);
+        if (optionalTrip.isPresent()) {
+            List<User> pass = TripsPassengers.listPassengers(optionalTrip.get());
+            for (User user : pass) {
+                System.out.println(user);
+            }
         }
     }
 

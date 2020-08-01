@@ -1,7 +1,10 @@
-const footerDom = document.getElementById("footer");
-footerDom.innerHTML += `
+$(document).ready()
+{
+    const footerDom = document.getElementById("footer");
+    footerDom.innerHTML += `
 
 <footer class="container-fluid" style="background-color:#33363A; color:white; top: 5px">
+<!--style="background-color:#33363A; color:white; position: absolute; bottom: 0; width: 100%;-->
     <div class="container py-5">
         <div class="row">
             <div class="col-3" style="right: 30px">
@@ -44,3 +47,4 @@ footerDom.innerHTML += `
     </div>
 </footer>
 `;
+}

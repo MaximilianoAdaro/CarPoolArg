@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.example;
 
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.car;
 
 import austral.ing.lab1.entity.CarModels;
 import austral.ing.lab1.entity.Cars;

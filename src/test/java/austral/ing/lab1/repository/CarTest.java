@@ -1,8 +1,5 @@
 package austral.ing.lab1.repository;
 
-import austral.ing.lab1.entity.CarModels;
-import austral.ing.lab1.entity.Cars;
-import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Car;
 import austral.ing.lab1.model.CarModel;
 import austral.ing.lab1.model.User;
@@ -15,11 +12,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.Optional;
-
-import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.greaterThan;
-import static org.junit.Assert.assertThat;
 
 public class CarTest {
 

@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.profile;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

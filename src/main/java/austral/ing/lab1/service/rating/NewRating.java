@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.rating;
 
 import austral.ing.lab1.entity.Ratings;
 import austral.ing.lab1.entity.Trips;
@@ -27,7 +27,6 @@ public class NewRating extends HttpServlet {
         int value = Integer.parseInt(req.getParameter("inlineRadioOptions"));
         boolean isDriver = Boolean.parseBoolean(req.getParameter("isDriver"));
 
-//        Ratings.rate(idTrip,idDriver,idPassenger,isDriver,value);
         Optional<Trip> optionalTrip = Trips.findById(idTrip);
         Optional<User> optionalDriver = Users.findById(idDriver);
         Optional<User> optionalPassenger = Users.findById(idPassenger);

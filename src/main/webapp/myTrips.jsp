@@ -151,10 +151,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -199,10 +199,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -239,10 +239,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -251,9 +251,10 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats text-center">asientos ocupados</span>
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
                                     </div>
-                                    <br>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
                                    class="viewButton col-4 btn btn-default" role="button"> View
@@ -287,10 +288,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -299,9 +300,10 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats text-center"> "asientos ocupados"</span>
+                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-9 availableSeats">
+                                        Available seats</span>
                                     </div>
-                                    <br>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
                                    class="viewButton col-4 btn btn-default" role="button"> View
@@ -318,7 +320,7 @@
 <div id="footer">
 </div>
 
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 
 </body>
 </html>

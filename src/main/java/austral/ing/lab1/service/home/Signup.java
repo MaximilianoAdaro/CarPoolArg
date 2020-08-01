@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.home;
 
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.User;

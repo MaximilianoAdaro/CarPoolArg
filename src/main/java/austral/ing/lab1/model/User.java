@@ -196,7 +196,6 @@ public class User {
         this.notifications = notifications;
     }
 
-    @Override
     public String toString() {
         return "User{" +
                 "userId=" + userId +
@@ -204,15 +203,8 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
-                ", isActive=" + isActive +
-                ", car=" + car.toString() +
                 ", avatarPath='" + avatarPath + '\'' +
                 ", isAdministrator=" + isAdministrator +
-                ", driver=" + driver.size() +
-                ", passenger=" + passenger.size() +
-                ", rateDriver=" + rateDriver.size() +
-                ", ratePassenger=" + ratePassenger.size() +
-                ", notifications=" + notifications.size() +
                 '}';
     }
 }

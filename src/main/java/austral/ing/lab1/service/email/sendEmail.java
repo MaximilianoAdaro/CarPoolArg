@@ -1,15 +1,9 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.email;
 
-import java.util.Properties;
-import javax.mail.Session;
-import javax.mail.Authenticator;
-
-import javax.mail.Message;
-import javax.mail.PasswordAuthentication;
-
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 public class sendEmail {
     public static void sendMail(String recepient) throws Exception{
