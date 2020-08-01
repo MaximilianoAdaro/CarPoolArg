@@ -14,12 +14,12 @@ public class Trip {
     public Trip() {
     }
 
-    public Trip(User driver, String date, String from, String to, Time time, String comment, int seats) {
+    public Trip(User driver, String date, Location fromTrip, Location toTrip, Time time, String comment, int seats) {
         this.driver = driver;
         driver.addTripAsDriver(this);
         this.date = date;
-        this.fromTrip = from;
-        this.toTrip = to;
+        this.fromTrip = fromTrip;
+        this.toTrip = toTrip;
         this.time = time;
         this.comment = comment;
         this.seats = seats;
@@ -41,11 +41,13 @@ public class Trip {
     @Column(name = "DATE")
     private String date;
 
-    @Column(name = "FROM_TRIP")
-    private String fromTrip;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "FROM_TRIP")
+    private Location fromTrip;
 
-    @Column(name = "TO_TRIP")
-    private String toTrip;
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "TO_TRIP")
+    private Location toTrip;
 
     @Column(name = "TIME")
     private Time time;
@@ -149,19 +151,19 @@ public class Trip {
         this.seats = seats;
     }
 
-    public String getFromTrip() {
+    public Location getFromTrip() {
         return fromTrip;
     }
 
-    public void setFromTrip(String from) {
+    public void setFromTrip(Location from) {
         this.fromTrip = from;
     }
 
-    public String getToTrip() {
+    public Location getToTrip() {
         return toTrip;
     }
 
-    public void setToTrip(String to) {
+    public void setToTrip(Location to) {
         this.toTrip = to;
     }
 
@@ -188,8 +190,8 @@ public class Trip {
                 ", driver=" + driver.getUserId() +
                 ", passenger=" + passengers.size() +
                 ", date=" + date +
-                ", from='" + fromTrip + '\'' +
-                ", to='" + toTrip + '\'' +
+                ", from='" + fromTrip.getName() + '\'' +
+                ", to='" + toTrip.getName() + '\'' +
                 ", time=" + time.toString() +
                 ", comment='" + comment + '\'' +
                 ", seats=" + seats +

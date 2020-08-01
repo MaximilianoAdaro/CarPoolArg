@@ -1,9 +1,12 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.trip;
 
+import austral.ing.lab1.entity.Locations;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.model.Location;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import com.google.gson.Gson;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,7 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
-import java.util.List;
 import java.util.Optional;
 
 @WebServlet("/createTrip.do")
@@ -27,7 +29,12 @@ public class CreateTrip extends HttpServlet {
         if (optionalUser.isPresent()) {
             User driver = optionalUser.get();
             String from = req.getParameter("fromTrip");
+            Gson json = new Gson();
+            Location locationFrom = json.fromJson(from, Location.class);
+            Locations.persist(locationFrom);
             String to = req.getParameter("toTrip");
+            Location locationTo = json.fromJson(to, Location.class);
+            Locations.persist(locationTo);
             String day = req.getParameter("dayTrip");
             String time = req.getParameter("timeTrip");
             String comment = req.getParameter("commentTrip");
@@ -38,12 +45,9 @@ public class CreateTrip extends HttpServlet {
             String[] tim = time.split(":");
             Time timetable = new Time(Integer.parseInt(tim[0]), Integer.parseInt(tim[1]), 0);
 
-            Trip trip = new Trip(driver, day, from, to, timetable, comment, seats);
+            Trip trip = new Trip(driver, day, locationFrom, locationTo, timetable, comment, seats);
             Trips.persist(trip);
-
-            List<Trip> trips = Trips.listCurrentTrips(driver.getUserId());
-            req.getSession().setAttribute("trip", trips);
         }
-        req.getRequestDispatcher("/secure/home.jsp").forward(req, resp);
     }
+
 }

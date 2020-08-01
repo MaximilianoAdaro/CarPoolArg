@@ -3,6 +3,7 @@ package austral.ing.lab1.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.sql.Time;
 
 @Entity
 @Table(name = "NOTIFICATIONS")
@@ -13,6 +14,7 @@ public class Notification {
         this.idTrip = idTrip;
         this.type = type;
         this.date = date;
+
     }
 
     public Notification() {
@@ -82,9 +84,9 @@ public class Notification {
     public String toString() {
         return "Notification{" +
                 "idNotification=" + idNotification +
-                ", idUser=" + idUser +
-                ", idTrip=" + idTrip +
-                ", type=" + type +
+                ", idUser=" + idUser.getUserId() +
+                ", idTrip=" + idTrip.getTripId() +
+                ", type=" + type.toString() +
                 ", date='" + date + '\'' +
                 '}';
     }

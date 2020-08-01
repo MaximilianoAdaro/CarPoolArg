@@ -1,6 +1,8 @@
 package austral.ing.lab1.entity;
 
+import austral.ing.lab1.jsonModel.TripData;
 import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.model.User;
 
 import javax.persistence.EntityTransaction;
 import java.sql.Connection;
@@ -25,14 +27,14 @@ public class Trips {
         );
     }
 
-    public static List<Trip> searchList(String fromTrip, String toTrip, Long driverID) {
+    public static List<Trip> searchList(Long fromTrip, Long toTrip, Long driverID) {
         List<Trip> trips = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT t FROM Trip t " +
                         "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
                         " where tp.passenger is NULL" +
                         " and tp.trip is NULL" +
-                        " and t.fromTrip LIKE :param " +
-                        " and t.toTrip LIKE :param2 " +
+                        " and t.fromTrip = :param " +
+                        " and t.toTrip = :param2 " +
                         " and t.availableSeats > 0 " +
                         " and t.driver.userId <> :driverID")
                 .setParameter("param", "%" + fromTrip + "%")
@@ -103,18 +105,18 @@ public class Trips {
         return trips;
     }
 
-/*  "SELECT t FROM Trip t " +
-    "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
-    " where tp.passenger is NULL" +
-    " and tp.trip is NULL" +
-    " and t.availableSeats > 0 " +
-    " and t.driver.userId <> :driverID"
+    /*  "SELECT t FROM Trip t " +
+        "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
+        " where tp.passenger is NULL" +
+        " and tp.trip is NULL" +
+        " and t.availableSeats > 0 " +
+        " and t.driver.userId <> :driverID"
 
 
-    "SELECT t FROM Trip t " +
-    "where t.availableSeats > 0 " +
-    "and t.driver.userId <> :driverID"
-*/
+        "SELECT t FROM Trip t " +
+        "where t.availableSeats > 0 " +
+        "and t.driver.userId <> :driverID"
+    */
     public static List<Trip> listCurrentTrips(Long driverID) {
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
@@ -243,6 +245,16 @@ public class Trips {
             else
                 return;
         }
+    }
+
+    public static List<TripData> listTripsData(List<Trip> trips, User user) {
+        List<TripData> data = new ArrayList<>(trips.size());
+        for (Trip t : trips) {
+            data.add(new TripData(t.getTripId(), t.getDriver().getAvatarPath(), t.getDriver().getFirstName(), t.getDriver().getLastName(),
+                    t.getFromTrip().getName(), t.getToTrip().getName(), t.getDate(), t.getTime().toString(),
+                    t.getAvailableSeats(), Ratings.rateUser(user), Ratings.getSizeRate(user), t.getFromTrip(), t.getToTrip()));
+        }
+        return data;
     }
 
 }

@@ -1,5 +1,6 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.mercadoPago;
 
+import austral.ing.lab1.entity.Payments;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
@@ -11,19 +12,20 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.List;
 import java.util.Optional;
 
-@WebServlet("/secure/home.do")
-public class Login extends HttpServlet {
-
+@WebServlet("/secure/success-buy-event")
+public class SuccessPayment extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
-        if (optionalUser.isPresent()){
-            List<Trip> trips = Trips.listCurrentTrips(optionalUser.get().getUserId());
-            req.getSession().setAttribute("trip", trips);
+        Optional<Trip> optionalTrip = Trips.findById(Long.parseLong(req.getParameter("tripID")));
+        if (optionalUser.isPresent() && optionalTrip.isPresent()) {
+            User user = optionalUser.get();
+            Trip trip = optionalTrip.get();
+            double amount = Double.parseDouble(req.getParameter("amount"));
+            Payments.savePayment(user, trip, amount);
         }
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

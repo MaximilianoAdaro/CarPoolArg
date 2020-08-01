@@ -21,7 +21,7 @@
 
 <style>
 
-    body{
+    body {
         font-family: Roboto, Muli, sans-serif !important;
     }
 
@@ -35,6 +35,8 @@
         crossorigin="anonymous"></script>
 <script src="${pageContext.request.contextPath}/bootstrap/js/bootstrap.js"></script>
 <!---------------------------------------------->
+<script src="${pageContext.request.contextPath}/bootstrap/js/createTrip.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo"></script>
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -66,7 +68,7 @@
             <a class="nav-link btn btn-light mr-1" href="createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp">
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
@@ -124,8 +126,11 @@
     </div>
 
 </nav>
+<%--navbar--%>
 
-<form class="container center" action="${pageContext.request.contextPath}/createTrip.do" method="post">
+<br>
+<form class="container center" action="${pageContext.request.contextPath}/secure/home.jsp" method="post">
+<div class="container center">
     <div class="jumbotron">
         <h1> Create a trip</h1>
         <div class="form-group">
@@ -154,8 +159,8 @@
                    name="commentTrip" maxlength="200" required>
         </div>
         <div class="form-group">
-            <label for="inputState">Available Seats</label>
-            <select id="inputState" class="form-control" style="max-width: 60px" name="seatsTrip">
+            <label for="seatsTrip">Available Seats</label>
+            <select id="seatsTrip" class="form-control" style="max-width: 60px" name="seatsTrip">
                 <option selected value="1">1</option>
                 <option value="2">2</option>
                 <option value="3">3</option>
@@ -164,9 +169,14 @@
                 <option value="6">6</option>
             </select>
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+        <button type="submit" class="btn btn-primary" onclick="createTrip()">Submit</button>
     </div>
+</div>
 </form>
 
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 </body>
 </html>

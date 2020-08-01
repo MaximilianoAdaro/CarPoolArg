@@ -8,13 +8,12 @@ import javax.persistence.*;
 @Table(name = "RATINGS")
 public class Rating {
 
-    public Rating(Trip idTrip, User idDriver, User idPassenger, boolean isDriver, int value, String message, boolean isRated) {
+    public Rating(Trip idTrip, User idDriver, User idPassenger, boolean isDriver, int value, boolean isRated) {
         this.idTrip = idTrip;
         this.idDriver = idDriver;
         this.idPassenger = idPassenger;
         this.isDriver = isDriver;
         this.value = value;
-        this.message = message;
         this.isRated = isRated;
     }
 
@@ -43,9 +42,6 @@ public class Rating {
 
     @Column(name = "VALUE")
     private Integer value;
-
-    @Column(name = "MESSAGE")
-    private String message;
 
     @Column(name = "IS_RATED")
     private boolean isRated;
@@ -98,14 +94,6 @@ public class Rating {
         isDriver = driver;
     }
 
-    public String getMessage() {
-        return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
-    }
-
     public boolean isRated() {
         return isRated;
     }
@@ -123,7 +111,6 @@ public class Rating {
                 ", idPassenger=" + idPassenger.getUserId() +
                 ", isDriver=" + isDriver +
                 ", value=" + value +
-                ", message='" + message + '\'' +
                 ", isRated=" + isRated +
                 '}';
     }

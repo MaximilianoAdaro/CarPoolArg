@@ -1,6 +1,7 @@
 <%@ page import="austral.ing.lab1.model.User" %>
-<%@ page import="java.util.Optional" %>
 <%@ page import="austral.ing.lab1.entity.Users" %>
+<%@ page import="java.util.Optional" %>
+<%@ page import="austral.ing.lab1.entity.Ratings" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
 
@@ -29,17 +30,16 @@
         font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .notif{
-        background-color: white;
+    h1, h3 {
+        color: #4178b3;
+        font-family: Roboto, Muli, sans-serif !important;
     }
 
-    .ratingsize{
-        font-size: 15px;
+    p {
+        margin: 0;
     }
-
 
 </style>
-
 <body>
 
 <!-- jQuery (Bootstrap plugins depend on it) -->
@@ -53,14 +53,18 @@
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
 
+    Ratings.setRating();
     Optional<User> optionalUser = Users.findByEmail(request.getUserPrincipal().getName());
     if (optionalUser.isPresent()) {
         User user = optionalUser.get();
-        request.setAttribute("isAdmin", user.getAdministrator());
+        request.setAttribute("userId", user.getUserId());
         request.setAttribute("userName", user.getFirstName() + " " + user.getLastName());
         request.setAttribute("avatarPath", user.getAvatarPath());
         request.setAttribute("hasCar", user.getCar() != null);
+
+
     }
+
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -74,7 +78,8 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
         <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
-        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.jsp"><i class="fa fa-bell"></i></a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
+            <i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
@@ -104,129 +109,317 @@
             <div class="modal fade" id="myModal">
                 <div class="modal-dialog modal-dialog-centered">
                     <div class="modal-content">
-
                         <!-- Modal Header -->
                         <div class="modal-header">
                             <h4 class="modal-title">You cannot create a trip</h4>
                             <button type="button" class="close" data-dismiss="modal">&times;</button>
                         </div>
-
                         <!-- Modal body -->
                         <div class="modal-body">
                             You do not have the requirements, you must have a car added in your profile
                         </div>
-
                         <!-- Modal footer -->
                         <div class="modal-footer">
                             <a class="nav-link btn btn-primary ml-2 col-auto"
                                href="${pageContext.request.contextPath}/secure/profile.do">Go to profile</a>
                             <a type="button" class="btn btn-secondary" data-dismiss="modal">Close</a>
                         </div>
-
                     </div>
                 </div>
             </div>
         </c:if>
-
     </div>
 </nav> <!-- NavBar -->
 
-<div class="notif container mt-5 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
-        Name lastname has requested to join to one of your trips.
-        <span class="font-weight-light font-italic "> date</span> </a>
-</div>
-
-<div class="collapse multi-collapse" id="join-card">
-
-<!-- cuando alguien se quiere subir -->
-<div class=" row col-8 mt-2">
-
-    <!-- esto arranca a repetir aca-->
-    <div class="col-sm-6">
-        <div class="card">
-            <div class="card-body">
-                <p class="card-text jointrip col-11"><span class="font-weight-bold text-dark">Nombre y apellido</span> want toy join your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                <a href="#" class="btn btn-success col-3 jointrip">Accept</a>
-                <a href="#" class="btn btn-danger col-3 jointrip">Deny</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- termina de repetir aca -->
-
-</div>
-
-<!-- y aca termina-->
-</div>
-
-<div class="notif container mt-0 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
-        You still have a trip to classify.
-        <span class="font-weight-light font-italic "> date</span> </a>
-</div>
-<div class="collapse multi-collapse" id="ratingCards">
-    <div class=" row col-8 mt-2 mb-2">
-        <!-- rate -->
-        <!-- esto arranca a repetir aca-->
-        <div class="col-5">
-            <div class="card" style="height: 8rem ; width: 25rem">
-                <div class="container">
-                    <div class = "row">
-                        <div class="col-3">
-                            <p> avatar</p>
+<div class="container">
+    <!-- Requests -->
+    <c:if test="${tripPassNotEmpty}">
+        <h3 class="ml-3">Pending requests</h3>
+        <div class=" row col-12 mt-2 mb-2">
+            <c:forEach var="tripsPassenger" items="${tripsPassengers}">
+                <form>
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem; width: 25rem;">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3 text-center mt-3">
+                                        <img src="${tripsPassenger.passenger.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text col-11"><span class="font-weight-bold text-dark">
+                                        ${tripsPassenger.passenger.firstName} ${tripsPassenger.passenger.lastName} </span>
+                                            want to join your trip from
+                                            <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.fromTrip.name} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${tripsPassenger.trip.toTrip.name} </span>
+                                            in the day <span
+                                                    class="font-weight-light"> ${tripsPassenger.trip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=accepted"
+                                       role="button" type="submit"
+                                       class="btn btn-success ml-4"> Accept
+                                    </a>
+                                    <a href="${pageContext.request.contextPath}/passenger.do?user=${tripsPassenger.passenger.userId}&tripId=${tripsPassenger.trip.tripId}&case=rejected"
+                                       role="button" type="submit"
+                                       class="btn btn-danger ml-2 "> Deny
+                                    </a>
+                                </div>
+                            </div>
                         </div>
-                        <div class = "col-9">
-                            <p class="card-text ratingsize "> You havent rated <span class="font-weight-bold text-dark">Nombre y apellido</span> from your trip to <span class="font-weight-bold text-dark"> lugar </span> in the day <span class="font-weight-light">17/7</span></p>
-                        </div>
-                        <div class = "col-3">
-                        </div>
-                        <div class ="col-9 mt-0">
-                            <div class="form-check-inline mt-1">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="1">1
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="2">2
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="3">3
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="4">4
-                                </label>
-                            </div>
-                            <div class="form-check-inline">
-                                <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" value="5">5
-                                </label>
-                            </div>
-                            <button type="submit" class="btn btn-success">Rate</button>
-                        </div>
-
                     </div>
-                </div>
-            </div>
-
+                </form>
+            </c:forEach>
         </div>
-    </div>
-    <!-- termina de repetir -->
-</div>
+    </c:if>
+    <!-- end of requests -->
+
+    <!-- Starts ratings -->
+    <c:if test="${ratingAsDriver}">
+        <br>
+        <h3 class="ml-3">Pending ratings as driver</h3>
+        <%--        Rating as driver--%>
+        <div class=" row col-12 mt-2 mb-2">
+            <!-- esto arranca a repetir aca-->
+            <c:forEach var="rateAsDriver" items="${ratingsUserAsDriver}">
+                <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
+                      method="post">
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem ; width: 25rem">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3 text-center mt-3">
+                                        <img src="${rateAsDriver.idPassenger.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text"> Rate <span class="font-weight-bold text-dark">
+                                        ${rateAsDriver.idPassenger.firstName} ${rateAsDriver.idPassenger.lastName}</span>
+                                            in your trip from
+                                            <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.fromTrip.name} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${rateAsDriver.idTrip.toTrip.name} </span>
+                                            the day <span class="font-weight-light"> ${rateAsDriver.idTrip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio1"
+                                                   value="1"> <label class="form-check-label"
+                                                                     for="inlineRadio1">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio2"
+                                                   value="2"> <label class="form-check-label"
+                                                                     for="inlineRadio2">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio3"
+                                                   value="3"> <label class="form-check-label"
+                                                                     for="inlineRadio3">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio4"
+                                                   value="4"> <label class="form-check-label"
+                                                                     for="inlineRadio4">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio5"
+                                                   value="5"> <label class="form-check-label"
+                                                                     for="inlineRadio5">5</label>
+                                        </div>
+                                        <button type="submit"
+                                                class="btn btn-success"> Rate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </c:forEach>
+            <!-- termina de repetir -->
+        </div>
+    </c:if>
+
+    <c:if test="${ratingAsPassenger}">
+        <br>
+        <%--        Rating as passenger--%>
+        <h3 class="ml-3">Rating as passenger</h3>
+        <div class=" row col-12 mt-2 mb-2">
+            <!-- esto arranca a repetir aca-->
+            <c:forEach var="rateAsPassenger" items="${ratingsUserAsPassenger}">
+                <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${rateAsPassenger.idDriver.userId}&idPassenger=${userId}&idTrip=${rateAsPassenger.idTrip.tripId}&isDriver=false"
+                      method="post">
+                    <div class="col-3 mt-3 mr-3">
+                        <div class="card" style="height: 10rem ; width: 25rem">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-3 text-center mt-3">
+                                        <img src="${rateAsPassenger.idDriver.avatarPath}"
+                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                    </div>
+                                    <div class="col-9">
+                                        <p class="card-text"> Rate <span class="font-weight-bold text-dark">
+                                        ${rateAsPassenger.idDriver.firstName} ${rateAsPassenger.idDriver.lastName}</span>
+                                            in his/her trip from
+                                            <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.fromTrip.name} </span>
+                                            to
+                                            <span class="font-weight-bold text-dark"> ${rateAsPassenger.idTrip.toTrip.name} </span>
+                                            the day <span
+                                                    class="font-weight-light"> ${rateAsPassenger.idTrip.date} </span>
+                                        </p>
+                                    </div>
+                                    <div class="col-3">
+                                    </div>
+                                    <div class="col-9">
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio6"
+                                                   value="1"> <label class="form-check-label"
+                                                                     for="inlineRadio6">1</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio7"
+                                                   value="2"> <label class="form-check-label"
+                                                                     for="inlineRadio7">2</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio8"
+                                                   value="3"> <label class="form-check-label"
+                                                                     for="inlineRadio8">3</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio9"
+                                                   value="4"> <label class="form-check-label"
+                                                                     for="inlineRadio9">4</label>
+                                        </div>
+                                        <div class="form-check form-check-inline">
+                                            <input class="form-check-input" type="radio" name="inlineRadioOptions"
+                                                   id="inlineRadio10"
+                                                   value="5"> <label class="form-check-label"
+                                                                     for="inlineRadio10">5</label>
+                                        </div>
+                                        <button type="submit"
+                                                class="btn btn-success"> Rate
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </c:forEach>
+            <!-- termina de repetir -->
+        </div>
+    </c:if>
+    <!-- end of ratings -->
 </div>
 
-<!-- y aca termina-->
+<h1 class="text-center my-3"> Notifications </h1>
+<%--Notificaciones--%>
+<div class="container">
+    <ul class="list-group">
+        <c:forEach var="notifList" items="${notifList}">
+            <%--Tipo 1--%>
+            <c:if test="${notifList.type == 1}">
+                <li class="list-group-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="${notifList.notification.idUser.avatarPath}"
+                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                            </div>
+                            <div class="col-11">
+                                <div class="col-12">
+                                    You have accepted
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idUser.firstName}
+                                            ${notifList.notification.idUser.lastName}</span>
+                                    to your trip from
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
+                                    to
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
 
-<div class="notif container mt-0 border border-secondary rounded">
-    <a class="font-weight-bold text-dark" href="${pageContext.request.contextPath}/myTrips.do">
-        Your trip to "lugar" has been finished.
-        <span class="font-weight-light font-italic "> date</span> </a>
+                                    <span class="font-weight-light font-italic "> ${notifList.notification.date} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </c:if>
+
+            <%--Tipo 2--%>
+            <c:if test="${notifList.type == 2}">
+                <li class="list-group-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="${notifList.notification.idTrip.driver.avatarPath}"
+                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                            </div>
+                            <div class="col-11">
+                                <div class="col-12">
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.driver.firstName}
+                                            ${notifList.notification.idTrip.driver.lastName} </span>
+                                    has accepted your request in the trip from
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
+                                    to
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
+                                    <span class="font-weight-light font-italic"> ${notifList.notification.date} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </c:if>
+
+            <%--Tipo 3--%>
+            <c:if test="${notifList.type == 3}">
+                <li class="list-group-item">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-1">
+                                <img src="${notifList.notification.idTrip.driver.avatarPath}"
+                                     class="rounded-circle" alt="Your Avatar" width="50" height="50">
+                            </div>
+                            <div class="col-11">
+                                <div class="col-12">
+                                    <span class="font-weight-bold text-dark">
+                                            ${notifList.notification.idTrip.driver.firstName}
+                                            ${notifList.notification.idTrip.driver.lastName}</span>
+                                    has rejected your request in the trip from
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.fromTrip.name} </span>
+                                    to
+                                    <span class="font-weight-bold text-dark"> ${notifList.notification.idTrip.toTrip.name} </span>.
+                                    <span class="font-weight-light font-italic "> ${notifList.notification.date} </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            </c:if>
+        </c:forEach>
+    </ul>
+    <br>
+    <br>
 </div>
 
+<div id="footer">
+</div>
+
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 </body>
 </html>
