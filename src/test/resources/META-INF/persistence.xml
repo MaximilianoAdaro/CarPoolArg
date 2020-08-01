@@ -10,15 +10,20 @@
 
         <class>austral.ing.lab1.model.User</class>
         <class>austral.ing.lab1.model.Car</class>
+        <class>austral.ing.lab1.model.Location</class>
         <class>austral.ing.lab1.model.CarModel</class>
+        <class>austral.ing.lab1.model.Notification</class>
+        <class>austral.ing.lab1.model.Rating</class>
         <class>austral.ing.lab1.model.Trip</class>
         <class>austral.ing.lab1.model.TripPassenger</class>
+        <class>austral.ing.lab1.model.TypeNotification</class>
+        <class>austral.ing.lab1.model.User</class>
 
         <properties>
             <property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver" />
-            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/lab1" />
-            <property name="javax.persistence.jdbc.user" value="root" />
-            <property name="javax.persistence.jdbc.password" value="" />
+            <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/userdb" />
+            <property name="javax.persistence.jdbc.user" value="NumaLeone" />
+            <property name="javax.persistence.jdbc.password" value="rafternot7" />
 
             <property name="hibernate.show_sql" value="true" />
             <property name="hibernate.hbm2ddl.auto" value="update" />
