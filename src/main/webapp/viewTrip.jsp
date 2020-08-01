@@ -6,7 +6,6 @@
 <%@ page import="austral.ing.lab1.model.Trip" %>
 <%@ page import="austral.ing.lab1.model.User" %>
 <%@ page import="java.util.ArrayList" %>
-<%@ page import="jdk.nashorn.internal.ir.RuntimeNode" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.util.Optional" %>
 <%@ page contentType="text/html;charset=UTF-8" %>
@@ -28,22 +27,7 @@
 
 </head>
 
-<style>
-
-    body {
-        background-color: #EEEEEE;
-        font-family: Roboto, Muli, sans-serif !important;
-    }
-    .requestButton{
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        backdrop-filter: blur();
-    }
-
-</style>
-
-<body>
+<body style="background-color: #EEEEEE; font-family: Roboto, Muli, sans-serif !important;">
 <!-- jQuery (Bootstrap plugins depend on it) -->
 <script src="bootstrap/js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
@@ -51,6 +35,7 @@
         crossorigin="anonymous"></script>
 <script src="bootstrap/js/bootstrap.js"></script>
 <!---------------------------------------------->
+<script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
 
 <%
     response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
@@ -117,6 +102,9 @@
 
     boolean toReject = !isNotPassengerYetAfter && isNotPassengerYetBefore;
     request.setAttribute("appearGoDownTrip", toReject & !isOldTrip);
+
+    boolean payDriver = isNotOwner & isOldTrip;
+    request.setAttribute("payDriver", payDriver);
 %>
 
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
@@ -211,7 +199,6 @@
         <%--    Seccion medio--%>
         <div class="col-6" style="background-color: white">
             <div class="col-8 ml-4">
-
                 <div>
                     <h5 class="card-title text-center" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
@@ -226,7 +213,8 @@
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>
-                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>
+                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
+                </p>
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
@@ -239,6 +227,12 @@
                         Go down</a>
                 </c:if>
 
+                <%--Pay driver--%>
+                <c:if test="${payDriver}">
+                    <button class="btn btn-warning mt-3 container d-flex" data-toggle="modal" data-target="#buyModal">
+                        Pay driver with Mercado Pago
+                    </button>
+                </c:if>
             </div>
         </div>
         <%--    Seccion derecha--%>
@@ -273,12 +267,13 @@
             </div>
             <br>
             <div class="row ml-2 col-12">
-                Distance to travel: <i> x km </i>
+                Distance to travel: <i id="distanceKM"> </i>
             </div>
         </div>
-        <div class="col-12 mb-5" style="background-color: #b49e9e; height: 300px">
-            <p> This is the map on Google </p>
-        </div>
+        <%--mapa--%>
+        <div class="col-8 mb-5" id="map" style="height: 400px"></div>
+        <%--Indicaciones del mapa--%>
+        <div class="col-4" id="indicators"></div>
         <br>
         <br>
     </div>
@@ -288,11 +283,44 @@
 <div id="footer">
 </div>
 
+<%--Pay driver modal--%>
+<div class="modal fade" id="buyModal" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalCenterTitle">Pay driver</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form action="${pageContext.request.contextPath}/payment-procedure?tripID=${tripId}" method="post"
+                      id="form-buytickets" class="d-flex justify-content-end">
+                    <h4>Are you sure you want to pay?</h4>
+                    <div class="selectAmount" id="selectAmount">
+                        <h3>Amount of money to pay: </h3>
+                        <input type="number" min="1" name="amountToPay" id="amountToPay" value="1" required>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                <button class="btn btn-primary" onclick="makePayment()" type="button" id="submit-button">Confirm
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    const makePayment = () => $('#form-buytickets').submit()
+</script>
+
 <!-- El request to join toast -->
 <div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
-        <small class = "mr-5">a moment ago</small>
+        <small class="mr-5">a moment ago</small>
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
             <span aria-hidden="true">&times;</span>
         </button>
@@ -303,13 +331,67 @@
 </div>
 <!-- hasta aca -->
 <script>
-    $(document).ready(function(){
-        $(".requestButton").click(function(){
+    $(document).ready(function () {
+        $(".requestButton").click(function () {
             $(".requestToJoin").toast('show');
         });
     });
 </script>
 
+<script>
+    function initMap() {
+        let map = new google.maps.Map(document.getElementById("map"));
+
+        let origin = new google.maps.LatLng(${trip.fromTrip.lat}, ${trip.fromTrip.lng});
+        // let markerFrom = new google.maps.Marker({
+        //     position: origin,
+        //     map: map
+        // })
+        let destination = new google.maps.LatLng(${trip.toTrip.lat}, ${trip.toTrip.lng});
+        // let markerTo = new google.maps.Marker({
+        //     position: destination,
+        //     map: map,
+        //     icon: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png'
+        // })
+
+        let bounds = new google.maps.LatLngBounds();
+        bounds.extend(origin);
+        bounds.extend(destination);
+        map.fitBounds(bounds);
+
+        drawDirections(origin, destination, map)
+    }
+
+    function drawDirections(origin, destination, map) {
+        const directionsService = new google.maps.DirectionsService();
+        const directionsDisplay = new google.maps.DirectionsRenderer();
+
+        directionsDisplay.setMap(map)
+        directionsDisplay.setPanel(document.getElementById('indicators'));
+        directionsService.route({
+            origin: origin,
+            destination: destination,
+            travelMode: google.maps.TravelMode.DRIVING,
+        }, (response, status) => {
+            if (status === google.maps.DirectionsStatus.OK) {
+                directionsDisplay.setDirections(response);
+            } else {
+                alert('Could not display directions due to: ' + status);
+            }
+        });
+    }
+
+    const doc = document.getElementById("distanceKM");
+    const distance = google.maps.geometry.spherical.computeDistanceBetween(
+        new google.maps.LatLng(${trip.fromTrip.lat}, ${trip.fromTrip.lng}),
+        new google.maps.LatLng(${trip.toTrip.lat}, ${trip.toTrip.lng})
+    );
+    doc.innerText += parseInt(distance / 1000) + " km";
+</script>
+
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo&callback=initMap&libraries=places&v=weekly">
+</script>
 </body>
 </html>

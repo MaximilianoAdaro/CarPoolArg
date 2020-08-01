@@ -7,9 +7,6 @@ import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.LangUtils;
 
 import javax.persistence.EntityTransaction;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -71,29 +68,6 @@ public class Ratings {
         );
     }
 
-    public static void rate(Long idTrip, Long idDriver, Long idPassenger, boolean isDriver, int value) {
-
-        try {
-            // create our mysql database connection
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/lab1";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-            Statement st = conn.createStatement();
-            st.executeUpdate("UPDATE ratings r " +
-                    " SET r.VALUE = " + value +
-                    " and r.IS_RATED = true " +
-                    " WHERE r.ID_TRIP = " + idTrip +
-                    " AND r.ID_DRIVER = " + idDriver +
-                    " AND r.IS_DRIVER = " + isDriver +
-                    " AND r.ID_PASSENGER = " + idPassenger);
-            st.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-    }
-
     public static Rating persist(Rating rating) {
         final EntityTransaction tx = currentEntityManager().getTransaction();
 
@@ -127,8 +101,8 @@ public class Ratings {
         List<Integer> rate = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT r.value FROM Rating r " +
                         " where r.isRated = true" +
-                        " and ((r.idPassenger = :user and r.isDriver = false)" +
-                        " or (r.idDriver = :user and r.isDriver = true))")
+                        " and ((r.idPassenger = :user and r.isDriver = true)" +
+                        " or (r.idDriver = :user and r.isDriver = false))")
                 .setParameter("user", user)
                 .getResultList()
         ));
@@ -145,8 +119,8 @@ public class Ratings {
         List<Integer> rate = tx(() -> checkedList(currentEntityManager()
                 .createQuery("SELECT r.value FROM Rating r " +
                         " where r.isRated = true" +
-                        " and ((r.idPassenger = :user and r.isDriver = false)" +
-                        " or (r.idDriver = :user and r.isDriver = true))")
+                        " and ((r.idPassenger = :user and r.isDriver = true )" +
+                        " or (r.idDriver = :user and r.isDriver = false ))")
                 .setParameter("user", user)
                 .getResultList()
         ));

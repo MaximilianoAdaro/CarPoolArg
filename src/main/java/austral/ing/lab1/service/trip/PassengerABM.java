@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.trip;
 
 import austral.ing.lab1.entity.Notifications;
 import austral.ing.lab1.entity.Trips;

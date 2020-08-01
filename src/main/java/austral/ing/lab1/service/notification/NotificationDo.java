@@ -1,7 +1,6 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.notification;
 
 import austral.ing.lab1.entity.*;
-import austral.ing.lab1.model.Notification;
 import austral.ing.lab1.model.Rating;
 import austral.ing.lab1.model.User;
 

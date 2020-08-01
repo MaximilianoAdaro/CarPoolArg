@@ -64,3 +64,29 @@
     font-size: 1.3em;
     font-weight: bold;
 }
+
+.requestToJoin {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    backdrop-filter: blur();
+}
+
+#indicators {
+    padding: 5px;
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+}
+
+/*body {*/
+/*    min-height:100%;*/
+/*    position:relative;*/
+/*}*/
+
+/*#footer {*/
+/*    position:absolute;*/
+/*    bottom:0;*/
+/*    width:100%;*/
+/*}*/

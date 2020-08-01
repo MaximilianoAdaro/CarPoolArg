@@ -151,10 +151,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -199,10 +199,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -239,10 +239,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -288,10 +288,10 @@
                             <div>
                                 <h5 class="card-title" style="color: orange">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.fromTrip}</h5>
+                                        ${trip.fromTrip.name}</h5>
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
-                                        ${trip.toTrip}</h5>
+                                        ${trip.toTrip.name}</h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -320,7 +320,7 @@
 <div id="footer">
 </div>
 
-<script src="${pageContext.request.contextPath}/bootstrap/js/script.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 
 </body>
 </html>

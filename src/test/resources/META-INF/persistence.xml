@@ -4,11 +4,9 @@
              version="2.0">
 
     <persistence-unit name="test">
-        <description>
-            Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
-        </description>
 
         <class>austral.ing.lab1.model.Car</class>
+        <class>austral.ing.lab1.model.Location</class>
         <class>austral.ing.lab1.model.CarModel</class>
         <class>austral.ing.lab1.model.Notification</class>
         <class>austral.ing.lab1.model.Rating</class>

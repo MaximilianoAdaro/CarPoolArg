@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.rating;
 
 import austral.ing.lab1.entity.Ratings;
 import austral.ing.lab1.entity.Trips;

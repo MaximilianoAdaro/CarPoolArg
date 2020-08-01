@@ -1,4 +1,4 @@
-package austral.ing.lab1.service;
+package austral.ing.lab1.service.car;
 
 import austral.ing.lab1.entity.CarModels;
 import austral.ing.lab1.model.CarModel;
@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Optional;
 
 @WebServlet("/newCarModel.do")
 public class NewCarModel extends HttpServlet {
