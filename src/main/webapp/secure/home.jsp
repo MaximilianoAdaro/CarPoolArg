@@ -17,8 +17,8 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
           integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/bootstrap.css">
-    <link rel="stylesheet" type="text/css" href="../bootstrap/css/style.css">
+    <link rel="stylesheet" type="text/css" href="../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../css/style.css">
 </head>
 <style>
     body {
@@ -28,13 +28,13 @@
 </style>
 <body>
 <!-- jQuery (Bootstrap plugins depend on it) -->
-<script src="../bootstrap/js/jquery-v3.5.js"></script>
+<script src="../js/jquery-v3.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.11.0/umd/popper.min.js"
         integrity="sha384-b/U6ypiBEHpOf/4+1nzFpr53nxSS+GLCkfwBdFNTxtclqqenISfwAzpKaMNFNmj4"
         crossorigin="anonymous"></script>
-<script src="../bootstrap/js/bootstrap.js"></script>
+<script src="../js/bootstrap.js"></script>
 <!---------------------------------------------->
-<script src="${pageContext.request.contextPath}/bootstrap/js/filterTrips.js"></script>
+<script src="${pageContext.request.contextPath}/js/filterTrips.js"></script>
 <script defer
         src="https://maps.googleapis.com/maps/api/js?v=3.exp&libraries=places&key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo"></script>
 <script src="https://maps.googleapis.com/maps/api/js?v=3&sensor=false&libraries=geometry"></script>
@@ -153,7 +153,7 @@
 </div>
 
 <%--<script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false&v=3&libraries=geometry"></script>--%>
-<script src="${pageContext.request.contextPath}/bootstrap/js/tripsHome.js" type="text/javascript"></script>
-<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/tripsHome.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/footer.js" type="text/javascript"></script>
 </body>
 </html>

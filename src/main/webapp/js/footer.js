@@ -8,7 +8,7 @@ $(document).ready()
     <div class="container py-5">
         <div class="row">
             <div class="col-3" style="right: 30px">
-                <img src="../../images/LogoIngenieria.png" alt="58.71" width="300">
+                <img src="../images/LogoIngenieria.png" alt="58.71" width="300">
             </div>
             <div class="col-3">
                 Developers
