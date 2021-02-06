@@ -1,0 +1,92 @@
+.blueTag {
+    font-size: 42px;
+    color: #016587;
+    font-weight: 300;
+}
+
+.lightBlueTag {
+    font-size: 20px;
+    color: #009ce1;
+    font-weight: 300;
+}
+
+.imgDriver {
+    width: 100px;
+    height: 30px;
+    float: left;
+}
+
+.nameDriver {
+    font-size: 16px;
+    padding: 0;
+}
+
+.numberSeats {
+    font-size: 2.5em;
+    left: 4px;
+    color: #fe9900;
+    font-weight: 700;
+}
+
+.availableSeats {
+    line-height: 1.1em;
+    top: 13px;
+    text-transform: uppercase;
+}
+
+.seatsViewTrip {
+    color: orange;
+    font-weight: bold;
+}
+
+.viewButton {
+    color: #fe9900;
+    border-color: #fe9900;
+    height: 6%;
+    top: 13px;
+    padding: .1em;
+    border-width: 2px;
+    text-transform: uppercase;
+    font-size: 1.4em;
+    font-weight: 700;
+}
+
+.aTrip {
+    background-color: #2a62cb;
+}
+
+.viewTripAvatar {
+    background-color: #93b1d0;
+    height: 18rem
+}
+
+.passengerViewTrip, .carDetailViewTrip {
+    font-size: 1.3em;
+    font-weight: bold;
+}
+
+.requestToJoin {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    backdrop-filter: blur();
+}
+
+#indicators {
+    padding: 5px;
+    max-height: 400px;
+    width: 100%;
+    overflow-y: auto;
+    display: block;
+}
+
+/*body {*/
+/*    min-height:100%;*/
+/*    position:relative;*/
+/*}*/
+
+/*#footer {*/
+/*    position:absolute;*/
+/*    bottom:0;*/
+/*    width:100%;*/
+/*}*/
