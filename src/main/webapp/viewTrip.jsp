@@ -209,7 +209,7 @@
                 </div>
                 <br>
                 <div>
-                    <p class="card-text"><span>${trip.date.toString()} </span> <span
+                    <p class="card-text"><span>Date of start:${trip.date.toString()} </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>

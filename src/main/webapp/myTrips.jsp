@@ -155,6 +155,9 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
+                                <h5>
+                                    Date:
+                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -203,6 +206,9 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
+                                <h5>
+                                    Date:
+                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -243,6 +249,9 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
+                                <h5>
+                                    Date:
+                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -251,9 +260,10 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
-                                        Available seats</span>
+                                        Used seats</span>
+                                        <div>Rating: </div>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
@@ -292,6 +302,9 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
+                                <h5>
+                                    Date:
+                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -300,9 +313,9 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
-                                        Available seats</span>
+                                        Used seats</span>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
@@ -321,6 +334,21 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+
+<button class="btn-primary" data-toggle="toast" data-target="#requestJoin"></button>
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="requestJoin" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+        <strong nclass="mr-auto">CarpoolArg</strong>
+        <small>a moment ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        You have just asked to join a trip
+    </div>
+</div>
 
 </body>
 </html>

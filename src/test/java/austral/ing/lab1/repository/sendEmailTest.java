@@ -7,7 +7,10 @@ public class sendEmailTest {
 
     public static void main(String[] args) throws Exception {
 
-        sendEmail.sendMail("numaleoneelizalde@gmail.com");
+        sendEmail.sendConfirmationEmail("numaleoneelizalde@gmail.com","El talar","Numa");
+        sendEmail.sendDenialEmail("numaleoneelizalde@gmail.com","El talar","Numa");
+        sendEmail.sendRequestEmail("numaleoneelizalde@gmail.com","El talar","Numa");
+        sendEmail.sendPaymentEmail("numaleoneelizalde@gmail.com","El talar","Numa",500);
     }
 
 }
