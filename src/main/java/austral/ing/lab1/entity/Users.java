@@ -1,6 +1,6 @@
 package austral.ing.lab1.entity;
 
-import austral.ing.lab1.jsonModel.UserData;
+import austral.ing.lab1.jsonModel.UserDto;
 import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.LangUtils;
 
@@ -51,11 +51,10 @@ public class Users {
         }
     }
 
-    public static List<UserData> listUsersData(List<User> users) {
-        List<UserData> data = new ArrayList<>(users.size());
+    public static List<UserDto> listUsersData(List<User> users) {
+        List<UserDto> data = new ArrayList<>(users.size());
         for (User u : users) {
-            data.add(new UserData(u.getUserId(), u.getFirstName(), u.getLastName(), u.getEmail(),
-                    u.getPassword(), u.getAvatarPath(), u.getAdministrator()));
+            data.add(UserDto.from(u));
         }
         return data;
     }

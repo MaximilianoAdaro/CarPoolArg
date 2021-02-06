@@ -2,7 +2,7 @@ package austral.ing.lab1.service.trip;
 
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
-import austral.ing.lab1.jsonModel.TripData;
+import austral.ing.lab1.jsonModel.TripDto;
 import austral.ing.lab1.model.User;
 import com.google.gson.Gson;
 
@@ -23,7 +23,7 @@ public class HomeTrips extends HttpServlet {
         Optional<User> optionalUser = Users.findByEmail(req.getUserPrincipal().getName());
         if (optionalUser.isPresent()) {
             User user = optionalUser.get();
-            final List<TripData> data = Trips.listTripsData(Trips.listCurrentTrips(user.getUserId()), user);
+            final List<TripDto> data = Trips.listTripsData(Trips.listCurrentTrips(user.getUserId()), user);
 
             resp.setContentType("application/json");
             resp.setCharacterEncoding("UTF-8");

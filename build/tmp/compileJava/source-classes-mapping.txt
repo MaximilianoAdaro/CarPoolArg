@@ -22,20 +22,18 @@ austral/ing/lab1/entity/Locations.java
  austral.ing.lab1.entity.Locations
 austral/ing/lab1/service/profile/UploadAvatar.java
  austral.ing.lab1.service.profile.UploadAvatar
-austral/ing/lab1/jsonModel/UserData.java
- austral.ing.lab1.jsonModel.UserData
 austral/ing/lab1/model/Trip.java
  austral.ing.lab1.model.Trip
 austral/ing/lab1/entity/Notifications.java
  austral.ing.lab1.entity.Notifications
 austral/ing/lab1/model/PaymentTrip.java
  austral.ing.lab1.model.PaymentTrip
+austral/ing/lab1/service/FileServlet.java
+ austral.ing.lab1.service.FileServlet
 austral/ing/lab1/service/trip/NewPassenger.java
  austral.ing.lab1.service.trip.NewPassenger
 austral/ing/lab1/listener/CloseEntityManagerFilter.java
  austral.ing.lab1.listener.CloseEntityManagerFilter
-austral/ing/lab1/jsonModel/TripData.java
- austral.ing.lab1.jsonModel.TripData
 austral/ing/lab1/service/example/UserList.java
  austral.ing.lab1.service.example.UserList
 austral/ing/lab1/model/TypeNotification.java
@@ -44,6 +42,8 @@ austral/ing/lab1/model/Location.java
  austral.ing.lab1.model.Location
 austral/ing/lab1/entity/NotificationType.java
  austral.ing.lab1.entity.NotificationType
+austral/ing/lab1/jsonModel/UserDto.java
+ austral.ing.lab1.jsonModel.UserDto
 austral/ing/lab1/util/EntityManagers.java
  austral.ing.lab1.util.EntityManagers
 austral/ing/lab1/model/TripPassenger.java
@@ -74,6 +74,8 @@ austral/ing/lab1/listener/EntityManagerFactoryLifecycle.java
  austral.ing.lab1.listener.EntityManagerFactoryLifecycle
 austral/ing/lab1/entity/Cars.java
  austral.ing.lab1.entity.Cars
+austral/ing/lab1/jsonModel/TripDto.java
+ austral.ing.lab1.jsonModel.TripDto
 austral/ing/lab1/entity/Users.java
  austral.ing.lab1.entity.Users
 austral/ing/lab1/service/UserRealm.java
