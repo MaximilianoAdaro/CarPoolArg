@@ -235,7 +235,7 @@
     </div>
 </div>
 
-<form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do" method="post" style="position: relative;">
+<form class="container collapse mt-3" id="createCar" action="${pageContext.request.contextPath}/carABM.do" method="post">
     <div class="form-row align-items-center jumbotron">
         <div class="col-auto my-1">
             <h1 class="display-4">Your car</h1>
@@ -275,6 +275,6 @@
 <div id="footer">
 </div>
 
-<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/footer.js" type="text/javascript"></script>
 </body>
 </html>

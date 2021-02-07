@@ -113,7 +113,7 @@
 <br><br><br><br><br><br><br><br><br><br><br>
 <div id="footer">
 </div>
-<script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+<script src="${pageContext.request.contextPath}/js/footer.js" type="text/javascript"></script>
 
 </body>
 </html>

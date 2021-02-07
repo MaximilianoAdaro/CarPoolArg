@@ -218,7 +218,9 @@
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
-                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
+
+                       data-target="#requestToast"
+                       onclick="wait()">
                         Join trip</a>
                 </c:if>
                 <c:if test="${appearGoDownTrip}">
@@ -317,7 +319,7 @@
 </script>
 
 <!-- El request to join toast -->
-<div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+<div class="toast requestToJoin" id="requestToast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
         <small class="mr-5">a moment ago</small>
@@ -392,6 +394,12 @@
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo&callback=initMap&libraries=places&v=weekly">
+</script>
+
+<script>
+    function wait() {
+        setTimeout(() => {window.location.href = "${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join"}, 4000);
+    }
 </script>
 </body>
 </html>
