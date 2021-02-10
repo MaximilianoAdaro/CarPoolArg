@@ -6,7 +6,6 @@ function loadUserName() {
     xhttp.onreadystatechange = function () {
         if (this.readyState === 4 && this.status === 200) {
             userName = JSON.parse(this.response);
-            alert(userName)
         }
     }
     xhttp.open("GET", "/username", false);
@@ -16,7 +15,8 @@ function loadUserName() {
 function init() {
     loadUserName();
     if ("WebSocket" in window) {
-        websocket = new WebSocket('ws://localhost:8080/chat/' + userName);
+        let chatId = 1;
+        websocket = new WebSocket('ws://localhost:8080/chat/' + userName + "/" + chatId);
         websocket.onopen = function (_) {
             document.getElementById("main").style.display = "block";
         };
@@ -26,15 +26,13 @@ function init() {
         };
 
         websocket.onerror = function (_) {
-            alert('An error occurred, closing application');
-
+            // alert('An error occurred, closing application');
             cleanUp();
         };
 
         websocket.onclose = function (data) {
             cleanUp();
-
-            let reason = (data.reason) ? data.reason : 'Goodbye';
+            // let reason = (data.reason) ? data.reason : 'Goodbye';
             // alert(reason);
         };
     } else {
@@ -51,7 +49,8 @@ function cleanUp() {
 
 function sendMessage() {
     let messageContent = document.getElementById("message").value;
-    let message = buildMessage(userName, messageContent);
+    let chatId = 1; //todo: get chatId and set it
+    let message = buildMessage(userName, chatId, messageContent);
 
     document.getElementById("message").value = '';
 
@@ -59,9 +58,10 @@ function sendMessage() {
     websocket.send(JSON.stringify(message));
 }
 
-function buildMessage(userName, message) {
+function buildMessage(userName, chatId, message) {
     return {
         username: userName,
+        chatId: chatId,
         message: message
     };
 }

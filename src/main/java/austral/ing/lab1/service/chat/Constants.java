@@ -6,6 +6,7 @@ final class Constants {
 
     static final String INSTANTIATION_NOT_ALLOWED = "Instantiation not allowed";
     static final String USER_NAME_KEY = "username";
+    static final String CHAT_KEY = "chatId";
     static final String MESSAGE_KEY = "message";
     static final ObjectMapper MAPPER = new ObjectMapper();
 

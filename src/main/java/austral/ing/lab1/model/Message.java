@@ -28,9 +28,10 @@ public class Message {
     @JoinColumn(name = "chat")
     private Chat chat;
 
-    public Message(User sender, String text) {
+    public Message(User sender, String text, Chat chat) {
         this.sender = sender;
         this.text = text;
+        this.chat = chat;
     }
 
     public Message() {

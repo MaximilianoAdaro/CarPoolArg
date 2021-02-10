@@ -6,7 +6,7 @@ import javax.websocket.EncodeException;
 import javax.websocket.Encoder;
 import javax.websocket.EndpointConfig;
 
-public final class MessageEncoder implements Encoder.Text<Message> {
+public final class MessageEncoder implements Encoder.Text<MessageWS> {
 
     @Override
     public void destroy() {
@@ -17,7 +17,7 @@ public final class MessageEncoder implements Encoder.Text<Message> {
     }
 
     @Override
-    public String encode(final Message message) throws EncodeException {
+    public String encode(final MessageWS message) throws EncodeException {
         try {
             return Constants.MAPPER.writeValueAsString(message);
         } catch (JsonProcessingException e) {

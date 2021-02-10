@@ -6,10 +6,6 @@ import austral.ing.lab1.model.User;
 import austral.ing.lab1.util.Transactions;
 
 import javax.persistence.EntityTransaction;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;

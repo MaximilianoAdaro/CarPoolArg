@@ -1,100 +1,104 @@
 austral/ing/lab1/service/car/NewCarModel.java
  austral.ing.lab1.service.car.NewCarModel
-austral/ing/lab1/util/LangUtils.java
- austral.ing.lab1.util.LangUtils
+austral/ing/lab1/service/example/UserServlet.java
+ austral.ing.lab1.service.example.UserServlet
+austral/ing/lab1/entity/NotificationType.java
+ austral.ing.lab1.entity.NotificationType
+austral/ing/lab1/service/profile/Profile.java
+ austral.ing.lab1.service.profile.Profile
+austral/ing/lab1/model/Message.java
+ austral.ing.lab1.model.Message
 austral/ing/lab1/service/email/sendEmail.java
  austral.ing.lab1.service.email.sendEmail
  austral.ing.lab1.service.email.sendEmail$1
-austral/ing/lab1/listener/EntityManagerFactoryLifecycle.java
- austral.ing.lab1.listener.EntityManagerFactoryLifecycle
-austral/ing/lab1/service/user/UserData.java
- austral.ing.lab1.service.user.UserData
+austral/ing/lab1/service/chat/MessageEncoder.java
+ austral.ing.lab1.service.chat.MessageEncoder
+austral/ing/lab1/service/home/Logout.java
+ austral.ing.lab1.service.home.Logout
+austral/ing/lab1/service/chat/MessageWS.java
+ austral.ing.lab1.service.chat.MessageWS
+austral/ing/lab1/entity/Locations.java
+ austral.ing.lab1.entity.Locations
+austral/ing/lab1/service/profile/UploadAvatar.java
+ austral.ing.lab1.service.profile.UploadAvatar
+austral/ing/lab1/service/car/CarABM.java
+ austral.ing.lab1.service.car.CarABM
+austral/ing/lab1/util/LangUtils.java
+ austral.ing.lab1.util.LangUtils
+austral/ing/lab1/service/UserRealm.java
+ austral.ing.lab1.service.UserRealm
+austral/ing/lab1/service/FileServlet.java
+ austral.ing.lab1.service.FileServlet
+austral/ing/lab1/model/TripPassenger.java
+ austral.ing.lab1.model.TripPassenger
+austral/ing/lab1/listener/CloseEntityManagerFilter.java
+ austral.ing.lab1.listener.CloseEntityManagerFilter
+austral/ing/lab1/service/example/UserList.java
+ austral.ing.lab1.service.example.UserList
+austral/ing/lab1/model/TypeNotification.java
+ austral.ing.lab1.model.TypeNotification
 austral/ing/lab1/model/Location.java
  austral.ing.lab1.model.Location
 austral/ing/lab1/service/mercadoPago/MercadoPagoPayment.java
  austral.ing.lab1.service.mercadoPago.MercadoPagoPayment
-austral/ing/lab1/service/example/UserServlet.java
- austral.ing.lab1.service.example.UserServlet
-austral/ing/lab1/listener/CloseEntityManagerFilter.java
- austral.ing.lab1.listener.CloseEntityManagerFilter
-austral/ing/lab1/model/TypeNotification.java
- austral.ing.lab1.model.TypeNotification
-austral/ing/lab1/entity/Locations.java
- austral.ing.lab1.entity.Locations
-austral/ing/lab1/service/home/Logout.java
- austral.ing.lab1.service.home.Logout
-austral/ing/lab1/service/example/UserList.java
- austral.ing.lab1.service.example.UserList
-austral/ing/lab1/service/profile/Profile.java
- austral.ing.lab1.service.profile.Profile
-austral/ing/lab1/util/EntityManagers.java
- austral.ing.lab1.util.EntityManagers
-austral/ing/lab1/util/Transactions.java
- austral.ing.lab1.util.Transactions
-austral/ing/lab1/util/Servlets.java
- austral.ing.lab1.util.Servlets
-austral/ing/lab1/service/car/CarABM.java
- austral.ing.lab1.service.car.CarABM
-austral/ing/lab1/service/chat/Constants.java
- austral.ing.lab1.service.chat.Constants
-austral/ing/lab1/jsonModel/UserDto.java
- austral.ing.lab1.jsonModel.UserDto
-austral/ing/lab1/service/UserRealm.java
- austral.ing.lab1.service.UserRealm
-austral/ing/lab1/service/chat/MessageDecoder.java
- austral.ing.lab1.service.chat.MessageDecoder
-austral/ing/lab1/entity/NotificationType.java
- austral.ing.lab1.entity.NotificationType
-austral/ing/lab1/service/chat/ChatSessionManager.java
- austral.ing.lab1.service.chat.ChatSessionManager
-austral/ing/lab1/model/Message.java
- austral.ing.lab1.model.Message
-austral/ing/lab1/service/chat/Message.java
- austral.ing.lab1.service.chat.Message
-austral/ing/lab1/service/notification/NotificationDo.java
- austral.ing.lab1.service.notification.NotificationDo
-austral/ing/lab1/entity/CarModels.java
- austral.ing.lab1.entity.CarModels
-austral/ing/lab1/model/Rating.java
- austral.ing.lab1.model.Rating
 austral/ing/lab1/service/home/Signup.java
  austral.ing.lab1.service.home.Signup
+austral/ing/lab1/model/Rating.java
+ austral.ing.lab1.model.Rating
+austral/ing/lab1/util/EntityManagers.java
+ austral.ing.lab1.util.EntityManagers
+austral/ing/lab1/util/Servlets.java
+ austral.ing.lab1.util.Servlets
+austral/ing/lab1/service/notification/NotificationDo.java
+ austral.ing.lab1.service.notification.NotificationDo
 austral/ing/lab1/model/CarModel.java
  austral.ing.lab1.model.CarModel
-austral/ing/lab1/service/chat/MessageEncoder.java
- austral.ing.lab1.service.chat.MessageEncoder
-austral/ing/lab1/model/TripPassenger.java
- austral.ing.lab1.model.TripPassenger
-austral/ing/lab1/entity/Cars.java
- austral.ing.lab1.entity.Cars
-austral/ing/lab1/service/profile/UploadAvatar.java
- austral.ing.lab1.service.profile.UploadAvatar
-austral/ing/lab1/service/profile/MyTrips.java
- austral.ing.lab1.service.profile.MyTrips
-austral/ing/lab1/service/FileServlet.java
- austral.ing.lab1.service.FileServlet
-austral/ing/lab1/model/Trip.java
- austral.ing.lab1.model.Trip
+austral/ing/lab1/util/Transactions.java
+ austral.ing.lab1.util.Transactions
+austral/ing/lab1/service/user/UserData.java
+ austral.ing.lab1.service.user.UserData
+austral/ing/lab1/service/chat/Constants.java
+ austral.ing.lab1.service.chat.Constants
+austral/ing/lab1/listener/EntityManagerFactoryLifecycle.java
+ austral.ing.lab1.listener.EntityManagerFactoryLifecycle
+austral/ing/lab1/jsonModel/UserDto.java
+ austral.ing.lab1.jsonModel.UserDto
 austral/ing/lab1/model/Notification.java
  austral.ing.lab1.model.Notification
+austral/ing/lab1/service/profile/MyTrips.java
+ austral.ing.lab1.service.profile.MyTrips
+austral/ing/lab1/model/Chat.java
+ austral.ing.lab1.model.Chat
+austral/ing/lab1/model/Car.java
+ austral.ing.lab1.model.Car
+austral/ing/lab1/service/chat/MessageDecoder.java
+ austral.ing.lab1.service.chat.MessageDecoder
+austral/ing/lab1/service/chat/ChatSessionManager.java
+ austral.ing.lab1.service.chat.ChatSessionManager
+austral/ing/lab1/model/User.java
+ austral.ing.lab1.model.User
+austral/ing/lab1/entity/Payments.java
+ austral.ing.lab1.entity.Payments
+austral/ing/lab1/entity/CarModels.java
+ austral.ing.lab1.entity.CarModels
+austral/ing/lab1/entity/TripsPassengers.java
+ austral.ing.lab1.entity.TripsPassengers
+austral/ing/lab1/entity/Cars.java
+ austral.ing.lab1.entity.Cars
+austral/ing/lab1/service/trip/PassengerABM.java
+ austral.ing.lab1.service.trip.PassengerABM
+austral/ing/lab1/model/Trip.java
+ austral.ing.lab1.model.Trip
 austral/ing/lab1/jsonModel/TripDto.java
  austral.ing.lab1.jsonModel.TripDto
 austral/ing/lab1/entity/Notifications.java
  austral.ing.lab1.entity.Notifications
 austral/ing/lab1/model/PaymentTrip.java
  austral.ing.lab1.model.PaymentTrip
-austral/ing/lab1/model/Chat.java
- austral.ing.lab1.model.Chat
 austral/ing/lab1/entity/Users.java
  austral.ing.lab1.entity.Users
-austral/ing/lab1/model/Car.java
- austral.ing.lab1.model.Car
-austral/ing/lab1/entity/TripsPassengers.java
- austral.ing.lab1.entity.TripsPassengers
-austral/ing/lab1/model/User.java
- austral.ing.lab1.model.User
-austral/ing/lab1/entity/Payments.java
- austral.ing.lab1.entity.Payments
+austral/ing/lab1/service/rating/NewRating.java
+ austral.ing.lab1.service.rating.NewRating
 austral/ing/lab1/service/trip/CreateTrip.java
  austral.ing.lab1.service.trip.CreateTrip
 austral/ing/lab1/entity/Trips.java
@@ -109,10 +113,10 @@ austral/ing/lab1/service/mercadoPago/SuccessPayment.java
  austral.ing.lab1.service.mercadoPago.SuccessPayment
 austral/ing/lab1/entity/Ratings.java
  austral.ing.lab1.entity.Ratings
-austral/ing/lab1/service/trip/PassengerABM.java
- austral.ing.lab1.service.trip.PassengerABM
-austral/ing/lab1/service/rating/NewRating.java
- austral.ing.lab1.service.rating.NewRating
+austral/ing/lab1/entity/Chats.java
+ austral.ing.lab1.entity.Chats
+austral/ing/lab1/entity/Messages.java
+ austral.ing.lab1.entity.Messages
 austral/ing/lab1/service/chat/ChatEndPoint.java
  austral.ing.lab1.service.chat.ChatEndPoint
  austral.ing.lab1.service.chat.ChatEndPoint$RegistrationFailedException

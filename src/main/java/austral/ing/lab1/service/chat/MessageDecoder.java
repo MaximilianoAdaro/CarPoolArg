@@ -5,7 +5,7 @@ import javax.websocket.Decoder;
 import javax.websocket.EndpointConfig;
 import java.io.IOException;
 
-public final class MessageDecoder implements Decoder.Text<Message> {
+public final class MessageDecoder implements Decoder.Text<MessageWS> {
 
     @Override
     public void destroy() {
@@ -16,9 +16,9 @@ public final class MessageDecoder implements Decoder.Text<Message> {
     }
 
     @Override
-    public Message decode(final String arg0) throws DecodeException {
+    public MessageWS decode(final String arg0) throws DecodeException {
         try {
-            return Constants.MAPPER.readValue(arg0, Message.class);
+            return Constants.MAPPER.readValue(arg0, MessageWS.class);
         } catch (IOException e) {
             throw new DecodeException(arg0, "Unable to decode text to Message", e);
         }
