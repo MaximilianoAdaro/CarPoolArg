@@ -1,12 +1,15 @@
 package austral.ing.lab1.jsonModel;
 
+import austral.ing.lab1.entity.Ratings;
 import austral.ing.lab1.model.Location;
+import austral.ing.lab1.model.Trip;
+import austral.ing.lab1.model.User;
 
-public class TripData {
+public class TripDto {
 
-    public TripData(long tripId, String driverPath, String driverFirstN, String driverLastN, String fromTrip,
-                    String toTrip, String date, String time, int availableSeats, int rate, int rateSize,
-                    Location fromLocation, Location toLocation) {
+    public TripDto(long tripId, String driverPath, String driverFirstN, String driverLastN, String fromTrip,
+                   String toTrip, String date, String time, int availableSeats, int rate, int rateSize,
+                   Location fromLocation, Location toLocation) {
         this.tripId = tripId;
         this.driverPath = driverPath;
         this.driverFirstN = driverFirstN;
@@ -36,81 +39,15 @@ public class TripData {
     private Location fromLocation;
     private Location toLocation;
 
-    public long getTripId() {
-        return tripId;
-    }
-
-    public void setTripId(long tripId) {
-        this.tripId = tripId;
-    }
-
-    public String getDriverPath() {
-        return driverPath;
-    }
-
-    public void setDriverPath(String driverPath) {
-        this.driverPath = driverPath;
-    }
-
-    public String getDriverFirstN() {
-        return driverFirstN;
-    }
-
-    public void setDriverFirstN(String driverFirstN) {
-        this.driverFirstN = driverFirstN;
-    }
-
-    public String getDriverLastN() {
-        return driverLastN;
-    }
-
-    public void setDriverLastN(String driverLastN) {
-        this.driverLastN = driverLastN;
-    }
-
-    public String getFromTrip() {
-        return fromTrip;
-    }
-
-    public void setFromTrip(String fromTrip) {
-        this.fromTrip = fromTrip;
-    }
-
-    public String getToTrip() {
-        return toTrip;
-    }
-
-    public void setToTrip(String toTrip) {
-        this.toTrip = toTrip;
-    }
-
-    public String getDate() {
-        return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
-    }
-
-    public String getTime() {
-        return time;
-    }
-
-    public void setTime(String time) {
-        this.time = time;
-    }
-
-    public int getAvailableSeats() {
-        return availableSeats;
-    }
-
-    public void setAvailableSeats(int availableSeats) {
-        this.availableSeats = availableSeats;
+    public static TripDto from(Trip t, User user) {
+        return new TripDto(t.getTripId(), t.getDriver().getAvatarPath(), t.getDriver().getFirstName(), t.getDriver().getLastName(),
+                t.getFromTrip().getName(), t.getToTrip().getName(), t.getDate(), t.getTime().toString(),
+                t.getAvailableSeats(), Ratings.rateUser(user), Ratings.getSizeRate(user), t.getFromTrip(), t.getToTrip());
     }
 
     @Override
     public String toString() {
-        return "TripData{" +
+        return "TripDto{" +
                 "tripId=" + tripId +
                 ", driverPath='" + driverPath + '\'' +
                 ", driverFirstN='" + driverFirstN + '\'' +

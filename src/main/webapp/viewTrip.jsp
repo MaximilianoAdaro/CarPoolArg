@@ -209,12 +209,13 @@
                 </div>
                 <br>
                 <div>
-                    <p class="card-text"><span>Date of start:${trip.date.toString()} </span> <span
+                    <p class="card-text"><span>Date of start: ${trip.date.toString()} at </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>
-                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
-                </p>
+                <div class="row ml-2 col-12">
+                    Distance to travel: <i id="distanceKM"> </i>
+                </div>
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
@@ -239,11 +240,14 @@
         </div>
         <%--    Seccion derecha--%>
         <div class="col-3 border-left" style="background-color: #ced4da">
-            <div class="row ml-2">
-                <div class="col-12 carDetailViewTrip">Car details</div>
-                <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-                <div class="col-12"> Color: ${driverCar.color} </div>
-                <div class="col-12"> Patent: ${driverCar.patent} </div>
+            <div class="row ml-2 carDetails">
+                <div class="col-12 carDetailViewTrip mb-2">Car details</div>
+                <div class="col-12 mb-2"> Car model: ${driverCar.carModel.name} </div>
+                <div class="col-12 mb-2"> Color: ${driverCar.color} </div>
+                <div class="col-12 mb-2"> Patent: ${driverCar.patent} </div>
+                <div class="col-12 mb-2">Total money to share = <span>$PLATA</span> (estimated by driver)</div>
+                <div class="col-12"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
+                </div>
             </div>
             <div class="row ml-2">
                 <c:if test="${!isNotOwner}">
@@ -266,10 +270,6 @@
                         </ul>
                     </c:if>
                 </c:if>
-            </div>
-            <br>
-            <div class="row ml-2 col-12">
-                Distance to travel: <i id="distanceKM"> </i>
             </div>
         </div>
         <%--mapa--%>

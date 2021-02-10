@@ -3,7 +3,6 @@ package austral.ing.lab1.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Time;
 
 @Entity
 @Table(name = "NOTIFICATIONS")

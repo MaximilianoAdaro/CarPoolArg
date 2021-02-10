@@ -1,7 +1,7 @@
 package austral.ing.lab1.service;
 
-import austral.ing.lab1.model.User;
 import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.model.User;
 import org.securityfilter.realm.SimpleSecurityRealmBase;
 
 import java.util.Optional;

@@ -39,7 +39,8 @@ public class Notifications {
             notificationList.add(new NotificationType(notification, 3));
         }
 //        notificationList.sort(Comparator.comparingLong(o -> o.getNotification().getIdNotification()));
-        notificationList.sort((o1, o2) -> Long.compare(o2.getNotification().getIdNotification(), o1.getNotification().getIdNotification()));
+        if (!notificationList.isEmpty())
+            notificationList.sort((o1, o2) -> Long.compare(o2.getNotification().getIdNotification(), o1.getNotification().getIdNotification()));
 
         return notificationList;
     }

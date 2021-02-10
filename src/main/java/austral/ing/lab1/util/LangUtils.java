@@ -1,8 +1,6 @@
 package austral.ing.lab1.util;
 
-import java.util.Collections;
 import java.util.List;
-import java.util.RandomAccess;
 
 public class LangUtils {
 

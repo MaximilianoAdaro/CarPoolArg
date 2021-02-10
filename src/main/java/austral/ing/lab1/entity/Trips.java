@@ -1,8 +1,9 @@
 package austral.ing.lab1.entity;
 
-import austral.ing.lab1.jsonModel.TripData;
+import austral.ing.lab1.jsonModel.TripDto;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.util.Transactions;
 
 import javax.persistence.EntityTransaction;
 import java.sql.Connection;
@@ -22,7 +23,7 @@ import static austral.ing.lab1.util.Transactions.tx;
 public class Trips {
 
     public static Optional<Trip> findById(Long id) {
-        return tx(() ->
+        return Transactions.tx(() ->
                 Optional.of(currentEntityManager().find(Trip.class, id))
         );
     }
@@ -247,12 +248,10 @@ public class Trips {
         }
     }
 
-    public static List<TripData> listTripsData(List<Trip> trips, User user) {
-        List<TripData> data = new ArrayList<>(trips.size());
+    public static List<TripDto> listTripsData(List<Trip> trips, User user) {
+        List<TripDto> data = new ArrayList<>(trips.size());
         for (Trip t : trips) {
-            data.add(new TripData(t.getTripId(), t.getDriver().getAvatarPath(), t.getDriver().getFirstName(), t.getDriver().getLastName(),
-                    t.getFromTrip().getName(), t.getToTrip().getName(), t.getDate(), t.getTime().toString(),
-                    t.getAvailableSeats(), Ratings.rateUser(user), Ratings.getSizeRate(user), t.getFromTrip(), t.getToTrip()));
+            data.add(TripDto.from(t, user));
         }
         return data;
     }

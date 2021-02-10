@@ -79,6 +79,9 @@
     overflow-y: auto;
     display: block;
 }
+.carDetails{
+    font-size: 1.1em;
+}
 
 /*body {*/
 /*    min-height:100%;*/

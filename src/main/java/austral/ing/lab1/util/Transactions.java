@@ -1,7 +1,6 @@
 package austral.ing.lab1.util;
 
 import javax.persistence.EntityTransaction;
-
 import java.util.function.Supplier;
 
 import static austral.ing.lab1.util.EntityManagers.currentEntityManager;
