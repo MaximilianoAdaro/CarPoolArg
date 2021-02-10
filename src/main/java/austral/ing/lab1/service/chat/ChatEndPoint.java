@@ -6,7 +6,7 @@ import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 import java.util.Objects;
 
-@ServerEndpoint(value = "/{username}", encoders = MessageEncoder.class, decoders = MessageDecoder.class)
+@ServerEndpoint(value = "/chat/{username}", encoders = MessageEncoder.class, decoders = MessageDecoder.class)
 public final class ChatEndPoint {
 
     @OnOpen

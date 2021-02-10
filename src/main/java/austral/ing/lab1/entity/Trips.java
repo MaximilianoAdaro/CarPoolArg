@@ -72,27 +72,15 @@ public class Trips {
     }
 
     public static List<Trip> listPassengerTrips(Long driverID, boolean nextTrip) {
-        List<Trip> trips = new ArrayList<>();
-        try {
-            // create our mysql database connection
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/lab1";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-            Statement st = conn.createStatement();
-            ResultSet rs = st.executeQuery(
-                    "SELECT j.TRIP_ID " +
-                            "FROM TRIPS_PASSENGERS j " +
-                            "where PASSENGER_ID = " + driverID);
-            while (rs.next()) {
-                int id = rs.getInt("TRIP_ID");
-                Optional<Trip> optionalTrip = Trips.findById((long) id);
-                optionalTrip.ifPresent(trips::add);
-            }
-            st.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        List<Trip> trips = tx(() ->
+                checkedList(currentEntityManager()
+                        .createQuery(
+                                "SELECT tp.trip " +
+                                        "FROM TripPassenger tp " +
+                                        "where tp.passenger.userId = :driverID")
+                        .setParameter("driverID", driverID)
+                        .getResultList())
+        );
 
         sortTrip(trips);
         if (nextTrip) {
@@ -121,7 +109,8 @@ public class Trips {
     public static List<Trip> listCurrentTrips(Long driverID) {
         List<Trip> trips = tx(() ->
                 checkedList(currentEntityManager()
-                        .createQuery("SELECT t FROM Trip t " +
+                        .createQuery(
+                                "SELECT t FROM Trip t " +
                                 "left join TripPassenger tp on t.tripId = tp.trip.tripId" +
                                 " where tp.passenger is NULL" +
                                 " and tp.trip is NULL" +

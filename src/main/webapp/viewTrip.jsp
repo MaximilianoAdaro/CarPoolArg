@@ -266,9 +266,9 @@
                 </c:if>
             </div>
             <br>
-            <div class="row ml-2 col-12">
-                Distance to travel: <i id="distanceKM"> </i>
-            </div>
+<%--            <div class="row ml-2 col-12">--%>
+<%--                Distance to travel: <i id="distanceKM"> </i>--%>
+<%--            </div>--%>
         </div>
         <%--mapa--%>
         <div class="col-8 mb-5" id="map" style="height: 400px"></div>
@@ -386,7 +386,7 @@
         new google.maps.LatLng(${trip.fromTrip.lat}, ${trip.fromTrip.lng}),
         new google.maps.LatLng(${trip.toTrip.lat}, ${trip.toTrip.lng})
     );
-    doc.innerText += parseInt(distance / 1000) + " km";
+    // doc.innerText += parseInt(distance / 1000) + " km";
 </script>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>

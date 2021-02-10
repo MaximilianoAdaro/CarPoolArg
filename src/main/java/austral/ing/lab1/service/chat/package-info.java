@@ -1,1 +1,0 @@
-package austral.ing.lab1.service.chat;

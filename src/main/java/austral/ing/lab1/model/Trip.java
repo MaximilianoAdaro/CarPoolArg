@@ -23,7 +23,7 @@ public class Trip {
         this.time = time;
         this.comment = comment;
         this.seats = seats;
-        availableSeats = seats;
+        this.availableSeats = seats;
     }
 
     @Id

@@ -1,24 +1,22 @@
 let userName = null;
 let websocket = null;
 
-let xhttp = new XMLHttpRequest();
-xhttp.onreadystatechange = function () {
-    if (this.readyState === 4 && this.status === 200) {
-        userName = JSON.parse(this.response);
-        alert(userName)
+function loadUserName() {
+    let xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function () {
+        if (this.readyState === 4 && this.status === 200) {
+            userName = JSON.parse(this.response);
+            alert(userName)
+        }
     }
+    xhttp.open("GET", "/username", false);
+    xhttp.send();
 }
-xhttp.open("GET", "/username", true);
-xhttp.send();
 
 function init() {
+    loadUserName();
     if ("WebSocket" in window) {
-        while (userName === null) {
-            // userName = prompt("Enter user name");
-            // alert("User is null")
-        }
-
-        websocket = new WebSocket('ws://localhost:8080/' + userName);
+        websocket = new WebSocket('ws://localhost:8080/chat/' + userName);
         websocket.onopen = function (_) {
             document.getElementById("main").style.display = "block";
         };
@@ -37,10 +35,10 @@ function init() {
             cleanUp();
 
             let reason = (data.reason) ? data.reason : 'Goodbye';
-            alert(reason);
+            // alert(reason);
         };
     } else {
-        alert("Websockets not supported");
+        // alert("Websockets not supported");
     }
 }
 

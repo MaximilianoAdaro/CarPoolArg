@@ -39,8 +39,9 @@ final class ChatSessionManager {
         try {
             LOCK.lock();
 
-            result = !SESSIONS.contains(session) && !SESSIONS.stream()
-                    .anyMatch(elem -> elem.getUserProperties().get(Constants.USER_NAME_KEY).equals(session.getUserProperties().get(Constants.USER_NAME_KEY))) && SESSIONS.add(session);
+            result = !SESSIONS.contains(session)
+                    && SESSIONS.stream().noneMatch(elem -> elem.getUserProperties().get(Constants.USER_NAME_KEY).equals(session.getUserProperties().get(Constants.USER_NAME_KEY)))
+                    && SESSIONS.add(session);
         } finally {
             LOCK.unlock();
         }
