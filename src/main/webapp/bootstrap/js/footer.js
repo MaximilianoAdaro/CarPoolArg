@@ -3,7 +3,7 @@ $(document).ready()
     const footerDom = document.getElementById("footer");
     footerDom.innerHTML += `
 
-<footer class="container-fluid footer" style="background-color:#33363A; color:white;bottom: 0; width: 100%; margin-top: 80px;">
+<footer class="container-fluid footer"style="background-color:#33363A; color:white;bottom: 0; width: 100%; margin-top: 210px;">
 <!--style="background-color:#33363A; color:white; position: absolute; bottom: 0; width: 100%;-->
     <div class="container py-5">
         <div class="row">

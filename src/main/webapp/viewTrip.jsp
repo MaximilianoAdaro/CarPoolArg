@@ -117,7 +117,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
@@ -193,9 +196,9 @@
             <p> Email: ${driverEmail}</p>
 
             <div class="col-12" style="max-lines: 7">
-                <i style="font-size: 0.8em" class="fa fa-quote-left"></i>
-                <span style="font-style: italic">${trip.comment}</span>
-                <i style="font-size: 0.8em" class="fa fa-quote-right"></i>
+                <i class="fa fa-quote-left"></i>
+                <span>${trip.comment}</span>
+                <i class="fa fa-quote-right"></i>
             </div>
         </div>
         <%--    Seccion medio--%>
@@ -285,8 +288,6 @@
         <br>
         <br>
     </div>
-</div>
-
 </div>
 
 <div id="footer">

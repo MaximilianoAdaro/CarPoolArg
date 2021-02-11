@@ -1,18 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <persistence xmlns="http://java.sun.com/xml/ns/persistence"
              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
              xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd"
              version="2.0">
 
     <persistence-unit name="test">
-        <description>
-            Persistence unit for the JPA tutorial of the Hibernate Getting Started Guide
-        </description>
 
-        <class>austral.ing.lab1.model.User</class>
         <class>austral.ing.lab1.model.Car</class>
-        <class>austral.ing.lab1.model.Location</class>
         <class>austral.ing.lab1.model.CarModel</class>
+        <class>austral.ing.lab1.model.Chat</class>
+        <class>austral.ing.lab1.model.Location</class>
+        <class>austral.ing.lab1.model.Message</class>
         <class>austral.ing.lab1.model.Notification</class>
+        <class>austral.ing.lab1.model.PaymentTrip</class>
         <class>austral.ing.lab1.model.Rating</class>
         <class>austral.ing.lab1.model.Trip</class>
         <class>austral.ing.lab1.model.TripPassenger</class>
@@ -30,5 +30,4 @@
         </properties>
 
     </persistence-unit>
-
 </persistence>

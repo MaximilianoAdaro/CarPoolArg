@@ -65,15 +65,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
-            <i class="fa fa-bell"></i></a>
+            <i class="fa fa-bell"></i>
+        </a>
 
         <div class="nav-item dropdown">
             <a class="nav-link dropdown-toggle text-white" href="#" id="navbarDropdown" role="button"
                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 ${userName}
-                <img src="${avatarPath}" class="rounded-circle" alt="Your Avatar" width="30" height="30">
+                <img src="${avatarPath}" class="rounded-circle" alt="" width="30" height="30">
             </a>
             <div class="dropdown-menu mt-2 ml-5" aria-labelledby="navbarDropdown">
                 <a class="dropdown-item" href="${pageContext.request.contextPath}/myTrips.do">My trips</a>

@@ -69,7 +69,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
@@ -155,9 +158,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -206,9 +206,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -249,9 +246,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -302,9 +296,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
