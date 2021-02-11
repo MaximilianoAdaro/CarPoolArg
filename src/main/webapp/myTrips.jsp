@@ -69,7 +69,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
@@ -251,9 +254,10 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
-                                        Available seats</span>
+                                        Used seats</span>
+                                        <div>Rating: </div>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
@@ -300,9 +304,9 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
-                                        Available seats</span>
+                                        Used seats</span>
                                     </div>
                                 </div>
                                 <a href="${pageContext.request.contextPath}/viewTrip.jsp?trip=${trip.tripId}"
@@ -321,6 +325,21 @@
 </div>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
+
+<button class="btn-primary" data-toggle="toast" data-target="#requestJoin"></button>
+
+<div class="toast" role="alert" aria-live="assertive" aria-atomic="true" id="requestJoin" style="position: absolute; top: 0; right: 0;">
+    <div class="toast-header">
+        <strong nclass="mr-auto">CarpoolArg</strong>
+        <small>a moment ago</small>
+        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <div class="toast-body">
+        You have just asked to join a trip
+    </div>
+</div>
 
 </body>
 </html>

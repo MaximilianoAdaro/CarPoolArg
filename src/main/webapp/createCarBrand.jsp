@@ -44,7 +44,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do"><i class="fa fa-bell"></i></a>
 
         <div class="nav-item dropdown">

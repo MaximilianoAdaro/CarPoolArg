@@ -77,7 +77,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
@@ -131,20 +134,20 @@
     </div>
 </nav> <!-- NavBar -->
 
-<div class="container">
+<div class="container" style="max-width:1170px">
     <!-- Requests -->
     <c:if test="${tripPassNotEmpty}">
         <h3 class="ml-3">Pending requests</h3>
         <div class=" row col-12 mt-2 mb-2">
             <c:forEach var="tripsPassenger" items="${tripsPassengers}">
                 <form>
-                    <div class="col-3 mt-3 mr-3">
-                        <div class="card" style="height: 10rem; width: 25rem;">
+                    <div class="col-3 mt-3 mr-2">
+                        <div class="card" style="height: 10rem; width: 21rem; font-size: 15px">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-3 text-center mt-3">
                                         <img src="${tripsPassenger.passenger.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                             class="rounded-circle" alt="Your Avatar" width="60" height="60">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text col-11"><span class="font-weight-bold text-dark">
@@ -188,12 +191,12 @@
                 <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
                       method="post">
                     <div class="col-3 mt-3 mr-3">
-                        <div class="card" style="height: 10rem ; width: 25rem">
+                        <div class="card" style="height: 10rem ; width: 21rem; font-size: 15px">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-3 text-center mt-3">
                                         <img src="${rateAsDriver.idPassenger.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                             class="rounded-circle" alt="Your Avatar" width="60" height="60">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text"> Rate <span class="font-weight-bold text-dark">
@@ -261,13 +264,13 @@
             <c:forEach var="rateAsPassenger" items="${ratingsUserAsPassenger}">
                 <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${rateAsPassenger.idDriver.userId}&idPassenger=${userId}&idTrip=${rateAsPassenger.idTrip.tripId}&isDriver=false"
                       method="post">
-                    <div class="col-3 mt-3 mr-3">
-                        <div class="card" style="height: 10rem ; width: 25rem">
+                    <div class="col-3 mt-3 mr-1">
+                        <div class="card" style="height: 10rem ; width: 21rem; font-size: 15px">
                             <div class="container">
                                 <div class="row">
                                     <div class="col-3 text-center mt-3">
                                         <img src="${rateAsPassenger.idDriver.avatarPath}"
-                                             class="rounded-circle" alt="Your Avatar" width="70" height="70">
+                                             class="rounded-circle" alt="Your Avatar" width="60" height="60">
                                     </div>
                                     <div class="col-9">
                                         <p class="card-text"> Rate <span class="font-weight-bold text-dark">

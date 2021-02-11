@@ -1,5 +1,6 @@
 let userName = null;
 let websocket = null;
+let chatId = 1; //change to dynamic
 
 function loadUserName() {
     let xhttp = new XMLHttpRequest();
@@ -13,13 +14,12 @@ function loadUserName() {
 }
 
 function init() {
+// function init(chatId) {
+//     this.chatId = chatId
     loadUserName();
     if ("WebSocket" in window) {
-        let chatId = 1;
         websocket = new WebSocket('ws://localhost:8080/chat/' + userName + "/" + chatId);
-        websocket.onopen = function (_) {
-            document.getElementById("main").style.display = "block";
-        };
+        websocket.onopen = function (_) {};
 
         websocket.onmessage = function (data) {
             setMessage(JSON.parse(data.data));
@@ -30,7 +30,7 @@ function init() {
             cleanUp();
         };
 
-        websocket.onclose = function (data) {
+        websocket.onclose = function (_) {
             cleanUp();
             // let reason = (data.reason) ? data.reason : 'Goodbye';
             // alert(reason);
@@ -41,18 +41,15 @@ function init() {
 }
 
 function cleanUp() {
-    document.getElementById("main").style.display = "none";
-
     userName = null;
     websocket = null;
 }
 
 function sendMessage() {
-    let messageContent = document.getElementById("message").value;
-    let chatId = 1; //todo: get chatId and set it
+    // let messageContent = document.getElementById("message").value;
     let message = buildMessage(userName, chatId, messageContent);
 
-    document.getElementById("message").value = '';
+    // document.getElementById("message").value = '';
 
     setMessage(message);
     websocket.send(JSON.stringify(message));
@@ -67,7 +64,7 @@ function buildMessage(userName, chatId, message) {
 }
 
 function setMessage(msg) {
-    const currentHTML = document.getElementById('scrolling-messages').innerHTML;
+    // const currentHTML = document.getElementById('scrolling-messages').innerHTML;
     let newElem;
 
     if (msg.username === userName) {
@@ -78,6 +75,5 @@ function setMessage(msg) {
             + '</span></p>';
     }
 
-    document.getElementById('scrolling-messages').innerHTML = currentHTML
-        + newElem;
+    // document.getElementById('scrolling-messages').innerHTML = currentHTML+ newElem;
 }

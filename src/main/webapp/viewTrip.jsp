@@ -117,7 +117,10 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do">
             <i class="fa fa-bell"></i></a>
 
@@ -209,16 +212,21 @@
                 </div>
                 <br>
                 <div>
-                    <p class="card-text"><span>${trip.date.toString()} </span> <span
+                    <p class="card-text"><span>Date of start: ${trip.date.toString()} at </span> <span
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>
-                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
-                </p>
+<%--                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>--%>
+                <div class="row ml-2 col-12">
+                    Distance to travel: <i id="distanceKM"> </i>
+                </div>
 
                 <c:if test="${appearJoinTrip}">
                     <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
-                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">
+
+                       data-target="#requestToast"
+                       onclick="wait()">
+<%--                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">--%>
                         Join trip</a>
                 </c:if>
                 <c:if test="${appearGoDownTrip}">
@@ -237,11 +245,14 @@
         </div>
         <%--    Seccion derecha--%>
         <div class="col-3 border-left" style="background-color: #ced4da">
-            <div class="row ml-2">
-                <div class="col-12 carDetailViewTrip">Car details</div>
-                <div class="col-12"> Car model: ${driverCar.carModel.name} </div>
-                <div class="col-12"> Color: ${driverCar.color} </div>
-                <div class="col-12"> Patent: ${driverCar.patent} </div>
+            <div class="row ml-2 carDetails">
+                <div class="col-12 carDetailViewTrip mb-2">Car details</div>
+                <div class="col-12 mb-2"> Car model: ${driverCar.carModel.name} </div>
+                <div class="col-12 mb-2"> Color: ${driverCar.color} </div>
+                <div class="col-12 mb-2"> Patent: ${driverCar.patent} </div>
+                <div class="col-12 mb-2">Total money to share = <span>$PLATA</span> (estimated by driver)</div>
+                <div class="col-12"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
+                </div>
             </div>
             <div class="row ml-2">
                 <c:if test="${!isNotOwner}">
@@ -265,10 +276,6 @@
                     </c:if>
                 </c:if>
             </div>
-            <br>
-<%--            <div class="row ml-2 col-12">--%>
-<%--                Distance to travel: <i id="distanceKM"> </i>--%>
-<%--            </div>--%>
         </div>
         <%--mapa--%>
         <div class="col-8 mb-5" id="map" style="height: 400px"></div>
@@ -317,7 +324,7 @@
 </script>
 
 <!-- El request to join toast -->
-<div class="toast requestToJoin" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+<div class="toast requestToJoin" id="requestToast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
         <small class="mr-5">a moment ago</small>
@@ -392,6 +399,12 @@
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
 <script async defer
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB8S7tVTT7SU0K7aCgQ34g1RieAdx6vIdo&callback=initMap&libraries=places&v=weekly">
+</script>
+
+<script>
+    function wait() {
+        setTimeout(() => {window.location.href = "${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join"}, 4000);
+    }
 </script>
 </body>
 </html>

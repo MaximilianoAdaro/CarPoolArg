@@ -75,7 +75,10 @@
             <a class="nav-link btn btn-light mr-1" href="../createCarBrand.jsp"> <i class="fa fa-car"></i> </a>
         </c:if>
 
-        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
+        <a class="nav-item btn text-white ml-auto" href="${pageContext.request.contextPath}/chat.do">
+            <i class="fa fa-comments-o" aria-hidden="true"></i>
+        </a>
+        <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/secure/home.do">Trips</a>
         <a class="nav-item btn text-white ml-2" href="${pageContext.request.contextPath}/notification.do"><i
                 class="fa fa-bell"></i></a>
 
