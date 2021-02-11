@@ -183,10 +183,12 @@
     <div class="row">
         <%--        Seccion izquierda--%>
         <div class="col-3 bg-primary text-white border-right rounded-left viewTripAvatar">
-            <img src="${driver.avatarPath}" class="rounded-circle" alt="Avatar of the driver" height="100" width="100">
+            <img src="${driver.avatarPath}" class="rounded-circle mt-2 ml-1 mr-0 mb-1" alt="Avatar of the driver"
+                 height="90" width="90">
             ${driverName}
             <c:if test="${ratingSize > 0}">
-                <p> ${ratingDriver} <i class="fa fa-star" style="color: yellow;"></i> (${ratingSize} ratings)</p>
+                <p> ${ratingDriver} <i class="fa fa-star" style="color: yellow;"></i> (${ratingSize} ratings for this
+                    driver)</p>
             </c:if>
             <c:if test="${ratingSize < 1}">
                 <p> (${ratingSize} ratings)</p>
@@ -202,11 +204,12 @@
         <%--    Seccion medio--%>
         <div class="col-6" style="background-color: white">
             <div class="col-8 ml-4">
-                <div>
-                    <h5 class="card-title text-center" style="color: orange;font-size: 2em;">
+                <div class="mt-2">
+                    <h5 class="card-title" style="color: orange;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.fromTrip.name}</h5>
-                    <h5 class="card-title text-center" style="color: #1c7430;font-size: 2em;">
+                    <h5><i class="fa fa-arrow-down"></i></h5>
+                    <h5 class="card-title" style="color: #1c7430;font-size: 2em;">
                         <i class="fa fa-map-marker"></i>
                         ${trip.toTrip.name}</h5>
                 </div>
@@ -216,17 +219,15 @@
                             style="color: orange;"> ${trip.time.toString()}</span></p>
                 </div>
                 <br>
-<%--                <p style="font-size: 1.4em"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats</p>--%>
-                <div class="row ml-2 col-12">
-                    Distance to travel: <i id="distanceKM"> </i>
+                <div class="card-text" style="font-size: 1.2em">
+                    <%--           Distance to travel: <i id="distanceKM"> </i>    --%>
+                    <span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
                 </div>
 
                 <c:if test="${appearJoinTrip}">
-                    <a class="nav-link btn btn-primary ml-2 col-auto requestButton"
-
+                    <a class="nav-link btn btn-primary col-auto requestButton my-2"
                        data-target="#requestToast"
                        onclick="wait()">
-<%--                       href="${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join">--%>
                         Join trip</a>
                 </c:if>
                 <c:if test="${appearGoDownTrip}">
@@ -247,44 +248,46 @@
         <div class="col-3 border-left" style="background-color: #ced4da">
             <div class="row ml-2 carDetails">
                 <div class="col-12 carDetailViewTrip mb-2">Car details</div>
-                <div class="col-12 mb-2"> Car model: ${driverCar.carModel.name} </div>
-                <div class="col-12 mb-2"> Color: ${driverCar.color} </div>
-                <div class="col-12 mb-2"> Patent: ${driverCar.patent} </div>
-                <div class="col-12 mb-2">Total money to share = <span>$PLATA</span> (estimated by driver)</div>
-                <div class="col-12"><span class="seatsViewTrip"> ${trip.availableSeats} </span> Available seats
+                <div class="col-12 mb-2"><span style="font-weight: bold">Car model: </span> ${driverCar.carModel.name}
+                </div>
+                <div class="col-12 mb-2"><span style="font-weight: bold"> Color: </span> ${driverCar.color} </div>
+                <div class="col-12 mb-4"><span style="font-weight: bold"> Patent: </span>${driverCar.patent} </div>
+                <div class="col-12"><span style="font-weight: bold">Total money to share = </span> <span>$PLATA</span>
+                    (estimated by driver)
                 </div>
             </div>
-            <div class="row ml-2">
-                <c:if test="${!isNotOwner}">
-                    <br>
-                    <c:if test="${passengersIsEmpty}">
-                        <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
-                            There is no passenger in your trip
-                        </div>
-                    </c:if>
-                    <c:if test="${!passengersIsEmpty}">
-                        <ul style="list-style-type:none;" class="col-12 mt-1">
-                            <li class="passengerViewTrip">Passengers:</li>
-                            <c:forEach var="passenger" items="${passengers}">
-                                <li style="color: black">
-                                    <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
-                                         width="30"
-                                         height="30"> ${passenger.firstName} ${passenger.lastName}
-                                </li>
-                            </c:forEach>
-                        </ul>
-                    </c:if>
-                </c:if>
-            </div>
         </div>
-        <%--mapa--%>
-        <div class="col-8 mb-5" id="map" style="height: 400px"></div>
+        <div class="row ml-2">
+            <c:if test="${!isNotOwner}">
+                <br>
+                <c:if test="${passengersIsEmpty}">
+                    <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
+                        There is no passenger in your trip
+                    </div>
+                </c:if>
+                <c:if test="${!passengersIsEmpty}">
+                    <ul style="list-style-type:none;" class="col-12 mt-1">
+                        <li class="passengerViewTrip">Passengers:</li>
+                        <c:forEach var="passenger" items="${passengers}">
+                            <li style="color: black">
+                                <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
+                                     width="30"
+                                     height="30"> ${passenger.firstName} ${passenger.lastName}
+                            </li>
+                        </c:forEach>
+                    </ul>
+                </c:if>
+            </c:if>
+        </div>
+    </div>
+    <%--mapa--%>
+    <div class="row">
+        <div class="col-8" id="map" style="height: 400px"></div>
         <%--Indicaciones del mapa--%>
         <div class="col-4" id="indicators"></div>
         <br>
         <br>
     </div>
-
 </div>
 
 <div id="footer">
@@ -324,7 +327,8 @@
 </script>
 
 <!-- El request to join toast -->
-<div class="toast requestToJoin" id="requestToast" role="alert" aria-live="assertive" aria-atomic="true" data-autohide="false">
+<div class="toast requestToJoin" id="requestToast" role="alert" aria-live="assertive" aria-atomic="true"
+     data-autohide="false">
     <div class="toast-header">
         <strong class="mr-5">CarPoolArg</strong>
         <small class="mr-5">a moment ago</small>
@@ -393,7 +397,7 @@
         new google.maps.LatLng(${trip.fromTrip.lat}, ${trip.fromTrip.lng}),
         new google.maps.LatLng(${trip.toTrip.lat}, ${trip.toTrip.lng})
     );
-    // doc.innerText += parseInt(distance / 1000) + " km";
+    doc.innerText += parseInt(distance / 1000) + " km";
 </script>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
@@ -403,7 +407,9 @@
 
 <script>
     function wait() {
-        setTimeout(() => {window.location.href = "${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join"}, 4000);
+        setTimeout(() => {
+            window.location.href = "${pageContext.request.contextPath}/newPassenger.do?tripId=${trip.tripId}&state=join"
+        }, 4000);
     }
 </script>
 </body>

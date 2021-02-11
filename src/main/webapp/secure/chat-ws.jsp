@@ -198,66 +198,6 @@
                             </li>
                             <li class="ks-item">
                                 <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar7.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar ks-online">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar1.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Brian Diaz
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">The weird future of movie theater food</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
                                             <span class="ks-group-amount">3 <span
                                                     class="badge badge-pill badge-danger ks-badge ks-notify">7</span></span>
                                     <div class="ks-body">
@@ -266,66 +206,6 @@
                                             <span class="ks-datetime">just now</span>
                                         </div>
                                         <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar ks-offline">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Eric George
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">Why didn't he come and talk to me himse...</div>
-                                    </div>
-                                </a>
-                            </li>
-                            <li class="ks-item">
-                                <a href="#">
-                                        <span class="ks-avatar">
-                                            <img src="https://bootdey.com/img/Content/avatar/avatar5.png" width="36"
-                                                 height="36">
-                                        </span>
-                                    <div class="ks-body">
-                                        <div class="ks-name">
-                                            Lauren Sandoval
-                                            <span class="ks-datetime">just now</span>
-                                        </div>
-                                        <div class="ks-message">The weird future of movie theater food</div>
                                     </div>
                                 </a>
                             </li>
@@ -390,26 +270,6 @@
                                     <div class="ks-message">The weird future of movie theater food</div>
                                 </div>
                             </li>
-                            <li class="ks-item ks-from">
-                                    <span class="ks-avatar ks-online">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="36"
-                                             height="36" class="rounded-circle">
-                                    </span>
-                                <div class="ks-body">
-                                    <div class="ks-header">
-                                        <span class="ks-name">Brian Diaz</span>
-                                        <span class="ks-datetime">6:46 PM</span>
-                                    </div>
-                                    <div class="ks-message">
-                                        The weird future of movie theater food
-
-                                        <div class="ks-link">
-                                            <div class="ks-name">Google</div>
-                                            <a href="http://www.google.com" target="_blank">www.google.com</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </li>
                             <li class="ks-item ks-self">
                                     <span class="ks-avatar ks-offline">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="36"
@@ -468,52 +328,6 @@
                             <li class="ks-item ks-self">
                                     <span class="ks-avatar ks-offline">
                                         <img src="https://bootdey.com/img/Content/avatar/avatar2.png" width="36"
-                                             height="36" class="rounded-circle">
-                                    </span>
-                                <div class="ks-body">
-                                    <div class="ks-header">
-                                        <span class="ks-name">Brian Diaz</span>
-                                        <span class="ks-datetime">6:46 PM</span>
-                                    </div>
-                                    <div class="ks-message">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                        since the 1500s, when an unknown printer took a galley of type and
-                                        scrambled it to make a type specimen book. It has survived not only five
-                                        centuries, but also the leap into electronic typesetting, remaining
-                                        essentially unchanged. It was popularised in the 1960s with the release
-                                        of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                        with desktop publishing software like Aldus PageMaker including versions
-                                        of Lorem Ipsum
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="ks-item ks-self">
-                                    <span class="ks-avatar ks-offline">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar3.png" width="36"
-                                             height="36" class="rounded-circle">
-                                    </span>
-                                <div class="ks-body">
-                                    <div class="ks-header">
-                                        <span class="ks-name">Brian Diaz</span>
-                                        <span class="ks-datetime">6:46 PM</span>
-                                    </div>
-                                    <div class="ks-message">
-                                        Lorem Ipsum is simply dummy text of the printing and typesetting
-                                        industry. Lorem Ipsum has been the industry's standard dummy text ever
-                                        since the 1500s, when an unknown printer took a galley of type and
-                                        scrambled it to make a type specimen book. It has survived not only five
-                                        centuries, but also the leap into electronic typesetting, remaining
-                                        essentially unchanged. It was popularised in the 1960s with the release
-                                        of Letraset sheets containing Lorem Ipsum passages, and more recently
-                                        with desktop publishing software like Aldus PageMaker including versions
-                                        of Lorem Ipsum
-                                    </div>
-                                </div>
-                            </li>
-                            <li class="ks-item ks-self">
-                                    <span class="ks-avatar ks-offline">
-                                        <img src="https://bootdey.com/img/Content/avatar/avatar4.png" width="36"
                                              height="36" class="rounded-circle">
                                     </span>
                                 <div class="ks-body">
