@@ -47,13 +47,16 @@ public class User {
     private List<TripPassenger> passenger = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idDriver", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rating> rateDriver;
+    private List<Rating> rateDriver = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idPassenger", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Rating> ratePassenger;
+    private List<Rating> ratePassenger = new ArrayList<>();
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "idUser", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Notification> notifications;
+    private List<Notification> notifications = new ArrayList<>();
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "sender", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Message> messages = new ArrayList<>();
 
     public User() {
     }
@@ -194,6 +197,18 @@ public class User {
 
     public void setNotifications(List<Notification> notifications) {
         this.notifications = notifications;
+    }
+
+    public List<Message> getMessages() {
+        return messages;
+    }
+
+    public void setMessages(List<Message> messages) {
+        this.messages = messages;
+    }
+
+    public void addMessage(Message message) {
+        messages.add(message);
     }
 
     public String toString() {

@@ -3,6 +3,7 @@ package austral.ing.lab1.entity;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
 
+import javax.transaction.Transactional;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
@@ -15,40 +16,26 @@ import static austral.ing.lab1.util.Transactions.tx;
 public class TripsPassengers {
 
     public static void acceptPassenger(Long userId, Long tripId) {
-        try {
-            // create our mysql database connection
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/lab1";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-            Statement st = conn.createStatement();
-            st.executeUpdate("UPDATE trips_passengers t " +
-                    "SET t.STATE = true" +
-                    " WHERE t.TRIP_ID = " + tripId +
-                    " AND t.PASSENGER_ID = " + userId);
-            st.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        tx(() -> currentEntityManager()
+                .createQuery("UPDATE TripPassenger t " +
+                        "SET t.state = true" +
+                        " WHERE t.trip.tripId = :tripId" +
+                        " AND t.passenger.userId = :userId")
+                .setParameter("tripId", tripId)
+                .setParameter("userId", userId)
+                .executeUpdate()
+        );
     }
 
     public static void rejectPassenger(Long userId, Long tripId) {
-        try {
-            // create our mysql database connection
-            String myDriver = "com.mysql.jdbc.Driver";
-            String myUrl = "jdbc:mysql://localhost:3306/lab1";
-            Class.forName(myDriver);
-            Connection conn = DriverManager.getConnection(myUrl, "root", "");
-            Statement st = conn.createStatement();
-            st.executeUpdate("DELETE FROM trips_passengers t" +
-                    " WHERE t.TRIP_ID = " + tripId +
-                    " AND t.PASSENGER_ID = " + userId);
-            st.close();
-            conn.close();
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
+        tx(() -> currentEntityManager()
+                .createQuery("DELETE from TripPassenger t " +
+                        " WHERE t.trip.tripId = :tripId" +
+                        " AND t.passenger.userId = :userId")
+                .setParameter("tripId", tripId)
+                .setParameter("userId", userId)
+                .executeUpdate()
+        );
     }
 
     public static List<User> listPassengers(Trip trip) {

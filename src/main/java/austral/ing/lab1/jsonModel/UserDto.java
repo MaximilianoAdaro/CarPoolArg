@@ -1,7 +1,9 @@
 package austral.ing.lab1.jsonModel;
 
 import austral.ing.lab1.model.User;
+import lombok.Data;
 
+@Data
 public class UserDto {
 
     public UserDto(Long userId, String firstName, String lastName, String email, String password, String avatarPath, Boolean isAdministrator) {

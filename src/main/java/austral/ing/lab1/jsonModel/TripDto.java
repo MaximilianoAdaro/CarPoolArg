@@ -4,7 +4,9 @@ import austral.ing.lab1.entity.Ratings;
 import austral.ing.lab1.model.Location;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import lombok.Data;
 
+@Data
 public class TripDto {
 
     public TripDto(long tripId, String driverPath, String driverFirstN, String driverLastN, String fromTrip,
@@ -47,7 +49,7 @@ public class TripDto {
 
     @Override
     public String toString() {
-        return "TripDto{" +
+        return "TripData{" +
                 "tripId=" + tripId +
                 ", driverPath='" + driverPath + '\'' +
                 ", driverFirstN='" + driverFirstN + '\'' +
