@@ -129,7 +129,7 @@
                         </span>
                 </div>
             </div>
-            <div class="ks-body" style="overflow: auto; padding: 0;" tabindex="0">
+            <div class="ks-body" style="overflow: auto; padding: 0;">
                 <div class="jspContainer">
                     <div class="jspPane" style="padding: 0; top: 0;">
                         <ul class="ks-items">
@@ -359,7 +359,7 @@
                     <div class="ks-amount">2 members</div>
                 </div>
             </div>
-            <div class="ks-body" style="overflow: auto; padding: 0;" tabindex="0">
+            <div class="ks-body" style="overflow: auto; padding: 0;">
                 <div class="jspContainer">
                     <div class="jspPane" style="padding: 0; top: 0;">
                         <!--------------------------------------CHAT COMIENZA----------------------------->
