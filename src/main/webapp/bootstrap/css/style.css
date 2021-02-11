@@ -83,6 +83,12 @@
     font-size: 1.1em;
 }
 
+.truncate {
+    width: 90ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 /*body {*/
 /*    min-height:100%;*/
 /*    position:relative;*/
