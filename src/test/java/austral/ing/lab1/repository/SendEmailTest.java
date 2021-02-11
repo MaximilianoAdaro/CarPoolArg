@@ -3,7 +3,7 @@ package austral.ing.lab1.repository;
 
 import austral.ing.lab1.service.email.SendEmailService;
 
-class SendEmailTest {
+public class SendEmailTest {
 
     public static void main(String[] args) throws Exception {
         String email = "maxiadaro1999@gmail.com";
