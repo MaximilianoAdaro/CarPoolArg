@@ -22,8 +22,9 @@ public class Messages {
     public static Message convert(MessageWS messageWS) {
         Optional<User> userName = Users.findByEmail(messageWS.getUserName());
         assert userName.isPresent();
-        // todo: eliminar este new Chat()
+
         Optional<Chat> chat = Chats.findById(messageWS.getChatId());
+        assert chat.isPresent();
         return new Message(userName.get(), messageWS.getMessage(), chat.get());
     }
 

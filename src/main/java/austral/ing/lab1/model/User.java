@@ -167,6 +167,10 @@ public class User {
         car = null;
     }
 
+    public String getFullName(){
+        return (firstName + " " + lastName);
+    }
+
     public List<TripPassenger> getPassenger() {
         return passenger;
     }

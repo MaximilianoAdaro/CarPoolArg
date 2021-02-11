@@ -15,6 +15,10 @@ textarea#message {
     border-bottom: 1px solid #cccccc;
 }
 
+a.hooverA:hover {
+    color: dodgerblue;
+}
+
 .message-section {
     height: 95px;
     width: 100%;

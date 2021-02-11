@@ -57,6 +57,7 @@
 
 .viewTripAvatar {
     background-color: #93b1d0;
+    /*height: 18rem*/
 }
 
 .passengerViewTrip, .carDetailViewTrip {
@@ -81,8 +82,11 @@
 .carDetails{
     font-size: 1.1em;
 }
-.quoteMarksViewTrip{
-    font-size: 0.8em;
+
+.truncate {
+    width: 90ch;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /*body {*/

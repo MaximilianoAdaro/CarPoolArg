@@ -60,7 +60,7 @@ public class SendEmailService {
         sendMail(recipient, text);
     }
 
-    public static void sendPaymentEmail(String recipient, String place, String passenger, int money) throws Exception {
+    public static void sendPaymentEmail(String recipient, String place, String passenger, double money) throws Exception {
         String text = "You have been payed $" + money + " by " + passenger + " from your trip to " + place + ".";
         sendMail(recipient, text);
     }

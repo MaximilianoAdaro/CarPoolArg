@@ -158,9 +158,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -191,7 +188,7 @@
         <div class="row myTrip justify-content-center">
             <c:forEach var="trip" items="${tripsAsPassenger}">
                 <div class="col-auto mb-3">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: 422px">
                         <div class="row p-2 mb-5">
                             <div class="col-5 align-content-center imgDriver">
                                 <img src="${trip.driver.avatarPath}" class="rounded-circle"
@@ -209,9 +206,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -243,7 +237,7 @@
         <div class="row myTrip justify-content-center">
             <c:forEach var="trip" items="${tripsBeforeAsDriver}">
                 <div class="col-auto mb-3">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: 422px">
                         <div class="card-body">
                             <div>
                                 <h5 class="card-title" style="color: orange">
@@ -252,9 +246,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -263,7 +254,7 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats - trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
                                         Used seats</span>
                                         <div>Rating: </div>
@@ -287,7 +278,7 @@
         <div class="row myTrip justify-content-center">
             <c:forEach var="trip" items="${tripsBeforeAsPassenger}">
                 <div class="col-auto mb-3">
-                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem;">
+                    <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; height: 422px">
                         <div class="row p-2 mb-5">
                             <div class="col-5 align-content-center imgDriver">
                                 <img src="${trip.driver.avatarPath}" class="rounded-circle"
@@ -305,9 +296,6 @@
                                 <h5 class="card-title" style="color: #1c7430">
                                     <i class="fa fa-map-marker"></i>
                                         ${trip.toTrip.name}</h5>
-                                <h5>
-                                    Date:
-                                </h5>
                             </div>
                             <div>
                                 <p class="card-text text-center"> ${trip.date.toString()}</p>
@@ -316,7 +304,7 @@
                             <div class="row p-2">
                                 <div class="col-8">
                                     <div class="row">
-                                        <span class="col-3 numberSeats">${trip.seats} - ${trip.availableSeats}</span>
+                                        <span class="col-3 numberSeats">${trip.seats - trip.availableSeats}</span>
                                         <span class="col-9 availableSeats">
                                         Used seats</span>
                                     </div>

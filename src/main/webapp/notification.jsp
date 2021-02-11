@@ -141,7 +141,7 @@
         <div class=" row col-12 mt-2 mb-2">
             <c:forEach var="tripsPassenger" items="${tripsPassengers}">
                 <form>
-                    <div class="col-3 mt-3 mr-2">
+                    <div class="col-3 mt-3 mr-1">
                         <div class="card" style="height: 10rem; width: 21rem; font-size: 15px">
                             <div class="container">
                                 <div class="row">
@@ -190,7 +190,7 @@
             <c:forEach var="rateAsDriver" items="${ratingsUserAsDriver}">
                 <form action="${pageContext.request.contextPath}/newRating.do?idDriver=${userId}&idPassenger=${rateAsDriver.idPassenger.userId}&idTrip=${rateAsDriver.idTrip.tripId}&isDriver=true"
                       method="post">
-                    <div class="col-3 mt-3 mr-3">
+                    <div class="col-3 mt-3 mr-1">
                         <div class="card" style="height: 10rem ; width: 21rem; font-size: 15px">
                             <div class="container">
                                 <div class="row">
@@ -419,6 +419,7 @@
     <br>
     <br>
 </div>
+<br><br><br><br>
 
 <div id="footer">
 </div>

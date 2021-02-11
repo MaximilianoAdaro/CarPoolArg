@@ -28,12 +28,12 @@ public final class ChatEndPoint {
                 List<MessageWS> messages = Messages.getFromChat(chatId).stream().map(Messages::convert).collect(Collectors.toList());
                 if (!messages.isEmpty())
                     ChatSessionManager.publishToMe(messages, session);
-                MessageWS messageWS = new MessageWS(
-                        (String) session.getUserProperties().get(USER_NAME_KEY),
-                        (long) session.getUserProperties().get(CHAT_KEY),
-                        "***joined the chat***"
-                );
-                ChatSessionManager.publish(messageWS, session);
+//                MessageWS messageWS = new MessageWS(
+//                        (String) session.getUserProperties().get(USER_NAME_KEY),
+//                        (long) session.getUserProperties().get(CHAT_KEY),
+//                        "***joined the chat***"
+//                );
+//                ChatSessionManager.publish(messageWS, session);
             } else {
                 throw new RegistrationFailedException("Unable to register, username already exists, try another");
             }
@@ -59,11 +59,11 @@ public final class ChatEndPoint {
         if (ChatSessionManager.remove(session)) {
             System.out.printf("Session closed for %s\n", session.getUserProperties().get(USER_NAME_KEY));
 
-            ChatSessionManager.publish(new MessageWS(
-                    (String) session.getUserProperties().get(USER_NAME_KEY),
-                    (long) session.getUserProperties().get(CHAT_KEY),
-                    "***left the chat***"
-            ), session);
+//            ChatSessionManager.publish(new MessageWS(
+//                    (String) session.getUserProperties().get(USER_NAME_KEY),
+//                    (long) session.getUserProperties().get(CHAT_KEY),
+//                    "***left the chat***"
+//            ), session);
         }
     }
 

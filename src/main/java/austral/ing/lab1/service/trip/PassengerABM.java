@@ -6,6 +6,8 @@ import austral.ing.lab1.entity.TripsPassengers;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.service.email.SendEmailService;
+import lombok.SneakyThrows;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -35,9 +37,19 @@ public class PassengerABM extends HttpServlet {
             if (accepted.equals("accepted")) {
                 TripsPassengers.acceptPassenger(user.getUserId(), tripId);
                 Notifications.newNotification(user, trip, 1L, LocalDate.now().toString());
+                try {
+                    SendEmailService.sendConfirmationEmail(user.getEmail(),trip.getToTrip().getName(),trip.getDriver().getFullName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
                 TripsPassengers.rejectPassenger(user.getUserId(), tripId);
                 Notifications.newNotification(user, trip, 2L, LocalDate.now().toString());
+                try {
+                    SendEmailService.sendDenialEmail(user.getEmail(),trip.getToTrip().getName(),trip.getDriver().getFullName());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
 

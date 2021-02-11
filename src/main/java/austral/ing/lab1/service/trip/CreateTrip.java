@@ -1,12 +1,15 @@
 package austral.ing.lab1.service.trip;
 
+import austral.ing.lab1.entity.Chats;
 import austral.ing.lab1.entity.Locations;
 import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
+import austral.ing.lab1.model.Chat;
 import austral.ing.lab1.model.Location;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
 import com.google.gson.Gson;
+import org.checkerframework.checker.units.qual.C;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -16,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.Date;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.Optional;
 
 @WebServlet("/createTrip.do")
@@ -47,6 +51,9 @@ public class CreateTrip extends HttpServlet {
 
             Trip trip = new Trip(driver, day, locationFrom, locationTo, timetable, comment, seats);
             Trips.persist(trip);
+
+            Chat chat = new Chat(trip);
+            Chats.persist(chat);
         }
     }
 

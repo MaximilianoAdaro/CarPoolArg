@@ -5,6 +5,8 @@ import austral.ing.lab1.entity.Trips;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.service.email.SendEmailService;
+import lombok.SneakyThrows;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -26,6 +28,11 @@ public class SuccessPayment extends HttpServlet {
             Trip trip = optionalTrip.get();
             double amount = Double.parseDouble(req.getParameter("amount"));
             Payments.savePayment(user, trip, amount);
+            try {
+                SendEmailService.sendPaymentEmail(trip.getDriver().getEmail(),trip.getToTrip().getName(),user.getFullName(),amount);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
 
         resp.setHeader("Cache-Control", "no-cache, no-store, must-revalidate");

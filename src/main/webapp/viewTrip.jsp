@@ -196,9 +196,9 @@
             <p> Email: ${driverEmail}</p>
 
             <div class="col-12" style="max-lines: 7">
-                <i style="font-size: 0.8em" class="fa fa-quote-left"></i>
-                <span style="font-style: italic">${trip.comment}</span>
-                <i style="font-size: 0.8em" class="fa fa-quote-right"></i>
+                <i class="fa fa-quote-left"></i>
+                <span>${trip.comment}</span>
+                <i class="fa fa-quote-right"></i>
             </div>
         </div>
         <%--    Seccion medio--%>
@@ -252,32 +252,32 @@
                 </div>
                 <div class="col-12 mb-2"><span style="font-weight: bold"> Color: </span> ${driverCar.color} </div>
                 <div class="col-12 mb-4"><span style="font-weight: bold"> Patent: </span>${driverCar.patent} </div>
-                <div class="col-12"><span style="font-weight: bold">Total money to share = </span> <span>$PLATA</span>
-                    (estimated by driver)
+                <div class="col-12"><span style="font-weight: bold">Total money to share =
+                    $</span> <span id="distanceKM"> </span> (estimated by driver)
                 </div>
             </div>
-        </div>
-        <div class="row ml-2">
-            <c:if test="${!isNotOwner}">
-                <br>
-                <c:if test="${passengersIsEmpty}">
-                    <div class="col-12" style="font-size: 1.3em; font-weight: bold;">
-                        There is no passenger in your trip
-                    </div>
+            <div class="row ml-2">
+                <c:if test="${!isNotOwner}">
+                    <br>
+                    <c:if test="${passengersIsEmpty}">
+                        <div class="col-12" style="font-size: 0.9em; font-weight: bold;">
+                            There is no passenger in your trip
+                        </div>
+                    </c:if>
+                    <c:if test="${!passengersIsEmpty}">
+                        <ul style="list-style-type:none;" class="col-12 mt-1">
+                            <li class="passengerViewTrip">Passengers:</li>
+                            <c:forEach var="passenger" items="${passengers}">
+                                <li style="color: black">
+                                    <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
+                                         width="30"
+                                         height="30"> ${passenger.firstName} ${passenger.lastName}
+                                </li>
+                            </c:forEach>
+                        </ul>
+                    </c:if>
                 </c:if>
-                <c:if test="${!passengersIsEmpty}">
-                    <ul style="list-style-type:none;" class="col-12 mt-1">
-                        <li class="passengerViewTrip">Passengers:</li>
-                        <c:forEach var="passenger" items="${passengers}">
-                            <li style="color: black">
-                                <img src="${passenger.avatarPath}" class="rounded-circle" alt="Your Avatar"
-                                     width="30"
-                                     height="30"> ${passenger.firstName} ${passenger.lastName}
-                            </li>
-                        </c:forEach>
-                    </ul>
-                </c:if>
-            </c:if>
+            </div>
         </div>
     </div>
     <%--mapa--%>
@@ -397,7 +397,7 @@
         new google.maps.LatLng(${trip.fromTrip.lat}, ${trip.fromTrip.lng}),
         new google.maps.LatLng(${trip.toTrip.lat}, ${trip.toTrip.lng})
     );
-    doc.innerText += parseInt(distance / 1000) + " km";
+    doc.innerText += parseInt((distance / 1000) * 4);
 </script>
 
 <script src="${pageContext.request.contextPath}/bootstrap/js/footer.js" type="text/javascript"></script>
