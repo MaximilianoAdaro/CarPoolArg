@@ -5,6 +5,7 @@ import austral.ing.lab1.entity.TripsPassengers;
 import austral.ing.lab1.entity.Users;
 import austral.ing.lab1.model.Trip;
 import austral.ing.lab1.model.User;
+import austral.ing.lab1.service.email.SendEmailService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -39,6 +40,11 @@ public class NewPassenger extends HttpServlet {
                     trip.addPassenger(passenger);
                     Trips.persist(trip);
                     Users.persist(passenger);
+                    try {
+                        SendEmailService.sendRequestEmail(trip.getDriver().getEmail(),trip.getToTrip().getName(),passenger.getFullName());
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 } else if (addPassenger.equals("goDown")) {
                     TripsPassengers.rejectPassenger(passenger.getUserId(), trip.getTripId());
                     trip.removePassenger(passenger);
