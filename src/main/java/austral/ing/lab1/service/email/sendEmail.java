@@ -20,7 +20,6 @@ public class sendEmail {
         String myAccount = "carpoolarg2020@gmail.com";
         String password = "carpoolarg2020";
 
-
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
