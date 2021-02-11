@@ -196,9 +196,9 @@
             <p> Email: ${driverEmail}</p>
 
             <div class="col-12" style="max-lines: 7">
-                <i class="fa fa-quote-left"></i>
-                <span>${trip.comment}</span>
-                <i class="fa fa-quote-right"></i>
+                <i style="font-size: 0.8em" class="fa fa-quote-left"></i>
+                <span style="font-style: italic">${trip.comment}</span>
+                <i style="font-size: 0.8em" class="fa fa-quote-right"></i>
             </div>
         </div>
         <%--    Seccion medio--%>

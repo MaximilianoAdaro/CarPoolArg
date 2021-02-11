@@ -16,29 +16,29 @@ import java.util.Optional;
 
 public class TripPassengerTest {
 
-    private EntityManagerFactory emf;
-
-    @Before
-    public void setUp() {
-        emf = Persistence.createEntityManagerFactory("test");
-        EntityManagers.setFactory(emf);
-    }
-
-    @After
-    public void tearDown() {
-        emf.close();
-    }
-
-    @Test
-    public void passengerTest() {
-
-        Optional<Trip> optionalTrip = Trips.findById(15L);
-        if (optionalTrip.isPresent()) {
-            List<User> pass = TripsPassengers.listPassengers(optionalTrip.get());
-            for (User user : pass) {
-                System.out.println(user);
-            }
-        }
-    }
+//    private EntityManagerFactory emf;
+//
+//    @Before
+//    public void setUp() {
+//        emf = Persistence.createEntityManagerFactory("test");
+//        EntityManagers.setFactory(emf);
+//    }
+//
+//    @After
+//    public void tearDown() {
+//        emf.close();
+//    }
+//
+//    @Test
+//    public void passengerTest() {
+//
+//        Optional<Trip> optionalTrip = Trips.findById(15L);
+//        if (optionalTrip.isPresent()) {
+//            List<User> pass = TripsPassengers.listPassengers(optionalTrip.get());
+//            for (User user : pass) {
+//                System.out.println(user);
+//            }
+//        }
+//    }
 
 }

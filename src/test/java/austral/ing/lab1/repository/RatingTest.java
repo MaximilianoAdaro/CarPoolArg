@@ -14,32 +14,32 @@ import java.util.Optional;
 
 public class RatingTest {
 
-    private EntityManagerFactory emf;
-
-    @Before
-    public void setUp() {
-        emf = Persistence.createEntityManagerFactory("test");
-        EntityManagers.setFactory(emf);
-    }
-
-    @After
-    public void tearDown() {
-        emf.close();
-    }
-
-//    @Test
-//    public void setRating() {
-//        Ratings.setRating();
+//    private EntityManagerFactory emf;
+//
+//    @Before
+//    public void setUp() {
+//        emf = Persistence.createEntityManagerFactory("test");
+//        EntityManagers.setFactory(emf);
 //    }
-
-    @Test
-    public void testRatingUser() {
-        Optional<User> optionalUser = Users.findByEmail("admin@gmail.com");
-        if (optionalUser.isPresent()) {
-            User user = optionalUser.get();
-            System.out.println(Ratings.rateUser(user));
-            System.out.println(Ratings.getSizeRate(user));
-        }
-    }
+//
+//    @After
+//    public void tearDown() {
+//        emf.close();
+//    }
+//
+////    @Test
+////    public void setRating() {
+////        Ratings.setRating();
+////    }
+//
+//    @Test
+//    public void testRatingUser() {
+//        Optional<User> optionalUser = Users.findByEmail("admin@gmail.com");
+//        if (optionalUser.isPresent()) {
+//            User user = optionalUser.get();
+//            System.out.println(Ratings.rateUser(user));
+//            System.out.println(Ratings.getSizeRate(user));
+//        }
+//    }
 
 }
